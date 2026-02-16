@@ -1,0 +1,145 @@
+{
+  "gameId": "fishing",
+  "achievements": [
+    {
+      "id": "first_catch",
+      "name": "First Bite",
+      "description": "Catch your first fish",
+      "points": 10,
+      "icon": "assets/sprites/fish/sardine.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "catch_10",
+      "name": "Haul It In",
+      "description": "Catch 10 fish total",
+      "points": 20,
+      "icon": "assets/sprites/fish/mackerel.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "catch_50",
+      "name": "Net Profit",
+      "description": "Catch 50 fish total",
+      "points": 40,
+      "icon": "assets/sprites/fish/sea_bream.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "sushi_grade",
+      "name": "Sushi Master",
+      "description": "Catch a sushi-grade fish",
+      "points": 15,
+      "icon": "assets/sprites/fish/yellowtail.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "catch_legendary",
+      "name": "Living Legend",
+      "description": "Catch a legendary fish",
+      "points": 50,
+      "icon": "assets/sprites/fish/golden_koi.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "all_species",
+      "name": "Marine Biologist",
+      "description": "Catch all 10 fish species at least once",
+      "points": 100,
+      "icon": "assets/sprites/fish/manta_ray.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "first_sale",
+      "name": "Open for Business",
+      "description": "Sell your first fish at the fishmonger",
+      "points": 10,
+      "icon": "assets/sprites/npc/fishmonger.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "earn_500_gold",
+      "name": "Nest Egg",
+      "description": "Earn 500 gold from fish sales",
+      "points": 25,
+      "icon": "assets/sprites/ui/harpoon.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "earn_2000_gold",
+      "name": "Island Tycoon",
+      "description": "Earn 2000 gold from fish sales",
+      "points": 50,
+      "icon": "assets/sprites/ui/harpoon.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "first_upgrade",
+      "name": "Tuning Up",
+      "description": "Purchase your first upgrade",
+      "points": 10,
+      "icon": "assets/sprites/npc/upgrade_npc.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "max_upgrade_track",
+      "name": "Fully Loaded",
+      "description": "Max out any single upgrade track",
+      "points": 30,
+      "icon": "assets/sprites/npc/upgrade_npc.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "all_upgrades_max",
+      "name": "Peak Performance",
+      "description": "Max out all 6 upgrade tracks",
+      "points": 100,
+      "icon": "assets/sprites/npc/upgrade_npc.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "first_dive",
+      "name": "Taking the Plunge",
+      "description": "Complete your first dive",
+      "points": 10,
+      "icon": "assets/sprites/diver/diver.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "first_transform",
+      "name": "More Than Meets the Eye",
+      "description": "Transform your vehicle for the first time",
+      "points": 10,
+      "icon": "assets/sprites/boat/boat.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    },
+    {
+      "id": "sonar_pulse",
+      "name": "Ping!",
+      "description": "Use the sonar system for the first time",
+      "points": 10,
+      "icon": "assets/sprites/effects/bubble.svg",
+      "unlocked": false,
+      "unlockedAt": null
+    }
+  ],
+  "meta": {
+    "totalPointsEarned": 0,
+    "totalPointsPossible": 490,
+    "lastUpdated": "2026-02-16T00:00:00.000Z"
+  }
+}

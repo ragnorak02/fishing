@@ -71,6 +71,14 @@
 - **DiveScene._on_harpoon_missed()** is a `pass` stub (comment: "Could add miss feedback")
 - **No secrets or credentials found** — clean security posture
 - **75 tracked files:** 36 .gd, 6 .tscn, 10 .tres, 23 .svg, 2 .gdshader, 2 config, 1 .md
+- **Achievement system:** 15 achievements defined in `achievements.json` (infrastructure only, no unlock logic yet)
+
+## Achievement System
+- **Data:** `achievements.json` — 15 achievements, 490 total points
+- **Contract:** `achievements_integration.md` — menu tab, unlock flow, toast spec
+- **Dashboard:** `status.html` loads achievements.json and renders progress + recent unlocks
+- **Safe update rules:** append-only, never reset unlocked, always recalculate meta totals
+- **Implementation:** No `AchievementManager` autoload exists yet — contract only
 
 ## Workflow Commands
 - **"Where are we?"** → Read `status.html` for visual dashboard, or check this section
