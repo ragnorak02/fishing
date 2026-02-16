@@ -1,7 +1,7 @@
 class_name UpgradeSystem
 extends RefCounted
 
-enum UpgradeType { BOAT_SPEED, OXYGEN_TANK, HARPOON_RANGE }
+enum UpgradeType { BOAT_SPEED, OXYGEN_TANK, HARPOON_RANGE, HULL_DURABILITY, BATTERY_CAPACITY, SONAR_RANGE }
 
 const MAX_LEVEL := 3
 
@@ -24,6 +24,24 @@ const UPGRADE_DATA := {
 		"costs": [80, 200, 450],
 		"level_names": ["Short Spear", "Harpoon", "Long Harpoon", "Master Harpoon"],
 	},
+	UpgradeType.HULL_DURABILITY: {
+		"name": "Hull Plating",
+		"description": "Stronger vehicle hull",
+		"costs": [120, 300, 600],
+		"level_names": ["Wooden Hull", "Iron Hull", "Steel Hull", "Titanium Hull"],
+	},
+	UpgradeType.BATTERY_CAPACITY: {
+		"name": "Battery",
+		"description": "Longer submerged time",
+		"costs": [100, 250, 500],
+		"level_names": ["Basic Cell", "Standard Cell", "High-Cap Cell", "Fusion Core"],
+	},
+	UpgradeType.SONAR_RANGE: {
+		"name": "Sonar",
+		"description": "Wider sonar detection",
+		"costs": [80, 200, 450],
+		"level_names": ["Ping Sensor", "Echo Array", "Deep Scanner", "Omni Sonar"],
+	},
 }
 
 static func get_level(type: UpgradeType) -> int:
@@ -34,6 +52,12 @@ static func get_level(type: UpgradeType) -> int:
 			return GameManager.oxygen_tank_level
 		UpgradeType.HARPOON_RANGE:
 			return GameManager.harpoon_range_level
+		UpgradeType.HULL_DURABILITY:
+			return GameManager.hull_durability_level
+		UpgradeType.BATTERY_CAPACITY:
+			return GameManager.battery_capacity_level
+		UpgradeType.SONAR_RANGE:
+			return GameManager.sonar_range_level
 	return 0
 
 static func get_cost(type: UpgradeType) -> int:
@@ -75,6 +99,12 @@ static func purchase_upgrade(type: UpgradeType) -> bool:
 			GameManager.oxygen_tank_level += 1
 		UpgradeType.HARPOON_RANGE:
 			GameManager.harpoon_range_level += 1
+		UpgradeType.HULL_DURABILITY:
+			GameManager.hull_durability_level += 1
+		UpgradeType.BATTERY_CAPACITY:
+			GameManager.battery_capacity_level += 1
+		UpgradeType.SONAR_RANGE:
+			GameManager.sonar_range_level += 1
 
 	return true
 

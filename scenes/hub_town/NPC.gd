@@ -106,9 +106,9 @@ func _create_upgrade_panel() -> Control:
 	panel.anchor_right = 0.5
 	panel.anchor_bottom = 0.5
 	panel.offset_left = -250.0
-	panel.offset_top = -200.0
+	panel.offset_top = -280.0
 	panel.offset_right = 250.0
-	panel.offset_bottom = 200.0
+	panel.offset_bottom = 280.0
 
 	var margin := MarginContainer.new()
 	margin.layout_mode = 1
@@ -144,7 +144,14 @@ func _create_upgrade_panel() -> Control:
 	vbox.add_child(gold_lbl)
 
 	# Upgrade rows
-	for type in [UpgradeSystem.UpgradeType.BOAT_SPEED, UpgradeSystem.UpgradeType.OXYGEN_TANK, UpgradeSystem.UpgradeType.HARPOON_RANGE]:
+	for type in [
+		UpgradeSystem.UpgradeType.BOAT_SPEED,
+		UpgradeSystem.UpgradeType.OXYGEN_TANK,
+		UpgradeSystem.UpgradeType.HARPOON_RANGE,
+		UpgradeSystem.UpgradeType.HULL_DURABILITY,
+		UpgradeSystem.UpgradeType.BATTERY_CAPACITY,
+		UpgradeSystem.UpgradeType.SONAR_RANGE,
+	]:
 		var row := _create_upgrade_row(type, gold_lbl)
 		vbox.add_child(row)
 

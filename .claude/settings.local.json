@@ -7,7 +7,12 @@
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --path \"Z:/Development/Games/fishing\" --debug --verbose)",
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --path \"Z:/Development/Games/fishing\" --import)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --headless --quit)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --headless --check-only --script res://scripts/vehicle/VehicleController.gd)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\":*)",
+      "Bash(git remote add:*)"
     ]
   }
 }

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scenes/ocean_surface/OceanSurface.gd" id="1_ocean"]
-[ext_resource type="Script" path="res://scripts/entities/BoatController.gd" id="2_boat"]
+[ext_resource type="Script" path="res://scripts/vehicle/VehicleController.gd" id="2_vehicle"]
 [ext_resource type="Script" path="res://scenes/ocean_surface/DiveSpot.gd" id="3_dive"]
 [ext_resource type="Shader" path="res://assets/shaders/ocean_surface.gdshader" id="4_shader"]
-[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/vehicle/VehicleStateMachine.gd" id="6_vsm"]
+[ext_resource type="Script" path="res://scripts/ui/VehicleHUD.gd" id="7_vhud"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ocean"]
 shader = ExtResource("4_shader")
@@ -89,22 +90,22 @@ color = Color(0.85, 0.8, 0.55, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island3"]
 
-[node name="Boat" type="CharacterBody2D" parent="."]
+[node name="Vehicle" type="CharacterBody2D" parent="."]
 position = Vector2(0, 200)
 collision_layer = 2
 collision_mask = 1
-script = ExtResource("2_boat")
+script = ExtResource("2_vehicle")
 
-[node name="Sprite2D" type="Sprite2D" parent="Boat"]
+[node name="Sprite2D" type="Sprite2D" parent="Vehicle"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boat"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vehicle"]
 
-[node name="WakeParticles" type="GPUParticles2D" parent="Boat"]
+[node name="WakeParticles" type="GPUParticles2D" parent="Vehicle"]
 emitting = false
 amount = 20
 lifetime = 1.0
 
-[node name="Camera2D" type="Camera2D" parent="Boat"]
+[node name="Camera2D" type="Camera2D" parent="Vehicle"]
 zoom = Vector2(1.5, 1.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 5.0
@@ -114,6 +115,9 @@ drag_left_margin = 0.15
 drag_top_margin = 0.15
 drag_right_margin = 0.15
 drag_bottom_margin = 0.15
+
+[node name="VehicleStateMachine" type="Node" parent="Vehicle"]
+script = ExtResource("6_vsm")
 
 [node name="DiveSpot1" type="Area2D" parent="."]
 position = Vector2(200, -200)
@@ -168,42 +172,6 @@ theme_override_font_sizes/font_size = 10
 text = "Harbor"
 horizontal_alignment = 1
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="VehicleHUD" type="CanvasLayer" parent="."]
 layer = 5
-script = ExtResource("5_hud")
-
-[node name="TopBar" type="HBoxContainer" parent="HUD"]
-offset_left = 10.0
-offset_right = 1270.0
-offset_bottom = 35.0
-
-[node name="LocationLabel" type="Label" parent="HUD/TopBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
-text = "Open Sea"
-
-[node name="GoldLabel" type="Label" parent="HUD/TopBar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
-text = "50g"
-horizontal_alignment = 2
-
-[node name="BoostBar" type="ProgressBar" parent="HUD"]
-offset_left = 560.0
-offset_top = 680.0
-offset_right = 720.0
-offset_bottom = 700.0
-value = 100.0
-
-[node name="InteractPrompt" type="Label" parent="HUD"]
-visible = false
-offset_left = 440.0
-offset_top = 650.0
-offset_right = 840.0
-offset_bottom = 680.0
-theme_override_font_sizes/font_size = 16
-theme_override_colors/font_color = Color(1, 1, 1, 0.9)
-text = "[E] Interact"
-horizontal_alignment = 1
+script = ExtResource("7_vhud")

@@ -7,11 +7,12 @@ const FONT_SIZE := 13
 const BADGE_FONT_SIZE := 11
 
 var control_labels: Dictionary = {}  # action_name -> {label, badge}
-var context: String = "hub"  # "hub", "ocean", "dive", "menu", "haul"
+var context: String = "hub"  # "hub", "ocean_surface", "ocean_submerged", "dive", "menu", "haul"
 
 func _ready() -> void:
 	layer = 90
 	GameManager.state_changed.connect(_on_state_changed)
+	GameManager.vehicle_mode_changed.connect(_on_vehicle_mode_changed)
 	_build_ui()
 
 func _on_state_changed(new_state) -> void:
@@ -21,12 +22,24 @@ func _on_state_changed(new_state) -> void:
 		GameManager.GameState.HUB_TOWN:
 			context = "hub"
 		GameManager.GameState.OCEAN_SURFACE:
-			context = "ocean"
+			# Use vehicle mode to determine surface vs submerged
+			if GameManager.vehicle_mode == 1:
+				context = "ocean_submerged"
+			else:
+				context = "ocean_surface"
 		GameManager.GameState.DIVING:
 			context = "dive"
 		GameManager.GameState.HAUL_SUMMARY:
 			context = "haul"
 	_rebuild_controls()
+
+func _on_vehicle_mode_changed(mode: int) -> void:
+	if GameManager.current_state == GameManager.GameState.OCEAN_SURFACE:
+		if mode == 1:  # SUBMERGED
+			context = "ocean_submerged"
+		else:
+			context = "ocean_surface"
+		_rebuild_controls()
 
 func _build_ui() -> void:
 	# Container in bottom-left
@@ -102,12 +115,21 @@ func _get_controls_for_context() -> Array:
 				["move_up", "WASD", "LS", "Move"],
 				["interact", "E", "A", "Talk / Enter"],
 			]
-		"ocean":
+		"ocean_surface":
 			return [
 				["move_up", "W/S", "LS", "Throttle"],
 				["move_left", "A/D", "LS", "Steer"],
-				["boost", "Shift", "B", "Boost"],
+				["transform_vehicle", "R", "Y", "Submerge"],
 				["interact", "E", "A", "Dive / Dock"],
+			]
+		"ocean_submerged":
+			return [
+				["move_up", "W/S", "LS", "Throttle"],
+				["move_left", "A/D", "LS", "Steer"],
+				["descend", "Q/E", "RS", "Depth"],
+				["fire_harpoon", "LMB", "RT", "Harpoon"],
+				["sonar_pulse", "Space", "LB", "Sonar"],
+				["transform_vehicle", "R", "Y", "Surface"],
 			]
 		"dive":
 			return [
