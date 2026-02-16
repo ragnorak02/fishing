@@ -12,7 +12,8 @@
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --headless --quit)",
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --headless --check-only --script res://scripts/vehicle/VehicleController.gd)",
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\":*)",
-      "Bash(git remote add:*)"
+      "Bash(git remote add:*)",
+      "Bash(git push:*)"
     ]
   }
 }

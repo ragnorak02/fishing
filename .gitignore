@@ -4,6 +4,22 @@
 # Godot import cache
 *.import
 
+# Build / export outputs
+build/
+dist/
+export/
+
+# Secrets & credentials
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Node modules (if JS tooling used)
+node_modules/
+
 # OS junk
 .DS_Store
 Thumbs.db

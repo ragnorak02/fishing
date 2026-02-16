@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isles of the Blue Current — Status Dashboard</title>
+<style>
+  :root {
+    --bg: #0f1923;
+    --card: #1a2836;
+    --border: #2a3f52;
+    --text: #c8d6e5;
+    --accent: #00d2ff;
+    --green: #00e676;
+    --yellow: #ffd740;
+    --red: #ff5252;
+    --orange: #ff9100;
+    --dim: #5a7a94;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  h1 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .subtitle {
+    color: var(--dim);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+  .card h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    margin-bottom: 0.75rem;
+  }
+  .card.full { grid-column: 1 / -1; }
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+  }
+  .stat + .stat { border-top: 1px solid var(--border); }
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .done   { background: #00e67622; color: var(--green); }
+  .wip    { background: #ffd74022; color: var(--yellow); }
+  .stub   { background: #ff910022; color: var(--orange); }
+  .none   { background: #ff525222; color: var(--red); }
+  .future { background: #00d2ff18; color: var(--accent); }
+  .bar-wrap {
+    background: #0d1520;
+    border-radius: 4px;
+    height: 8px;
+    margin-top: 0.4rem;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--dim);
+    margin-top: 0.25rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  th {
+    text-align: left;
+    color: var(--dim);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #1e2f3f;
+  }
+  .file-count { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>Isles of the Blue Current</h1>
+<p class="subtitle">Project Status Dashboard &mdash; Auto-generated from repo scan</p>
+
+<!-- Phase overview -->
+<div class="grid">
+  <div class="card">
+    <h2>Current Phase</h2>
+    <div style="font-size:1.6rem;font-weight:700;color:var(--green);">Phase 1</div>
+    <div style="color:var(--dim);font-size:0.85rem;margin-top:0.25rem;">Core Loop &mdash; COMPLETE</div>
+    <div class="bar-wrap" style="margin-top:0.6rem;">
+      <div class="bar-fill" style="width:100%;background:var(--green);"></div>
+    </div>
+    <div class="progress-label"><span>Phase 1 Progress</span><span>100%</span></div>
+  </div>
+  <div class="card">
+    <h2>Codebase</h2>
+    <div class="stat"><span>GDScript files</span><span class="file-count">36</span></div>
+    <div class="stat"><span>Scenes (.tscn)</span><span class="file-count">6</span></div>
+    <div class="stat"><span>Fish data (.tres)</span><span class="file-count">10</span></div>
+    <div class="stat"><span>Placeholder SVGs</span><span class="file-count">23</span></div>
+    <div class="stat"><span>Shaders</span><span class="file-count">2</span></div>
+  </div>
+</div>
+
+<!-- Systems status -->
+<div class="card full" style="margin-bottom:1.5rem;">
+  <h2>Systems Status</h2>
+  <table>
+    <tr><th>System</th><th>Location</th><th>Status</th></tr>
+    <tr><td>GameManager</td><td>scripts/autoload/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Inventory</td><td>scripts/autoload/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>SceneTransition</td><td>scenes/transitions/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>ControlsOverlay</td><td>scripts/ui/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>FishDatabase</td><td>scripts/data/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>EconomySystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>UpgradeSystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>VehicleController</td><td>scripts/vehicle/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>VehicleStateMachine</td><td>scripts/vehicle/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>SurfaceState</td><td>scripts/vehicle/states/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>SubmergedState</td><td>scripts/vehicle/states/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>BatterySystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>DepthSystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>DurabilitySystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>SonarSystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>MountedHarpoon</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>OxygenSystem</td><td>scripts/systems/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>FishAI</td><td>scripts/entities/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>AudioManager</td><td>scripts/autoload/</td><td><span class="badge stub">stub</span></td></tr>
+    <tr><td>AirState</td><td>scripts/vehicle/states/</td><td><span class="badge stub">stub</span></td></tr>
+    <tr><td>Test Suite</td><td>&mdash;</td><td><span class="badge none">missing</span></td></tr>
+    <tr><td>Save/Load</td><td>&mdash;</td><td><span class="badge future">phase 2</span></td></tr>
+  </table>
+</div>
+
+<!-- Scenes -->
+<div class="grid">
+  <div class="card">
+    <h2>Scenes</h2>
+    <div class="stat"><span>MainMenu</span><span class="badge done">done</span></div>
+    <div class="stat"><span>HubTown</span><span class="badge done">done</span></div>
+    <div class="stat"><span>OceanSurface</span><span class="badge done">done</span></div>
+    <div class="stat"><span>DiveScene</span><span class="badge done">done</span></div>
+    <div class="stat"><span>HaulSummary</span><span class="badge done">done</span></div>
+    <div class="stat"><span>SceneTransition</span><span class="badge done">done</span></div>
+  </div>
+  <div class="card">
+    <h2>Assets</h2>
+    <div class="stat"><span>Art</span><span class="badge stub">svg placeholders</span></div>
+    <div class="stat"><span>Audio</span><span class="badge none">missing</span></div>
+    <div class="stat"><span>Fonts</span><span class="badge none">missing</span></div>
+    <div class="stat"><span>Shaders</span><span class="badge done">2 done</span></div>
+    <div class="stat"><span>Fish Data</span><span class="badge done">10 species</span></div>
+  </div>
+</div>
+
+<!-- Upgrade tracks -->
+<div class="card full" style="margin-bottom:1.5rem;">
+  <h2>Upgrade Tracks (6 x 3 levels)</h2>
+  <table>
+    <tr><th>Track</th><th>Effect</th><th>Levels</th><th>Status</th></tr>
+    <tr><td>Boat Speed</td><td>Surface/sub movement multiplier</td><td>3</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Oxygen</td><td>Dive duration</td><td>3</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Harpoon Range</td><td>Projectile distance</td><td>3</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Durability</td><td>Hull hit points</td><td>3</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Battery</td><td>Submersion time</td><td>3</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Sonar</td><td>Detection range</td><td>3</td><td><span class="badge done">done</span></td></tr>
+  </table>
+</div>
+
+<!-- Phase roadmap -->
+<div class="card full">
+  <h2>Phase Roadmap</h2>
+  <div class="stat"><span>Phase 1 &mdash; Core Loop</span><span class="badge done">complete</span></div>
+  <div class="stat"><span>Phase 2 &mdash; Polish &amp; Content</span><span class="badge wip">next</span></div>
+  <div class="stat"><span>Phase 3 &mdash; Expansion</span><span class="badge future">future</span></div>
+</div>
+
+</body>
+</html>
