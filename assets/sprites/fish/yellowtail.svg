@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 12">
+  <!-- Body -->
+  <ellipse cx="12" cy="6" rx="10" ry="5" fill="#5080B0" stroke="#3A6090" stroke-width="0.4"/>
+  <!-- Belly -->
+  <ellipse cx="12" cy="8" rx="8" ry="2.5" fill="#C0D0E0" opacity="0.6"/>
+  <!-- Yellow stripe -->
+  <path d="M2 6 Q12 5.5 22 6" fill="none" stroke="#E8C840" stroke-width="1.5" opacity="0.9"/>
+  <!-- Tail -->
+  <polygon points="22,6 28,1 28,11" fill="#4878A0" stroke="#3A6090" stroke-width="0.3"/>
+  <!-- Yellow on tail -->
+  <line x1="22" y1="6" x2="28" y2="6" stroke="#E8C840" stroke-width="1" opacity="0.7"/>
+  <!-- Dorsal fin -->
+  <polygon points="8,1 15,1 12,0" fill="#4878A0" opacity="0.8"/>
+  <!-- Pectoral fin -->
+  <ellipse cx="7" cy="7.5" rx="2" ry="1" fill="#4878A0" transform="rotate(-10,7,7.5)" opacity="0.7"/>
+  <!-- Eye -->
+  <circle cx="4.5" cy="5" r="1.1" fill="#222222"/>
+  <circle cx="4.2" cy="4.7" r="0.4" fill="white"/>
+  <!-- Mouth -->
+  <path d="M2 6.5 Q3 6 3 5.5" fill="none" stroke="#3A6090" stroke-width="0.4"/>
+</svg>

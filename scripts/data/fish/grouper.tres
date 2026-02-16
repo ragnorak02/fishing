@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "grouper"
+display_name = "Grouper"
+rarity = 2
+base_value = 60
+sushi_grade = false
+weight_range = Vector2(3.0, 12.0)
+swim_speed = 40.0
+awareness_radius = 140.0
+flee_speed = 90.0
+description = "A massive bottom-dweller found near reefs."
+biomes = PackedStringArray("deep")

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32">
+  <!-- Body/wetsuit -->
+  <ellipse cx="12" cy="16" rx="5" ry="8" fill="#2C2C2C"/>
+  <!-- Head -->
+  <circle cx="12" cy="5" r="4" fill="#2C2C2C"/>
+  <!-- Goggles -->
+  <rect x="7" y="3" width="10" height="3" rx="1.5" fill="#444444" stroke="#666666" stroke-width="0.5"/>
+  <circle cx="9.5" cy="4.5" r="1.5" fill="#87CEEB" opacity="0.8"/>
+  <circle cx="14.5" cy="4.5" r="1.5" fill="#87CEEB" opacity="0.8"/>
+  <!-- Goggles strap -->
+  <line x1="7" y1="4.5" x2="4" y2="4" stroke="#444444" stroke-width="0.8"/>
+  <line x1="17" y1="4.5" x2="20" y2="4" stroke="#444444" stroke-width="0.8"/>
+  <!-- Arms -->
+  <path d="M7 12 Q3 16 5 20" fill="none" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+  <path d="M17 12 Q21 16 19 20" fill="none" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+  <!-- Legs -->
+  <path d="M10 24 L8 30" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+  <path d="M14 24 L16 30" stroke="#2C2C2C" stroke-width="2" stroke-linecap="round"/>
+  <!-- Flippers -->
+  <ellipse cx="7" cy="31" rx="3" ry="1" fill="#1A6B3C"/>
+  <ellipse cx="17" cy="31" rx="3" ry="1" fill="#1A6B3C"/>
+  <!-- Belt -->
+  <rect x="7" y="19" width="10" height="1.5" rx="0.5" fill="#8B7355"/>
+</svg>

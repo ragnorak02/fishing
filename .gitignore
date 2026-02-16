@@ -1,0 +1,14 @@
+# Godot 4 — generated files
+.godot/
+
+# Godot import cache
+*.import
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+*.code-workspace

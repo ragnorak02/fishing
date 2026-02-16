@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- Base plank color -->
+  <rect x="0" y="0" width="16" height="16" fill="#A08060"/>
+  <!-- Planks -->
+  <rect x="0" y="0" width="16" height="3.5" fill="#B09070" stroke="#8B7050" stroke-width="0.3"/>
+  <rect x="0" y="4" width="16" height="3.5" fill="#A58565" stroke="#8B7050" stroke-width="0.3"/>
+  <rect x="0" y="8" width="16" height="3.5" fill="#B09070" stroke="#8B7050" stroke-width="0.3"/>
+  <rect x="0" y="12" width="16" height="4" fill="#A58565" stroke="#8B7050" stroke-width="0.3"/>
+  <!-- Plank gaps -->
+  <line x1="0" y1="3.8" x2="16" y2="3.8" stroke="#705840" stroke-width="0.5"/>
+  <line x1="0" y1="7.8" x2="16" y2="7.8" stroke="#705840" stroke-width="0.5"/>
+  <line x1="0" y1="11.8" x2="16" y2="11.8" stroke="#705840" stroke-width="0.5"/>
+  <!-- Nail heads -->
+  <circle cx="2" cy="2" r="0.4" fill="#606060"/>
+  <circle cx="14" cy="2" r="0.4" fill="#606060"/>
+  <circle cx="2" cy="6" r="0.4" fill="#606060"/>
+  <circle cx="14" cy="6" r="0.4" fill="#606060"/>
+  <circle cx="2" cy="10" r="0.4" fill="#606060"/>
+  <circle cx="14" cy="10" r="0.4" fill="#606060"/>
+  <circle cx="2" cy="14" r="0.4" fill="#606060"/>
+  <circle cx="14" cy="14" r="0.4" fill="#606060"/>
+  <!-- Wood grain hints -->
+  <line x1="4" y1="1" x2="12" y2="1.2" stroke="#907050" stroke-width="0.2" opacity="0.4"/>
+  <line x1="3" y1="5" x2="13" y2="5.3" stroke="#907050" stroke-width="0.2" opacity="0.4"/>
+  <line x1="5" y1="9" x2="11" y2="9.2" stroke="#907050" stroke-width="0.2" opacity="0.4"/>
+  <line x1="4" y1="13" x2="12" y2="13.1" stroke="#907050" stroke-width="0.2" opacity="0.4"/>
+</svg>

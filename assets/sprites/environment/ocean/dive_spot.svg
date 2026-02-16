@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Outer glow -->
+  <circle cx="12" cy="12" r="11" fill="#00E5CC" opacity="0.15"/>
+  <!-- Mid glow -->
+  <circle cx="12" cy="12" r="8" fill="#00D4BB" opacity="0.25"/>
+  <!-- Inner glow -->
+  <circle cx="12" cy="12" r="5" fill="#00C8B0" opacity="0.35"/>
+  <!-- Core circle -->
+  <circle cx="12" cy="12" r="3" fill="#00BFA5" opacity="0.6"/>
+  <!-- Bright center -->
+  <circle cx="12" cy="12" r="1.5" fill="#80FFE8" opacity="0.7"/>
+  <!-- Sparkle/indicator lines -->
+  <line x1="12" y1="2" x2="12" y2="5" stroke="#80FFE8" stroke-width="0.8" opacity="0.5"/>
+  <line x1="12" y1="19" x2="12" y2="22" stroke="#80FFE8" stroke-width="0.8" opacity="0.5"/>
+  <line x1="2" y1="12" x2="5" y2="12" stroke="#80FFE8" stroke-width="0.8" opacity="0.5"/>
+  <line x1="19" y1="12" x2="22" y2="12" stroke="#80FFE8" stroke-width="0.8" opacity="0.5"/>
+  <!-- Diagonal sparkle lines -->
+  <line x1="4.5" y1="4.5" x2="6.5" y2="6.5" stroke="#80FFE8" stroke-width="0.5" opacity="0.35"/>
+  <line x1="17.5" y1="17.5" x2="19.5" y2="19.5" stroke="#80FFE8" stroke-width="0.5" opacity="0.35"/>
+  <line x1="19.5" y1="4.5" x2="17.5" y2="6.5" stroke="#80FFE8" stroke-width="0.5" opacity="0.35"/>
+  <line x1="4.5" y1="19.5" x2="6.5" y2="17.5" stroke="#80FFE8" stroke-width="0.5" opacity="0.35"/>
+  <!-- Arrow down indicator -->
+  <polygon points="12,14 10,11 14,11" fill="#FFFFFF" opacity="0.5"/>
+</svg>

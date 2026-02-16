@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- Body (blue shirt) -->
+  <rect x="4" y="6" width="8" height="7" rx="1" fill="#4488CC"/>
+  <!-- Collar -->
+  <polygon points="6,6 8,8 10,6" fill="#3377BB"/>
+  <!-- Head -->
+  <circle cx="8" cy="4" r="3" fill="#F0D0B0"/>
+  <!-- Hair -->
+  <path d="M5 3 Q6 1 8 1 Q10 1 11 3 L11 4 Q10 2.5 8 2.5 Q6 2.5 5 4 Z" fill="#5A3A1A"/>
+  <!-- Eyes -->
+  <circle cx="6.8" cy="4" r="0.5" fill="#222222"/>
+  <circle cx="9.2" cy="4" r="0.5" fill="#222222"/>
+  <!-- Mouth -->
+  <path d="M7 5.2 Q8 5.6 9 5.2" fill="none" stroke="#AA6644" stroke-width="0.3"/>
+  <!-- Arms -->
+  <rect x="2" y="7" width="2" height="4" rx="1" fill="#4488CC"/>
+  <rect x="12" y="7" width="2" height="4" rx="1" fill="#4488CC"/>
+  <!-- Hands -->
+  <circle cx="3" cy="11.5" r="1" fill="#F0D0B0"/>
+  <circle cx="13" cy="11.5" r="1" fill="#F0D0B0"/>
+  <!-- Pants -->
+  <rect x="5" y="12" width="2.5" height="2" rx="0.5" fill="#3A5A8A"/>
+  <rect x="8.5" y="12" width="2.5" height="2" rx="0.5" fill="#3A5A8A"/>
+  <!-- Feet -->
+  <rect x="5" y="14" width="2.5" height="1.5" rx="0.5" fill="#4A3A2A"/>
+  <rect x="8.5" y="14" width="2.5" height="1.5" rx="0.5" fill="#4A3A2A"/>
+</svg>

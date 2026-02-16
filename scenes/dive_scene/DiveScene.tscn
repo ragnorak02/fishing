@@ -1,0 +1,205 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/dive_scene/DiveScene.gd" id="1_dive"]
+[ext_resource type="Script" path="res://scripts/entities/DiverController.gd" id="2_diver"]
+[ext_resource type="Script" path="res://scenes/dive_scene/FishSpawner.gd" id="3_spawner"]
+[ext_resource type="Script" path="res://scripts/systems/OxygenSystem.gd" id="4_oxygen"]
+[ext_resource type="Shader" path="res://assets/shaders/underwater.gdshader" id="5_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw"]
+shader = ExtResource("5_shader")
+shader_parameter/water_tint = Color(0.05, 0.15, 0.35, 1)
+shader_parameter/deep_tint = Color(0.02, 0.05, 0.15, 1)
+shader_parameter/depth_factor = 0.0
+shader_parameter/caustic_speed = 0.5
+shader_parameter/caustic_scale = 10.0
+shader_parameter/caustic_intensity = 0.15
+
+[node name="DiveScene" type="Node2D"]
+script = ExtResource("1_dive")
+
+[node name="UnderwaterBG" type="ParallaxBackground" parent="."]
+
+[node name="Layer1" type="ParallaxLayer" parent="UnderwaterBG"]
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="BG1" type="ColorRect" parent="UnderwaterBG/Layer1"]
+offset_left = -1000.0
+offset_top = -200.0
+offset_right = 1000.0
+offset_bottom = 1400.0
+material = SubResource("ShaderMaterial_uw")
+
+[node name="Layer2" type="ParallaxLayer" parent="UnderwaterBG"]
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="BG2" type="ColorRect" parent="UnderwaterBG/Layer2"]
+offset_left = -900.0
+offset_top = -100.0
+offset_right = 900.0
+offset_bottom = 1300.0
+color = Color(0.04, 0.12, 0.28, 0.4)
+
+[node name="Layer3" type="ParallaxLayer" parent="UnderwaterBG"]
+motion_scale = Vector2(0.85, 0.85)
+
+[node name="BG3" type="ColorRect" parent="UnderwaterBG/Layer3"]
+offset_left = -850.0
+offset_top = 0.0
+offset_right = 850.0
+offset_bottom = 1200.0
+color = Color(0.03, 0.08, 0.2, 0.3)
+
+[node name="SurfaceWater" type="ColorRect" parent="."]
+offset_left = -800.0
+offset_top = -100.0
+offset_right = 800.0
+offset_bottom = 0.0
+color = Color(0.15, 0.5, 0.75, 0.6)
+
+[node name="SeaFloor" type="ColorRect" parent="."]
+offset_left = -800.0
+offset_top = 1000.0
+offset_right = 800.0
+offset_bottom = 1100.0
+color = Color(0.25, 0.2, 0.12, 1)
+
+[node name="CoralLeft" type="ColorRect" parent="."]
+offset_left = -600.0
+offset_top = 950.0
+offset_right = -500.0
+offset_bottom = 1000.0
+color = Color(0.85, 0.3, 0.4, 1)
+
+[node name="CoralCenter" type="ColorRect" parent="."]
+offset_left = -100.0
+offset_top = 960.0
+offset_right = 50.0
+offset_bottom = 1000.0
+color = Color(0.9, 0.6, 0.2, 1)
+
+[node name="CoralRight" type="ColorRect" parent="."]
+offset_left = 400.0
+offset_top = 940.0
+offset_right = 550.0
+offset_bottom = 1000.0
+color = Color(0.3, 0.75, 0.5, 1)
+
+[node name="RockLeft" type="ColorRect" parent="."]
+offset_left = -750.0
+offset_top = 800.0
+offset_right = -680.0
+offset_bottom = 1000.0
+color = Color(0.35, 0.3, 0.25, 1)
+
+[node name="RockRight" type="ColorRect" parent="."]
+offset_left = 650.0
+offset_top = 850.0
+offset_right = 750.0
+offset_bottom = 1000.0
+color = Color(0.3, 0.28, 0.22, 1)
+
+[node name="Diver" type="CharacterBody2D" parent="."]
+position = Vector2(0, 50)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("2_diver")
+
+[node name="Sprite2D" type="Sprite2D" parent="Diver"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Diver"]
+
+[node name="HarpoonPivot" type="Marker2D" parent="Diver"]
+
+[node name="BubbleParticles" type="GPUParticles2D" parent="Diver"]
+position = Vector2(0, -10)
+emitting = true
+amount = 5
+lifetime = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="Diver"]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="FishSpawner" type="Node2D" parent="."]
+script = ExtResource("3_spawner")
+biome = "shallow"
+max_fish = 12
+spawn_interval = 3.0
+spawn_bounds = Rect2(-700, 50, 1400, 900)
+
+[node name="OxygenSystem" type="Node" parent="."]
+script = ExtResource("4_oxygen")
+
+[node name="SurfaceZone" type="Area2D" parent="."]
+position = Vector2(0, -70)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SurfaceZone"]
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="DiveHUD" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="OxygenBar" type="ProgressBar" parent="DiveHUD"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 40.0
+value = 100.0
+show_percentage = false
+
+[node name="OxygenLabel" type="Label" parent="DiveHUD"]
+offset_left = 20.0
+offset_top = 42.0
+offset_right = 250.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.5, 0.9, 1, 1)
+text = "O2: 60s"
+
+[node name="CatchLabel" type="Label" parent="DiveHUD"]
+offset_left = 1080.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 1, 0.7, 1)
+text = "Catch: 0 fish"
+horizontal_alignment = 2
+
+[node name="DepthLabel" type="Label" parent="DiveHUD"]
+offset_left = 1080.0
+offset_top = 48.0
+offset_right = 1260.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 0.8)
+text = "Depth: 0.0m"
+horizontal_alignment = 2
+
+[node name="HarpoonHint" type="Label" parent="DiveHUD"]
+offset_left = 490.0
+offset_top = 690.0
+offset_right = 790.0
+offset_bottom = 710.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+text = "LMB: Fire Harpoon | E: Surface"
+horizontal_alignment = 1
+
+[node name="SurfacePrompt" type="Label" parent="DiveHUD"]
+visible = false
+offset_left = 540.0
+offset_top = 650.0
+offset_right = 740.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.5, 1, 0.8, 1)
+text = "[E] Surface"
+horizontal_alignment = 1

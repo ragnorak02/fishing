@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "bluefin_tuna"
+display_name = "Bluefin Tuna"
+rarity = 2
+base_value = 100
+sushi_grade = true
+weight_range = Vector2(10.0, 40.0)
+swim_speed = 100.0
+awareness_radius = 160.0
+flee_speed = 180.0
+description = "The king of sushi fish. Incredibly fast and valuable."
+biomes = PackedStringArray("deep")

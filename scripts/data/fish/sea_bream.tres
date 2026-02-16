@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "sea_bream"
+display_name = "Sea Bream"
+rarity = 0
+base_value = 15
+sushi_grade = true
+weight_range = Vector2(0.5, 2.0)
+swim_speed = 55.0
+awareness_radius = 100.0
+flee_speed = 110.0
+description = "A prized pink fish, excellent for sushi."
+biomes = PackedStringArray("shallow", "deep")

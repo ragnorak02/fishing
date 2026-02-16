@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+  <!-- Bubble body -->
+  <circle cx="4" cy="4" r="3.5" fill="#A8D8F0" opacity="0.35" stroke="#90C8E8" stroke-width="0.3"/>
+  <!-- Inner lighter area -->
+  <circle cx="4" cy="4" r="2.5" fill="#C0E8F8" opacity="0.2"/>
+  <!-- Highlight/shine -->
+  <ellipse cx="2.8" cy="2.8" rx="1" ry="0.7" fill="white" opacity="0.6" transform="rotate(-30,2.8,2.8)"/>
+  <!-- Small secondary highlight -->
+  <circle cx="5" cy="5.2" r="0.4" fill="white" opacity="0.3"/>
+</svg>

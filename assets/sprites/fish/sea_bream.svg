@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+  <!-- Body -->
+  <ellipse cx="10" cy="7" rx="8" ry="5.5" fill="#E8808A" stroke="#C85A64" stroke-width="0.4"/>
+  <!-- Belly -->
+  <ellipse cx="10" cy="9" rx="6" ry="3" fill="#F0A0A8" opacity="0.5"/>
+  <!-- Dorsal fin -->
+  <polygon points="6,2 14,2 10,0" fill="#D06070" stroke="#C85A64" stroke-width="0.3"/>
+  <!-- Tail -->
+  <polygon points="18,7 22,3 22,11" fill="#D87080" stroke="#C85A64" stroke-width="0.3"/>
+  <!-- Pectoral fin -->
+  <ellipse cx="8" cy="8" rx="2.5" ry="1" fill="#D87080" transform="rotate(-20,8,8)" opacity="0.7"/>
+  <!-- Ventral fin -->
+  <polygon points="10,12 13,14 12,11" fill="#D06070" opacity="0.7"/>
+  <!-- Eye -->
+  <circle cx="4.5" cy="6" r="1.2" fill="#222222"/>
+  <circle cx="4.2" cy="5.7" r="0.4" fill="white"/>
+  <!-- Mouth -->
+  <path d="M2 7.5 Q3 7.2 3 6.8" fill="none" stroke="#C85A64" stroke-width="0.4"/>
+  <!-- Scale hints -->
+  <circle cx="8" cy="6" r="1.5" fill="none" stroke="#D0606A" stroke-width="0.2" opacity="0.3"/>
+  <circle cx="11" cy="6.5" r="1.5" fill="none" stroke="#D0606A" stroke-width="0.2" opacity="0.3"/>
+  <circle cx="14" cy="7" r="1.5" fill="none" stroke="#D0606A" stroke-width="0.2" opacity="0.3"/>
+</svg>

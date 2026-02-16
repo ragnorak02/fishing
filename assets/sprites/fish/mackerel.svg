@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 10">
+  <!-- Body -->
+  <ellipse cx="10" cy="5" rx="9" ry="4" fill="#4A9E8E" stroke="#2D7065" stroke-width="0.4"/>
+  <!-- Belly -->
+  <ellipse cx="10" cy="6.5" rx="7" ry="2" fill="#B8D8D0" opacity="0.6"/>
+  <!-- Stripes -->
+  <line x1="5" y1="2" x2="6" y2="5" stroke="#2D6055" stroke-width="0.5" opacity="0.6"/>
+  <line x1="7.5" y1="1.5" x2="8.5" y2="5" stroke="#2D6055" stroke-width="0.5" opacity="0.6"/>
+  <line x1="10" y1="1.5" x2="11" y2="5" stroke="#2D6055" stroke-width="0.5" opacity="0.6"/>
+  <line x1="12.5" y1="1.8" x2="13.5" y2="5" stroke="#2D6055" stroke-width="0.5" opacity="0.6"/>
+  <line x1="15" y1="2.5" x2="15.5" y2="5" stroke="#2D6055" stroke-width="0.5" opacity="0.6"/>
+  <!-- Tail -->
+  <polygon points="19,5 24,1 24,9" fill="#3D8A7A" stroke="#2D7065" stroke-width="0.3"/>
+  <!-- Dorsal fin -->
+  <polygon points="8,1 12,1 10,0" fill="#3D8A7A" opacity="0.8"/>
+  <!-- Eye -->
+  <circle cx="3.5" cy="4.5" r="1" fill="#222222"/>
+  <circle cx="3.2" cy="4.2" r="0.35" fill="white"/>
+  <!-- Mouth -->
+  <path d="M1 5.2 Q2 5 2 4.5" fill="none" stroke="#2D7065" stroke-width="0.4"/>
+</svg>

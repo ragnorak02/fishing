@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 8">
+  <!-- Body -->
+  <ellipse cx="7" cy="4" rx="6" ry="3" fill="#C0C8D8" stroke="#8899AA" stroke-width="0.3"/>
+  <!-- Belly highlight -->
+  <ellipse cx="7" cy="5" rx="4.5" ry="1.5" fill="#D8DEE8" opacity="0.6"/>
+  <!-- Dorsal stripe -->
+  <ellipse cx="7" cy="2.5" rx="4" ry="1" fill="#5577AA" opacity="0.5"/>
+  <!-- Tail -->
+  <polygon points="13,4 16,1 16,7" fill="#A0AAB8" stroke="#8899AA" stroke-width="0.3"/>
+  <!-- Eye -->
+  <circle cx="3" cy="3.5" r="0.8" fill="#222222"/>
+  <circle cx="2.8" cy="3.3" r="0.3" fill="white"/>
+  <!-- Mouth -->
+  <line x1="1" y1="4.2" x2="2" y2="4" stroke="#8899AA" stroke-width="0.3"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 24">
+  <!-- Mantle -->
+  <ellipse cx="10" cy="6" rx="5" ry="6" fill="#C8A8D8" stroke="#A080B8" stroke-width="0.4"/>
+  <!-- Mantle tip -->
+  <polygon points="10,0 6,3 14,3" fill="#C8A8D8" stroke="#A080B8" stroke-width="0.3"/>
+  <!-- Fins -->
+  <ellipse cx="5" cy="4" rx="2.5" ry="2" fill="#D0B0E0" transform="rotate(-15,5,4)" opacity="0.8"/>
+  <ellipse cx="15" cy="4" rx="2.5" ry="2" fill="#D0B0E0" transform="rotate(15,15,4)" opacity="0.8"/>
+  <!-- Eyes -->
+  <circle cx="7.5" cy="7" r="1.5" fill="#222222"/>
+  <circle cx="12.5" cy="7" r="1.5" fill="#222222"/>
+  <circle cx="7.2" cy="6.7" r="0.5" fill="white"/>
+  <circle cx="12.2" cy="6.7" r="0.5" fill="white"/>
+  <!-- Tentacles -->
+  <path d="M7 12 Q5 16 4 20 Q3 22 2 24" fill="none" stroke="#B898C8" stroke-width="1" stroke-linecap="round"/>
+  <path d="M8.5 12 Q7 17 7 21 Q6.5 23 6 24" fill="none" stroke="#B898C8" stroke-width="1" stroke-linecap="round"/>
+  <path d="M10 12 Q10 17 10 24" fill="none" stroke="#B898C8" stroke-width="1" stroke-linecap="round"/>
+  <path d="M11.5 12 Q13 17 13 21 Q13.5 23 14 24" fill="none" stroke="#B898C8" stroke-width="1" stroke-linecap="round"/>
+  <path d="M13 12 Q15 16 16 20 Q17 22 18 24" fill="none" stroke="#B898C8" stroke-width="1" stroke-linecap="round"/>
+  <!-- Siphon -->
+  <ellipse cx="10" cy="11" rx="2" ry="1" fill="#B898C8"/>
+</svg>

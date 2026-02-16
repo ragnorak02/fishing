@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 14">
+  <!-- Body -->
+  <ellipse cx="14" cy="7" rx="12" ry="5.5" fill="#1E3A5F" stroke="#0E2A4F" stroke-width="0.4"/>
+  <!-- Belly -->
+  <ellipse cx="14" cy="9.5" rx="9" ry="2.5" fill="#708CA8" opacity="0.5"/>
+  <!-- Silver side -->
+  <ellipse cx="14" cy="7.5" rx="10" ry="3.5" fill="#4A6A8F" opacity="0.4"/>
+  <!-- Dorsal fin -->
+  <polygon points="9,1.5 18,1.5 14,0" fill="#152E50" stroke="#0E2A4F" stroke-width="0.3"/>
+  <!-- Second dorsal -->
+  <polygon points="20,2.5" fill="#152E50"/>
+  <!-- Tail -->
+  <polygon points="26,7 32,2 32,12" fill="#1A3458" stroke="#0E2A4F" stroke-width="0.3"/>
+  <!-- Tail fork -->
+  <polygon points="30,5 32,2 31,7" fill="#1E3A5F"/>
+  <polygon points="30,9 32,12 31,7" fill="#1E3A5F"/>
+  <!-- Pectoral fin -->
+  <ellipse cx="8" cy="8.5" rx="3" ry="1" fill="#152E50" transform="rotate(-15,8,8.5)" opacity="0.8"/>
+  <!-- Finlets -->
+  <polygon points="22,3 23,2.5 24,3.5" fill="#152E50" opacity="0.6"/>
+  <polygon points="24,3.5 25,3 26,4" fill="#152E50" opacity="0.6"/>
+  <polygon points="22,11 23,11.5 24,10.5" fill="#152E50" opacity="0.6"/>
+  <polygon points="24,10.5 25,11 26,10" fill="#152E50" opacity="0.6"/>
+  <!-- Eye -->
+  <circle cx="4.5" cy="6.5" r="1.2" fill="#222222"/>
+  <circle cx="4.2" cy="6.2" r="0.4" fill="white"/>
+  <!-- Mouth -->
+  <path d="M2 7.5 Q3 7 3 6.5" fill="none" stroke="#0E2A4F" stroke-width="0.4"/>
+</svg>

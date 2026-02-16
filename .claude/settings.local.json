@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:kenney.nl)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --path \"Z:/Development/Games/fishing\" --verbose)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --path \"Z:/Development/Games/fishing\" --debug --verbose)",
+      "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\" --path \"Z:/Development/Games/fishing\" --import)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
