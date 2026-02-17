@@ -1,0 +1,16 @@
+{
+	"id": "fishing",
+	"title": "Isles of the Blue Current",
+	"engine": "godot",
+	"engineVersion": "4.6",
+	"genre": "Fishing Adventure",
+	"entryPoint": "project.godot",
+	"launchCommand": "godot --path .",
+	"testCommand": "tests/run-tests.bat",
+	"metadata": {
+		"lastGameplayUpdate": "2026-02-16",
+		"lastArtUpdate": "",
+		"buildVersion": "0.1.0",
+		"progressPercent": 100
+	}
+}

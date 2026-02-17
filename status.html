@@ -208,12 +208,22 @@
   </div>
   <div class="card">
     <h2>Codebase</h2>
-    <div class="stat"><span>GDScript files</span><span class="file-count">36</span></div>
+    <div class="stat"><span>GDScript files</span><span class="file-count">42</span></div>
+    <div class="stat"><span>Test files</span><span class="file-count">6</span></div>
     <div class="stat"><span>Scenes (.tscn)</span><span class="file-count">6</span></div>
     <div class="stat"><span>Fish data (.tres)</span><span class="file-count">10</span></div>
     <div class="stat"><span>Placeholder SVGs</span><span class="file-count">23</span></div>
     <div class="stat"><span>Shaders</span><span class="file-count">2</span></div>
   </div>
+</div>
+
+<!-- Recent milestones -->
+<div class="card full" style="margin-bottom:1.5rem;">
+  <h2>Recent Milestones</h2>
+  <div class="stat"><span>Phase 1 Core Loop</span><span class="badge done">complete</span></div>
+  <div class="stat"><span>Vehicle State Machine &mdash; 3 modes (surface, submerged, air stub)</span><span class="badge done">complete</span></div>
+  <div class="stat"><span>Achievement System &mdash; 15 achievements defined (infrastructure)</span><span class="badge done">complete</span></div>
+  <div class="stat"><span>Studio OS Integration &mdash; game.config.json + test suite (93+ tests)</span><span class="badge done">complete</span></div>
 </div>
 
 <!-- Systems status -->
@@ -241,7 +251,8 @@
     <tr><td>FishAI</td><td>scripts/entities/</td><td><span class="badge done">done</span></td></tr>
     <tr><td>AudioManager</td><td>scripts/autoload/</td><td><span class="badge stub">stub</span></td></tr>
     <tr><td>AirState</td><td>scripts/vehicle/states/</td><td><span class="badge stub">stub</span></td></tr>
-    <tr><td>Test Suite</td><td>&mdash;</td><td><span class="badge none">missing</span></td></tr>
+    <tr><td>Test Suite</td><td>tests/</td><td><span class="badge done">done</span></td></tr>
+    <tr><td>Studio OS Integration</td><td>game.config.json</td><td><span class="badge done">done</span></td></tr>
     <tr><td>Save/Load</td><td>&mdash;</td><td><span class="badge future">phase 2</span></td></tr>
   </table>
 </div>
@@ -305,11 +316,62 @@
 </div>
 
 <!-- Phase roadmap -->
-<div class="card full">
+<div class="card full" style="margin-bottom:1.5rem;">
   <h2>Phase Roadmap</h2>
   <div class="stat"><span>Phase 1 &mdash; Core Loop</span><span class="badge done">complete</span></div>
   <div class="stat"><span>Phase 2 &mdash; Polish &amp; Content</span><span class="badge wip">next</span></div>
   <div class="stat"><span>Phase 3 &mdash; Expansion</span><span class="badge future">future</span></div>
+</div>
+
+<!-- Phase 2 detail -->
+<div class="card full" style="margin-bottom:1.5rem;">
+  <h2>Phase 2 &mdash; Polish &amp; Content (NEXT)</h2>
+  <table>
+    <tr><th>Feature</th><th>Notes</th></tr>
+    <tr><td>Audio system</td><td>Ambient ocean, SFX for harpoon / catch / sell / upgrade</td></tr>
+    <tr><td>Replace placeholder art</td><td>Pixel or hand-drawn sprites to replace SVG placeholders</td></tr>
+    <tr><td>Save / load system</td><td>Persist gold, upgrades, fish storage, achievements</td></tr>
+    <tr><td>AchievementManager autoload</td><td>Unlock logic + toast overlay</td></tr>
+    <tr><td>Harpoon miss feedback</td><td>Particles, screen shake on missed shot</td></tr>
+    <tr><td>Particle effects</td><td>Bubbles, splashes, gold sparkles</td></tr>
+    <tr><td>New fish species &amp; biomes</td><td>5+ new species, reef &amp; abyss biomes</td></tr>
+    <tr><td>Controls remapping UI</td><td>Let player rebind keys in settings menu</td></tr>
+  </table>
+</div>
+
+<!-- Phase 3 detail -->
+<div class="card full" style="margin-bottom:1.5rem;">
+  <h2>Phase 3 &mdash; Expansion (FUTURE)</h2>
+  <table>
+    <tr><th>Feature</th><th>Notes</th></tr>
+    <tr><td>Air vehicle mode</td><td>Flying between islands</td></tr>
+    <tr><td>New island regions</td><td>Unique biomes per island</td></tr>
+    <tr><td>Story / quest system</td><td>NPC dialogue trees, fetch quests</td></tr>
+    <tr><td>Weather system</td><td>Storms affect sailing and fish behavior</td></tr>
+    <tr><td>Day / night cycle</td><td>Fish spawn patterns change with time</td></tr>
+    <tr><td>Boss fish encounters</td><td>Rare, difficult fish with unique mechanics</td></tr>
+    <tr><td>Fishing rod (surface casting)</td><td>Alternative to harpoon for surface fishing</td></tr>
+  </table>
+</div>
+
+<!-- Gameplay improvement ideas -->
+<div class="card full">
+  <h2>Gameplay Improvement Ideas</h2>
+  <table>
+    <tr><th>Category</th><th>Suggestion</th><th>Impact</th></tr>
+    <tr><td>Fishing</td><td>Tension / reeling mini-game for larger fish</td><td><span class="badge done">high</span></td></tr>
+    <tr><td>Fishing</td><td>Fish behavior variety (schooling, ambush, migration)</td><td><span class="badge wip">medium</span></td></tr>
+    <tr><td>Economy</td><td>Daily / weekly bounty board (&ldquo;Catch 3 Grouper for 2x payout&rdquo;)</td><td><span class="badge done">high</span></td></tr>
+    <tr><td>Economy</td><td>Rare ingredient combos (sushi platter bonuses)</td><td><span class="badge wip">medium</span></td></tr>
+    <tr><td>Exploration</td><td>Treasure chests / sunken shipwrecks with loot</td><td><span class="badge done">high</span></td></tr>
+    <tr><td>Exploration</td><td>Map fog-of-war that reveals as you sail</td><td><span class="badge wip">medium</span></td></tr>
+    <tr><td>Progression</td><td>Cosmetic upgrades (boat paint, harpoon skins)</td><td><span class="badge stub">low</span></td></tr>
+    <tr><td>Progression</td><td>Fishing journal with personal bests per species</td><td><span class="badge wip">medium</span></td></tr>
+    <tr><td>Combat</td><td>Hostile sea creatures (jellyfish, sharks) that damage hull</td><td><span class="badge done">high</span></td></tr>
+    <tr><td>Social</td><td>Leaderboard for heaviest single catch per species</td><td><span class="badge stub">low</span></td></tr>
+    <tr><td>Atmosphere</td><td>Dynamic ocean current system affecting vehicle drift</td><td><span class="badge wip">medium</span></td></tr>
+    <tr><td>Atmosphere</td><td>Underwater cave systems with rare fish</td><td><span class="badge done">high</span></td></tr>
+  </table>
 </div>
 
 <script>
