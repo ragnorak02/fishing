@@ -46,6 +46,9 @@ func _ready() -> void:
 
 	_update_catch_label()
 
+	# Ambient underwater bubbles
+	_create_ambient_bubbles()
+
 func _create_boundaries() -> void:
 	var bounds := $Boundaries as StaticBody2D
 	var walls := [
@@ -112,6 +115,7 @@ func _on_harpoon_missed() -> void:
 	pass  # Could add miss feedback
 
 func _spawn_catch_effect(pos: Vector2) -> void:
+	# Floating text
 	var effect := Label.new()
 	effect.text = "Caught!"
 	effect.add_theme_color_override("font_color", Color(1, 1, 0.3))
@@ -123,6 +127,45 @@ func _spawn_catch_effect(pos: Vector2) -> void:
 	tween.tween_property(effect, "global_position:y", pos.y - 50, 0.8)
 	tween.parallel().tween_property(effect, "modulate:a", 0.0, 0.8)
 	tween.tween_callback(effect.queue_free)
+
+	# Bubble burst particles
+	var burst := CPUParticles2D.new()
+	burst.emitting = true
+	burst.one_shot = true
+	burst.amount = 12
+	burst.lifetime = 0.6
+	burst.explosiveness = 0.9
+	burst.direction = Vector2(0, -1)
+	burst.spread = 180.0
+	burst.gravity = Vector2(0, -20)
+	burst.initial_velocity_min = 30.0
+	burst.initial_velocity_max = 60.0
+	burst.scale_amount_min = 1.0
+	burst.scale_amount_max = 3.0
+	burst.color = Color(0.7, 0.9, 1.0, 0.6)
+	add_child(burst)
+	burst.global_position = pos
+	get_tree().create_timer(1.0).timeout.connect(burst.queue_free)
+
+func _create_ambient_bubbles() -> void:
+	var bubbles := CPUParticles2D.new()
+	bubbles.name = "AmbientBubbles"
+	bubbles.amount = 20
+	bubbles.lifetime = 4.0
+	bubbles.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	bubbles.emission_rect_extents = Vector2(800, 50)
+	bubbles.position = Vector2(0, 500)
+	bubbles.direction = Vector2(0, -1)
+	bubbles.gravity = Vector2(0, -10)
+	bubbles.initial_velocity_min = 15.0
+	bubbles.initial_velocity_max = 40.0
+	bubbles.scale_amount_min = 0.5
+	bubbles.scale_amount_max = 2.0
+	bubbles.color = Color(0.66, 0.85, 0.94, 0.35)
+	var bubble_tex = load("res://assets/sprites/effects/bubble.svg")
+	if bubble_tex:
+		bubbles.texture = bubble_tex
+	add_child(bubbles)
 
 func _update_catch_label() -> void:
 	catch_label.text = "Catch: %d fish" % Inventory.current_haul.size()

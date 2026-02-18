@@ -9,7 +9,8 @@
 	"testCommand": "tests/run-tests.bat",
 	"metadata": {
 		"lastGameplayUpdate": "2026-02-16",
-		"lastArtUpdate": "",
+		"lastArtUpdate": "2026-02-17",
+		"asset_stage": "placeholder_v1",
 		"buildVersion": "0.1.0",
 		"progressPercent": 100
 	}

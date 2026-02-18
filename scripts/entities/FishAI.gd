@@ -48,34 +48,19 @@ func setup(fish_species: FishSpecies, spawn_bounds: Rect2) -> void:
 	bounds = spawn_bounds
 	awareness_radius = species.awareness_radius
 
-	if sprite.texture == null:
-		_create_placeholder_visual()
+	_load_species_sprite()
 
-func _create_placeholder_visual() -> void:
-	if species == null:
+func _load_species_sprite() -> void:
+	if species == null or sprite == null:
 		return
-	var color := species.get_rarity_color()
-	# Fish body
-	var body := ColorRect.new()
-	var size_factor := clamp(species.base_value / 50.0, 0.5, 2.5)
-	body.size = Vector2(16 * size_factor, 8 * size_factor)
-	body.position = -body.size / 2.0
-	body.color = color
-	add_child(body)
-
-	# Tail
-	var tail := ColorRect.new()
-	tail.size = Vector2(5 * size_factor, 10 * size_factor)
-	tail.position = Vector2(-body.size.x / 2.0 - 5 * size_factor, -5 * size_factor)
-	tail.color = color.darkened(0.2)
-	add_child(tail)
-
-	# Eye
-	var eye := ColorRect.new()
-	eye.size = Vector2(2, 2)
-	eye.position = Vector2(body.size.x / 2.0 - 4, -2)
-	eye.color = Color.BLACK
-	add_child(eye)
+	var tex_path := "res://assets/sprites/fish/%s.svg" % species.id
+	if ResourceLoader.exists(tex_path):
+		sprite.texture = load(tex_path)
+		# Scale by species value — small common fish stay small, legendary fish are large
+		var size_factor := clamp(species.base_value / 50.0, 0.5, 2.5)
+		sprite.scale = Vector2(size_factor, size_factor)
+	# Tint slightly toward rarity color
+	sprite.modulate = species.get_rarity_color().lerp(Color.WHITE, 0.7)
 
 func _physics_process(delta: float) -> void:
 	state_timer -= delta

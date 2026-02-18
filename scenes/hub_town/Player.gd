@@ -13,23 +13,8 @@ func _ready() -> void:
 		capsule.height = 14.0
 		col.shape = capsule
 
-	# Create placeholder visual if no sprite texture
-	if sprite.texture == null:
-		_create_placeholder_visual()
-
-func _create_placeholder_visual() -> void:
-	var rect := ColorRect.new()
-	rect.size = Vector2(12, 16)
-	rect.position = Vector2(-6, -8)
-	rect.color = Color(0.3, 0.5, 0.9)
-	add_child(rect)
-
-	# Head
-	var head := ColorRect.new()
-	head.size = Vector2(8, 8)
-	head.position = Vector2(-4, -14)
-	head.color = Color(0.9, 0.75, 0.6)
-	add_child(head)
+	# Load player sprite
+	sprite.texture = preload("res://assets/sprites/npc/player_topdown.svg")
 
 func _physics_process(_delta: float) -> void:
 	var input_dir := Vector2(

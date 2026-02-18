@@ -4,18 +4,12 @@ extends CharacterBody2D
 
 @onready var state_machine: VehicleStateMachine = $VehicleStateMachine
 
-# Placeholder visual nodes (created in _ready)
-var hull_rect: ColorRect
-var deck_rect: ColorRect
-var bow_rect: ColorRect
-
 signal mode_changed(mode: int)
 signal throttle_changed(throttle: float)
 
 func _ready() -> void:
-	# Create placeholder visual if no sprite texture
-	if $Sprite2D.texture == null:
-		_create_placeholder_visual()
+	# Load boat sprite
+	$Sprite2D.texture = preload("res://assets/sprites/boat/boat.svg")
 
 	# Set up collision shape (surface default)
 	var col: CollisionShape2D = $CollisionShape2D
@@ -30,31 +24,6 @@ func _ready() -> void:
 
 	# Init state machine
 	_init_state_machine()
-
-func _create_placeholder_visual() -> void:
-	# Vehicle body (hull)
-	hull_rect = ColorRect.new()
-	hull_rect.name = "HullRect"
-	hull_rect.size = Vector2(16, 32)
-	hull_rect.position = Vector2(-8, -16)
-	hull_rect.color = Color(0.55, 0.35, 0.2)  # Surface: brown
-	add_child(hull_rect)
-
-	# Vehicle deck
-	deck_rect = ColorRect.new()
-	deck_rect.name = "DeckRect"
-	deck_rect.size = Vector2(10, 20)
-	deck_rect.position = Vector2(-5, -10)
-	deck_rect.color = Color(0.75, 0.55, 0.35)  # Surface: tan
-	add_child(deck_rect)
-
-	# Bow indicator
-	bow_rect = ColorRect.new()
-	bow_rect.name = "BowRect"
-	bow_rect.size = Vector2(6, 6)
-	bow_rect.position = Vector2(-3, -18)
-	bow_rect.color = Color(0.9, 0.9, 0.9)  # Surface: white
-	add_child(bow_rect)
 
 func _init_systems() -> void:
 	# DurabilitySystem — always active
@@ -121,20 +90,10 @@ func request_transform(target_mode: VehicleStateMachine.Mode) -> void:
 func is_transforming() -> bool:
 	return state_machine.is_transforming
 
-# --- Placeholder visual swaps ---
+# --- Vehicle mode visuals ---
 
 func apply_surface_visuals() -> void:
-	if hull_rect:
-		hull_rect.color = Color(0.55, 0.35, 0.2)  # Brown hull
-	if deck_rect:
-		deck_rect.color = Color(0.75, 0.55, 0.35)  # Tan deck
-	if bow_rect:
-		bow_rect.color = Color(0.9, 0.9, 0.9)  # White bow
+	$Sprite2D.modulate = Color(1.0, 1.0, 1.0)
 
 func apply_submerged_visuals() -> void:
-	if hull_rect:
-		hull_rect.color = Color(0.3, 0.3, 0.35)  # Dark grey hull
-	if deck_rect:
-		deck_rect.color = Color(0.5, 0.5, 0.55)  # Steel deck
-	if bow_rect:
-		bow_rect.color = Color(0.3, 0.5, 0.8)  # Blue bow
+	$Sprite2D.modulate = Color(0.5, 0.6, 0.8)

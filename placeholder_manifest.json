@@ -1,0 +1,114 @@
+{
+	"pass": "graphics_v1",
+	"date": "2026-02-17",
+	"assets": [
+		{
+			"file": "assets/sprites/boat/boat.svg",
+			"replaces": "3 ColorRects in VehicleController.gd:34-57",
+			"swap_target": "Final boat/submarine sprite (multi-frame for surface + submerged)",
+			"dimensions": "32x48"
+		},
+		{
+			"file": "assets/sprites/npc/player_topdown.svg",
+			"replaces": "2 ColorRects in Player.gd:20-32",
+			"swap_target": "Final hub player top-down sprite",
+			"dimensions": "16x16"
+		},
+		{
+			"file": "assets/sprites/diver/diver.svg",
+			"replaces": "3 ColorRects in DiverController.gd:24-44",
+			"swap_target": "Final diver sprite (multi-frame swim cycle)",
+			"dimensions": "24x32"
+		},
+		{
+			"file": "assets/sprites/fish/sardine.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final sardine sprite",
+			"dimensions": "16x8"
+		},
+		{
+			"file": "assets/sprites/fish/mackerel.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final mackerel sprite",
+			"dimensions": "16x8"
+		},
+		{
+			"file": "assets/sprites/fish/sea_bream.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final sea bream sprite",
+			"dimensions": "16x8"
+		},
+		{
+			"file": "assets/sprites/fish/squid.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final squid sprite",
+			"dimensions": "16x16"
+		},
+		{
+			"file": "assets/sprites/fish/octopus.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final octopus sprite",
+			"dimensions": "16x16"
+		},
+		{
+			"file": "assets/sprites/fish/yellowtail.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final yellowtail sprite",
+			"dimensions": "16x8"
+		},
+		{
+			"file": "assets/sprites/fish/grouper.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final grouper sprite",
+			"dimensions": "16x12"
+		},
+		{
+			"file": "assets/sprites/fish/bluefin_tuna.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final bluefin tuna sprite",
+			"dimensions": "20x10"
+		},
+		{
+			"file": "assets/sprites/fish/manta_ray.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final manta ray sprite",
+			"dimensions": "24x16"
+		},
+		{
+			"file": "assets/sprites/fish/golden_koi.svg",
+			"replaces": "3 ColorRects in FishAI.gd:54-78",
+			"swap_target": "Final golden koi sprite",
+			"dimensions": "16x10"
+		},
+		{
+			"file": "assets/sprites/npc/fishmonger.svg",
+			"replaces": "1 ColorRect in NPC.gd:25-39",
+			"swap_target": "Final fishmonger NPC sprite",
+			"dimensions": "16x16"
+		},
+		{
+			"file": "assets/sprites/npc/upgrade_npc.svg",
+			"replaces": "1 ColorRect in NPC.gd:25-39",
+			"swap_target": "Final upgrade NPC sprite",
+			"dimensions": "16x16"
+		},
+		{
+			"file": "assets/sprites/ui/harpoon.svg",
+			"replaces": "2 ColorRects in Harpoon.gd:29-39",
+			"swap_target": "Final harpoon projectile sprite",
+			"dimensions": "24x6"
+		},
+		{
+			"file": "assets/sprites/environment/ocean/dive_spot.svg",
+			"replaces": "1 ColorRect 50x50 in DiveSpot.gd:20-25",
+			"swap_target": "Final dive spot indicator sprite",
+			"dimensions": "24x24"
+		},
+		{
+			"file": "assets/sprites/effects/bubble.svg",
+			"replaces": "N/A (new ambient particle texture)",
+			"swap_target": "Final bubble particle texture",
+			"dimensions": "8x8"
+		}
+	]
+}

@@ -68,3 +68,14 @@ Hub Town → Sail Ocean → Dive Underwater → Catch Fish → Surface → Haul 
 - Story / quest system
 - Weather system
 - Multiplayer considerations
+
+---
+
+### Graphics Pass V1 — 2026-02-17
+- Replaced 10 primitive/placeholder ColorRect visuals with SVG sprite textures
+- Entities updated: Vehicle (boat/sub), Hub Player, Diver, Fish (10 species), NPCs (fishmonger + upgrade), Harpoon, Dive Spot
+- Added animation/effects: CPUParticles2D glow on dive spots, bubble burst on catch, ambient underwater bubbles using bubble.svg
+- Vehicle mode swap now uses Sprite2D.modulate tinting instead of ColorRect color changes
+- Fish sprites dynamically loaded by species ID with value-based scaling and rarity tinting
+- Techniques used: SVG texture, Particle, Programmatic (modulate tinting)
+- Asset stage: placeholder_v1 (swap-ready for final art)

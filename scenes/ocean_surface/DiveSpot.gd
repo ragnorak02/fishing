@@ -18,11 +18,26 @@ func _ready() -> void:
 	_create_glow()
 
 func _create_glow() -> void:
-	var glow := ColorRect.new()
-	glow.size = Vector2(50, 50)
-	glow.position = Vector2(-25, -25)
-	glow.color = Color(0, 0.9, 0.9, 0.3)
-	add_child(glow)
+	# Dive spot sprite
+	var spot_sprite := Sprite2D.new()
+	spot_sprite.texture = preload("res://assets/sprites/environment/ocean/dive_spot.svg")
+	spot_sprite.scale = Vector2(2.0, 2.0)
+	add_child(spot_sprite)
+
+	# Particle glow effect
+	var particles := CPUParticles2D.new()
+	particles.amount = 8
+	particles.lifetime = 2.0
+	particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+	particles.emission_sphere_radius = 20.0
+	particles.direction = Vector2(0, -1)
+	particles.gravity = Vector2.ZERO
+	particles.initial_velocity_min = 5.0
+	particles.initial_velocity_max = 15.0
+	particles.scale_amount_min = 0.3
+	particles.scale_amount_max = 0.8
+	particles.color = Color(0, 0.9, 0.9, 0.4)
+	add_child(particles)
 
 	# Label
 	var label := Label.new()

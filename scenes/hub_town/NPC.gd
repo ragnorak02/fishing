@@ -20,24 +20,18 @@ func _ready() -> void:
 	area.body_exited.connect(_on_body_exited)
 
 	if $Sprite2D.texture == null:
-		_create_placeholder_visual()
+		_load_npc_sprite()
 
-func _create_placeholder_visual() -> void:
-	var color: Color
+func _load_npc_sprite() -> void:
 	match npc_type:
 		"fishmonger":
-			color = Color(0.2, 0.5, 0.9)
+			$Sprite2D.texture = load("res://assets/sprites/npc/fishmonger.svg")
 		"upgrade":
-			color = Color(0.2, 0.8, 0.3)
+			$Sprite2D.texture = load("res://assets/sprites/npc/upgrade_npc.svg")
 		_:
-			color = Color(0.8, 0.6, 0.3)
+			$Sprite2D.texture = load("res://assets/sprites/npc/fishmonger.svg")
 
-	var rect := ColorRect.new()
-	rect.size = Vector2(16, 16)
-	rect.position = Vector2(-8, -8)
-	rect.color = color
-	add_child(rect)
-
+	# Name label above NPC
 	var label := Label.new()
 	label.text = npc_name
 	label.position = Vector2(-30, -28)

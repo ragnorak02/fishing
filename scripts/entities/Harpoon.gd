@@ -26,18 +26,9 @@ func _ready() -> void:
 	collision_mask = 4   # Fish layer
 
 	# Visual
-	var line := ColorRect.new()
-	line.size = Vector2(20, 3)
-	line.position = Vector2(-2, -1.5)
-	line.color = Color(0.7, 0.7, 0.75)
-	add_child(line)
-
-	# Tip
-	var tip := ColorRect.new()
-	tip.size = Vector2(6, 5)
-	tip.position = Vector2(18, -2.5)
-	tip.color = Color(0.85, 0.85, 0.9)
-	add_child(tip)
+	var sprite := Sprite2D.new()
+	sprite.texture = preload("res://assets/sprites/ui/harpoon.svg")
+	add_child(sprite)
 
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)

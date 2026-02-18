@@ -18,30 +18,8 @@ func _ready() -> void:
 		capsule.height = 20.0
 		col.shape = capsule
 
-	if sprite.texture == null:
-		_create_placeholder_visual()
-
-func _create_placeholder_visual() -> void:
-	# Body
-	var body := ColorRect.new()
-	body.size = Vector2(12, 20)
-	body.position = Vector2(-6, -10)
-	body.color = Color(0.15, 0.15, 0.15)
-	add_child(body)
-
-	# Mask/goggles
-	var goggles := ColorRect.new()
-	goggles.size = Vector2(10, 4)
-	goggles.position = Vector2(-5, -12)
-	goggles.color = Color(0.3, 0.7, 0.9)
-	add_child(goggles)
-
-	# Fins
-	var fins := ColorRect.new()
-	fins.size = Vector2(14, 4)
-	fins.position = Vector2(-7, 10)
-	fins.color = Color(0.2, 0.2, 0.2)
-	add_child(fins)
+	# Load diver sprite
+	sprite.texture = preload("res://assets/sprites/diver/diver.svg")
 
 func _physics_process(delta: float) -> void:
 	# 8-directional swim input
