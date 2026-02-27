@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scenes/dive_scene/DiveScene.gd" id="1_dive"]
 [ext_resource type="Script" path="res://scripts/entities/DiverController.gd" id="2_diver"]
 [ext_resource type="Script" path="res://scenes/dive_scene/FishSpawner.gd" id="3_spawner"]
 [ext_resource type="Script" path="res://scripts/systems/OxygenSystem.gd" id="4_oxygen"]
 [ext_resource type="Shader" path="res://assets/shaders/underwater.gdshader" id="5_shader"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleMat_bubbles"]
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, -20, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+scale_min = 0.5
+scale_max = 1.5
+color = Color(0.6, 0.85, 1.0, 0.35)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw"]
 shader = ExtResource("5_shader")
@@ -116,6 +125,7 @@ position = Vector2(0, -10)
 emitting = true
 amount = 5
 lifetime = 2.0
+process_material = SubResource("ParticleMat_bubbles")
 
 [node name="Camera2D" type="Camera2D" parent="Diver"]
 zoom = Vector2(1.5, 1.5)
@@ -190,7 +200,7 @@ offset_right = 790.0
 offset_bottom = 710.0
 theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color(1, 1, 1, 0.5)
-text = "LMB: Fire Harpoon | E: Surface"
+text = "Hold LMB/RT: Aim | Release: Fire | E: Surface"
 horizontal_alignment = 1
 
 [node name="SurfacePrompt" type="Label" parent="DiveHUD"]

@@ -134,7 +134,7 @@ func _get_controls_for_context() -> Array:
 		"dive":
 			return [
 				["move_up", "WASD", "LS", "Swim"],
-				["fire_harpoon", "LMB", "X/RT", "Harpoon"],
+				["fire_harpoon", "Hold LMB", "Hold RT", "Aim & Fire"],
 				["interact", "E", "A", "Surface"],
 			]
 		"haul":

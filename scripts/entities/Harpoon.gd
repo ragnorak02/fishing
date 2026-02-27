@@ -2,15 +2,22 @@ extends Area2D
 
 const BASE_SPEED := 400.0
 const BASE_MAX_RANGE := 250.0
+const RETURN_SPEED := 500.0
+const RETURN_ARRIVE_DIST := 15.0
+
+enum State { TRAVELING, RETURNING }
 
 var direction: Vector2 = Vector2.RIGHT
 var speed: float = BASE_SPEED
 var max_range: float = BASE_MAX_RANGE
 var traveled: float = 0.0
 var active: bool = true
+var state: State = State.TRAVELING
+var diver_ref: Node2D = null
 
 signal fish_hit(fish: Node2D)
 signal missed
+signal returned
 
 func _ready() -> void:
 	z_index = 10
@@ -62,17 +69,45 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
-	if not active:
-		return
+	match state:
+		State.TRAVELING:
+			if not active:
+				return
+			var move := direction * speed * delta
+			position += move
+			traveled += move.length()
+			if traveled >= max_range:
+				active = false
+				missed.emit()
+				begin_return()
 
-	var move := direction * speed * delta
-	position += move
-	traveled += move.length()
+		State.RETURNING:
+			if diver_ref and is_instance_valid(diver_ref):
+				var to_diver := diver_ref.global_position - global_position
+				var dist := to_diver.length()
+				if dist <= RETURN_ARRIVE_DIST:
+					returned.emit()
+					queue_free()
+					return
+				var move_dir := to_diver.normalized()
+				position += move_dir * RETURN_SPEED * delta
+				rotation = move_dir.angle()
+			else:
+				# No valid diver ref (e.g. MountedHarpoon) — just free
+				returned.emit()
+				queue_free()
 
-	if traveled >= max_range:
-		active = false
-		missed.emit()
-		_fade_and_remove()
+func begin_return() -> void:
+	state = State.RETURNING
+	active = false
+	# Disable collision so it doesn't re-hit fish on the way back
+	collision_layer = 0
+	collision_mask = 0
+	modulate.a = 0.6
+	# Reverse bubble trail direction
+	var trail := get_node_or_null("BubbleTrail") as CPUParticles2D
+	if trail:
+		trail.direction = Vector2(1, 0)
 
 func _on_body_entered(body: Node2D) -> void:
 	if not active:
@@ -80,7 +115,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("fish"):
 		active = false
 		fish_hit.emit(body)
-		queue_free()
+		begin_return()
 
 func _on_area_entered(area: Area2D) -> void:
 	if not active:
@@ -90,9 +125,4 @@ func _on_area_entered(area: Area2D) -> void:
 	if parent and parent.is_in_group("fish"):
 		active = false
 		fish_hit.emit(parent)
-		queue_free()
-
-func _fade_and_remove() -> void:
-	var tween := create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.3)
-	tween.tween_callback(queue_free)
+		begin_return()
