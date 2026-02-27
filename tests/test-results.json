@@ -1,0 +1,1036 @@
+{
+  "details": [
+    {
+      "message": "",
+      "name": "EconomySystem.load",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EconomySystem.SUSHI_BONUS",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EconomySystem.calc_normal_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EconomySystem.calc_sushi_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EconomySystem.min_value_floor",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EconomySystem.half_weight",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeSystem.load",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeSystem.MAX_LEVEL",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeSystem.data_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_0.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_0.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_0.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_0.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_0.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_1.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_1.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_1.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_1.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_1.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_2.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_2.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_2.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_2.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_2.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_3.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_3.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_3.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_3.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_3.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_4.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_4.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_4.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_4.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_4.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_5.costs_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_5.costs_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_5.level_names_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_5.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "UpgradeType_5.desc_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "GameManager.load",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_sardine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_sardine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_mackerel",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_mackerel",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_sea_bream",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_sea_bream",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_octopus",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_octopus",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_yellowtail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_yellowtail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_grouper",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_grouper",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_bluefin_tuna",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_bluefin_tuna",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_manta_ray",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_manta_ray",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_golden_koi",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_golden_koi",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sardine.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sardine.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sardine.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sardine.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sardine.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.mackerel.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.mackerel.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.mackerel.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.mackerel.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.mackerel.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sea_bream.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sea_bream.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sea_bream.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sea_bream.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sea_bream.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.squid.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.squid.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.squid.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.squid.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.squid.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.octopus.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.octopus.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.octopus.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.octopus.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.octopus.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.yellowtail.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.yellowtail.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.yellowtail.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.yellowtail.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.yellowtail.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.grouper.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.grouper.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.grouper.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.grouper.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.grouper.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.bluefin_tuna.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.bluefin_tuna.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.bluefin_tuna.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.bluefin_tuna.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.bluefin_tuna.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.manta_ray.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.manta_ray.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.manta_ray.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.manta_ray.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.manta_ray.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.golden_koi.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.golden_koi.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.golden_koi.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.golden_koi.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.golden_koi.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishData.has_common",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishData.has_uncommon",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishData.has_rare",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishData.has_legendary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.all_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.get_sardine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.sardine_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.get_nonexistent",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.rarity_weights_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.rw_common",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.rw_legendary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.random_biome_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishDatabase.random_biome_type",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.starting_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.spend_30_success",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.gold_after_spend_30",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.spend_200_fail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.gold_unchanged",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.haul_before_clear",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.haul_after_clear",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_all_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_all_haul_empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.keep_all_haul_empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.keep_all_storage_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_storage_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_storage_removed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_empty_noop",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.sell_haul_neg_noop",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.keep_haul_bad_noop",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.signal_gold_changed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.signal_haul_changed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Inventory.signal_storage_changed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_MainMenu",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_MainMenu",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_HubTown",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_HubTown",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_OceanSurface",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_OceanSurface",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_DiveScene",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_DiveScene",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_HaulSummary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_HaulSummary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_SceneTransition",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_SceneTransition",
+      "status": "pass"
+    },
+    {
+      "message": "Failed to load test module",
+      "name": "test_assets.gd",
+      "status": "fail"
+    },
+    {
+      "message": "",
+      "name": "achievements.json.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "achievements.json.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "achievements.json.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "achievements.json.count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "achievements.json.all_have_keys",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "unlock_once.first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "unlock_once.guard",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_state.a1",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_state.a2",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_state.a3",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_state.size",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "SaveManager.file_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "validate.valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "validate.non_dict",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "validate.no_version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "validate.null",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "migrate.version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "migrate.has_stats",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "migrate.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "migrate.has_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "migrate.gold_preserved",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_upgrades",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_storage",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.has_stats",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "schema.upgrade_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.after_first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.catches_1",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.after_second_same",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.catches_2",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.after_new_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "dedup.catches_3",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.boat_speed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.species_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.total_catches",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.total_gold_earned",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.storage_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.ach_first_catch",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "roundtrip.ach_catch_10",
+      "status": "pass"
+    },
+    {
+      "name": "DiveSpot script loads",
+      "status": "pass"
+    },
+    {
+      "name": "OceanSurface.tscn exists",
+      "status": "pass"
+    },
+    {
+      "name": "All CollisionShape2D have baked shapes",
+      "status": "pass"
+    },
+    {
+      "name": "DiveSpot collision_mask includes player layer",
+      "status": "pass"
+    },
+    {
+      "name": "Vehicle collision_layer = 2",
+      "status": "pass"
+    },
+    {
+      "name": "3 dive spots in scene",
+      "status": "pass"
+    },
+    {
+      "name": "HubReturnZone in scene",
+      "status": "pass"
+    },
+    {
+      "name": "interact input action exists",
+      "status": "pass"
+    },
+    {
+      "name": "transform_vehicle input action exists",
+      "status": "pass"
+    }
+  ],
+  "durationMs": 224,
+  "status": "fail",
+  "testsFailed": 1,
+  "testsPassed": 206,
+  "testsTotal": 207,
+  "timestamp": "2026-02-26T21:36:09Z"
+}

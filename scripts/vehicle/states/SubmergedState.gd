@@ -17,12 +17,13 @@ func enter() -> void:
 	if wake:
 		wake.emitting = false
 
-	# Swap to submerged collision shape (wider, shorter)
+	# Swap to submerged collision shape only if needed (avoid resetting physics overlaps)
 	var col: CollisionShape2D = vehicle.get_node("CollisionShape2D")
-	var capsule := CapsuleShape2D.new()
-	capsule.radius = 12.0
-	capsule.height = 26.0
-	col.shape = capsule
+	if col.shape == null or not col.shape is CapsuleShape2D or col.shape.radius != 30.0 or col.shape.height != 65.0:
+		var capsule := CapsuleShape2D.new()
+		capsule.radius = 30.0
+		capsule.height = 65.0
+		col.shape = capsule
 
 	# Apply submerged placeholder visuals
 	vehicle.apply_submerged_visuals()

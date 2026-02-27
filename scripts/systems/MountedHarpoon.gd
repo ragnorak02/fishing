@@ -11,7 +11,7 @@ var is_active: bool = false
 
 signal target_hit(fish: Node2D)
 
-var HarpoonScene: PackedScene = null
+var _harpoon_scene: PackedScene = preload("res://scenes/entities/harpoon.tscn")
 
 func activate() -> void:
 	is_active = true
@@ -50,10 +50,7 @@ func _fire() -> void:
 	vehicle.get_parent().add_child(harpoon)
 
 func _create_harpoon() -> Area2D:
-	# Instantiate the existing Harpoon script directly
-	var harpoon := Area2D.new()
-	harpoon.set_script(load("res://scripts/entities/Harpoon.gd"))
-	return harpoon
+	return _harpoon_scene.instantiate() as Area2D
 
 func _on_harpoon_hit(fish: Node2D) -> void:
 	target_hit.emit(fish)

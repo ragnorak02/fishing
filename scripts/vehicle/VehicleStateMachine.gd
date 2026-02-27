@@ -72,23 +72,13 @@ func _play_transform_animation(target_mode: Mode) -> void:
 		var target_zoom: Vector2
 		match target_mode:
 			Mode.SURFACE:
-				target_zoom = Vector2(1.5, 1.5)
+				target_zoom = Vector2(1.0, 1.0)
 			Mode.SUBMERGED:
-				target_zoom = Vector2(1.8, 1.8)
+				target_zoom = Vector2(1.3, 1.3)
 			_:
-				target_zoom = Vector2(1.5, 1.5)
+				target_zoom = Vector2(1.0, 1.0)
 		tween.tween_property(camera, "zoom", target_zoom, 0.5)
 
 	await scale_tween.finished
 
-func _physics_process(delta: float) -> void:
-	if is_transforming:
-		return
-	if current_state:
-		current_state.physics_process(delta)
-
-func _process(delta: float) -> void:
-	if is_transforming:
-		return
-	if current_state:
-		current_state.process(delta)
+# Physics and process delegation handled by VehicleController

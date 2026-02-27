@@ -7,13 +7,14 @@ var fish_storage: Array = []  # Fish kept across dives
 signal gold_changed(new_amount: int)
 signal haul_changed()
 signal storage_changed()
+signal fish_sold(gold_earned: int)
 
 func add_to_haul(species_id: String, weight: float) -> void:
 	var species = FishDatabase.get_species(species_id)
 	if species == null:
 		return
 	var value := int(species.base_value * (weight / species.weight_range.y))
-	value = max(value, 1)
+	value = maxi(value, 1)
 	current_haul.append({
 		"species_id": species_id,
 		"name": species.display_name,
@@ -32,6 +33,7 @@ func sell_fish_from_haul(index: int) -> void:
 	current_haul.remove_at(index)
 	gold_changed.emit(gold)
 	haul_changed.emit()
+	fish_sold.emit(fish.value)
 
 func keep_fish_from_haul(index: int) -> void:
 	if index < 0 or index >= current_haul.size():
@@ -50,6 +52,8 @@ func sell_all_haul() -> void:
 	current_haul.clear()
 	gold_changed.emit(gold)
 	haul_changed.emit()
+	if total > 0:
+		fish_sold.emit(total)
 
 func keep_all_haul() -> void:
 	fish_storage.append_array(current_haul)
@@ -65,6 +69,7 @@ func sell_from_storage(index: int) -> void:
 	fish_storage.remove_at(index)
 	gold_changed.emit(gold)
 	storage_changed.emit()
+	fish_sold.emit(fish.value)
 
 func sell_all_storage() -> void:
 	var total := 0
@@ -74,6 +79,8 @@ func sell_all_storage() -> void:
 	fish_storage.clear()
 	gold_changed.emit(gold)
 	storage_changed.emit()
+	if total > 0:
+		fish_sold.emit(total)
 
 func spend_gold(amount: int) -> bool:
 	if gold < amount:

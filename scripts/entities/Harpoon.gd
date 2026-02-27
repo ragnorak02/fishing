@@ -13,22 +13,50 @@ signal fish_hit(fish: Node2D)
 signal missed
 
 func _ready() -> void:
+	z_index = 10
 	max_range = BASE_MAX_RANGE * GameManager.get_harpoon_range_multiplier()
 
-	# Set up collision
-	var col := CollisionShape2D.new()
-	var rect := RectangleShape2D.new()
-	rect.size = Vector2(20, 4)
-	col.shape = rect
-	add_child(col)
+	# Collision — reuse scene child or create dynamically
+	var col := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if col == null:
+		col = CollisionShape2D.new()
+		col.name = "CollisionShape2D"
+		add_child(col)
+	if col.shape == null:
+		var rect := RectangleShape2D.new()
+		rect.size = Vector2(20, 4)
+		col.shape = rect
 
-	collision_layer = 8  # Harpoon layer
-	collision_mask = 4   # Fish layer
+	collision_layer = 8
+	collision_mask = 4
 
-	# Visual
-	var sprite := Sprite2D.new()
-	sprite.texture = preload("res://assets/sprites/ui/harpoon.svg")
-	add_child(sprite)
+	# Visual — reuse scene child or create dynamically
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if sprite == null:
+		sprite = Sprite2D.new()
+		sprite.name = "Sprite2D"
+		sprite.texture = preload("res://assets/sprites/ui/harpoon.svg")
+		sprite.scale = Vector2(0.5, 0.5)
+		add_child(sprite)
+
+	# Bubble trail — reuse scene child or create dynamically
+	var trail := get_node_or_null("BubbleTrail") as CPUParticles2D
+	if trail == null:
+		trail = CPUParticles2D.new()
+		trail.name = "BubbleTrail"
+		trail.amount = 6
+		trail.lifetime = 0.3
+		trail.explosiveness = 0.0
+		trail.direction = Vector2(-1, 0)
+		trail.spread = 20.0
+		trail.initial_velocity_min = 10.0
+		trail.initial_velocity_max = 30.0
+		trail.scale_amount_min = 0.5
+		trail.scale_amount_max = 1.5
+		trail.color = Color(0.6, 0.85, 1.0, 0.4)
+		trail.gravity = Vector2.ZERO
+		add_child(trail)
+	trail.emitting = true
 
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)

@@ -9,8 +9,8 @@ var state_timer: float = 0.0
 var awareness_radius: float = 100.0
 var flee_target: Vector2 = Vector2.ZERO
 
-@onready var sprite: Sprite2D = $Sprite2D
-@onready var hitbox: Area2D = $Hitbox
+var sprite: Sprite2D = null
+var hitbox: Area2D = null
 
 # Boundary for fish movement
 var bounds: Rect2 = Rect2(-800, -600, 1600, 1200)
@@ -18,9 +18,13 @@ var bounds: Rect2 = Rect2(-800, -600, 1600, 1200)
 func _ready() -> void:
 	add_to_group("fish")
 
+	# Resolve children explicitly (works for programmatic + scene nodes)
+	sprite = get_node_or_null("Sprite2D") as Sprite2D
+	hitbox = get_node_or_null("Hitbox") as Area2D
+
 	# Set up collision (for harpoon detection)
-	var col := $CollisionShape2D as CollisionShape2D
-	if col.shape == null:
+	var col := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if col and col.shape == null:
 		var circle := CircleShape2D.new()
 		circle.radius = 10.0
 		col.shape = circle
@@ -56,8 +60,8 @@ func _load_species_sprite() -> void:
 	var tex_path := "res://assets/sprites/fish/%s.svg" % species.id
 	if ResourceLoader.exists(tex_path):
 		sprite.texture = load(tex_path)
-		# Scale by species value — small common fish stay small, legendary fish are large
-		var size_factor := clamp(species.base_value / 50.0, 0.5, 2.5)
+		# Scale by species value — common fish visible, legendary fish large
+		var size_factor := clampf(species.base_value / 30.0, 0.8, 2.5)
 		sprite.scale = Vector2(size_factor, size_factor)
 	# Tint slightly toward rarity color
 	sprite.modulate = species.get_rarity_color().lerp(Color.WHITE, 0.7)

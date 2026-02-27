@@ -10,4 +10,4 @@ static func calculate_fish_value(species: FishSpecies, weight: float) -> int:
 	var value := int(base * weight_factor)
 	if species.sushi_grade:
 		value = int(value * SUSHI_BONUS)
-	return max(value, 1)
+	return maxi(value, 1)

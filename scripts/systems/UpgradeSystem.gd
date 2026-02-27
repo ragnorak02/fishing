@@ -106,6 +106,10 @@ static func purchase_upgrade(type: UpgradeType) -> bool:
 		UpgradeType.SONAR_RANGE:
 			GameManager.sonar_range_level += 1
 
+	var am = Engine.get_main_loop().root.get_node_or_null("AchievementManager")
+	if am:
+		am.notify_upgrade_purchased(type, get_level(type))
+
 	return true
 
 static func is_maxed(type: UpgradeType) -> bool:

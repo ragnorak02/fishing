@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scenes/ocean_surface/OceanSurface.gd" id="1_ocean"]
 [ext_resource type="Script" path="res://scripts/vehicle/VehicleController.gd" id="2_vehicle"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/ocean_surface.gdshader" id="4_shader"]
 [ext_resource type="Script" path="res://scripts/vehicle/VehicleStateMachine.gd" id="6_vsm"]
 [ext_resource type="Script" path="res://scripts/ui/VehicleHUD.gd" id="7_vhud"]
+[ext_resource type="Texture2D" uid="uid://euir1yi8ixrv" path="res://assets/sprites/boat/boat.svg" id="8_boat"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ocean"]
 shader = ExtResource("4_shader")
@@ -16,89 +17,102 @@ shader_parameter/wave_speed = 0.8
 shader_parameter/wave_scale = 15.0
 shader_parameter/highlight_threshold = 0.6
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vehicle"]
+radius = 25.0
+height = 75.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive1"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive2"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive3"]
+radius = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hub"]
+size = Vector2(120, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island1"]
+size = Vector2(110, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island2"]
+size = Vector2(90, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island3"]
+size = Vector2(80, 60)
+
 [node name="OceanSurface" type="Node2D"]
 script = ExtResource("1_ocean")
 
-[node name="OceanBG" type="ColorRect" parent="."]
+[node name="OceanBG" type="Polygon2D" parent="."]
 z_index = -10
-offset_left = -2000.0
-offset_top = -2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
 material = SubResource("ShaderMaterial_ocean")
+polygon = PackedVector2Array(-2000, -2000, 2000, -2000, 2000, 2000, -2000, 2000)
+uv = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 
 [node name="Island1" type="StaticBody2D" parent="."]
 position = Vector2(-400, -300)
 collision_layer = 1
 
-[node name="Sprite" type="ColorRect" parent="Island1"]
-offset_left = -50.0
-offset_top = -35.0
-offset_right = 50.0
-offset_bottom = 35.0
-color = Color(0.35, 0.65, 0.3, 1)
-
-[node name="Sand" type="ColorRect" parent="Island1"]
-offset_left = -55.0
-offset_top = -40.0
-offset_right = 55.0
-offset_bottom = 40.0
+[node name="Sand" type="Polygon2D" parent="Island1"]
 z_index = -1
 color = Color(0.9, 0.85, 0.6, 1)
+polygon = PackedVector2Array(-55, -40, 55, -40, 55, 40, -55, 40)
+
+[node name="Sprite" type="Polygon2D" parent="Island1"]
+color = Color(0.35, 0.65, 0.3, 1)
+polygon = PackedVector2Array(-50, -35, 50, -35, 50, 35, -50, 35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island1"]
+shape = SubResource("RectangleShape2D_island1")
 
 [node name="Island2" type="StaticBody2D" parent="."]
 position = Vector2(600, 200)
 collision_layer = 1
 
-[node name="Sprite" type="ColorRect" parent="Island2"]
-offset_left = -40.0
-offset_top = -30.0
-offset_right = 40.0
-offset_bottom = 30.0
-color = Color(0.3, 0.55, 0.25, 1)
-
-[node name="Sand" type="ColorRect" parent="Island2"]
-offset_left = -45.0
-offset_top = -35.0
-offset_right = 45.0
-offset_bottom = 35.0
+[node name="Sand" type="Polygon2D" parent="Island2"]
 z_index = -1
 color = Color(0.88, 0.82, 0.55, 1)
+polygon = PackedVector2Array(-45, -35, 45, -35, 45, 35, -45, 35)
+
+[node name="Sprite" type="Polygon2D" parent="Island2"]
+color = Color(0.3, 0.55, 0.25, 1)
+polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island2"]
+shape = SubResource("RectangleShape2D_island2")
 
 [node name="Island3" type="StaticBody2D" parent="."]
 position = Vector2(-200, 500)
 collision_layer = 1
 
-[node name="Sprite" type="ColorRect" parent="Island3"]
-offset_left = -35.0
-offset_top = -25.0
-offset_right = 35.0
-offset_bottom = 25.0
-color = Color(0.4, 0.7, 0.35, 1)
-
-[node name="Sand" type="ColorRect" parent="Island3"]
-offset_left = -40.0
-offset_top = -30.0
-offset_right = 40.0
-offset_bottom = 30.0
+[node name="Sand" type="Polygon2D" parent="Island3"]
 z_index = -1
 color = Color(0.85, 0.8, 0.55, 1)
+polygon = PackedVector2Array(-40, -30, 40, -30, 40, 30, -40, 30)
+
+[node name="Sprite" type="Polygon2D" parent="Island3"]
+color = Color(0.4, 0.7, 0.35, 1)
+polygon = PackedVector2Array(-35, -25, 35, -25, 35, 25, -35, 25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island3"]
+shape = SubResource("RectangleShape2D_island3")
 
 [node name="Vehicle" type="CharacterBody2D" parent="."]
+z_index = 5
 position = Vector2(0, 200)
 collision_layer = 2
 collision_mask = 1
+motion_mode = 1
 script = ExtResource("2_vehicle")
 
 [node name="Sprite2D" type="Sprite2D" parent="Vehicle"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("8_boat")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vehicle"]
+shape = SubResource("CapsuleShape2D_vehicle")
 
 [node name="WakeParticles" type="GPUParticles2D" parent="Vehicle"]
 emitting = false
@@ -106,7 +120,7 @@ amount = 20
 lifetime = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Vehicle"]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(1.0, 1.0)
 position_smoothing_enabled = true
 position_smoothing_speed = 5.0
 drag_horizontal_enabled = true
@@ -121,47 +135,56 @@ script = ExtResource("6_vsm")
 
 [node name="DiveSpot1" type="Area2D" parent="."]
 position = Vector2(200, -200)
-collision_layer = 0
+collision_layer = 16
 collision_mask = 2
+monitoring = true
+monitorable = true
 script = ExtResource("3_dive")
 biome = "shallow"
 spot_name = "Coral Shallows"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot1"]
+shape = SubResource("CircleShape2D_dive1")
 
 [node name="DiveSpot2" type="Area2D" parent="."]
 position = Vector2(-500, 100)
-collision_layer = 0
+collision_layer = 16
 collision_mask = 2
+monitoring = true
+monitorable = true
 script = ExtResource("3_dive")
 biome = "shallow"
 spot_name = "Sandy Reef"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot2"]
+shape = SubResource("CircleShape2D_dive2")
 
 [node name="DiveSpot3" type="Area2D" parent="."]
 position = Vector2(400, 600)
-collision_layer = 0
+collision_layer = 16
 collision_mask = 2
+monitoring = true
+monitorable = true
 script = ExtResource("3_dive")
 biome = "deep"
 spot_name = "The Abyss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot3"]
+shape = SubResource("CircleShape2D_dive3")
 
 [node name="HubReturnZone" type="Area2D" parent="."]
 position = Vector2(0, 300)
-collision_layer = 0
+collision_layer = 16
 collision_mask = 2
+monitoring = true
+monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HubReturnZone"]
+shape = SubResource("RectangleShape2D_hub")
 
-[node name="Marker" type="ColorRect" parent="HubReturnZone"]
-offset_left = -30.0
-offset_top = -20.0
-offset_right = 30.0
-offset_bottom = 20.0
+[node name="Marker" type="Polygon2D" parent="HubReturnZone"]
 color = Color(0.9, 0.7, 0.3, 0.5)
+polygon = PackedVector2Array(-30, -20, 30, -20, 30, 20, -30, 20)
 
 [node name="Label" type="Label" parent="HubReturnZone"]
 offset_left = -30.0

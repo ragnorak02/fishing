@@ -50,6 +50,9 @@ func _fire_pulse() -> void:
 	pulse_timer = PULSE_DURATION
 	sonar_range = BASE_RANGE * GameManager.get_sonar_multiplier()
 	sonar_pulsed.emit(get_parent().global_position, sonar_range)
+	var am = get_node_or_null("/root/AchievementManager")
+	if am:
+		am.notify_sonar_pulse()
 
 func can_pulse() -> bool:
 	return is_active and cooldown_timer <= 0

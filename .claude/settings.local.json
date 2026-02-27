@@ -14,7 +14,15 @@
       "Bash(\"Z:/Godot/Godot_v4.6-stable_win64.exe\":*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(start \"\" \"Z:/Development/Games/fishing/status.html\")",
+      "Bash(git -C \"Z:/Development/Games/fishing\" log --oneline -20)",
+      "Bash(git mv:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(cd /z/Development/amatris/fishing && /z/godot/godot.exe --path . --headless --quit-after 1 2>&1)",
+      "Bash(Z:/godot/godot.exe:*)"
     ]
   }
 }

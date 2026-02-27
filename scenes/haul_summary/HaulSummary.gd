@@ -129,10 +129,12 @@ func _check_empty() -> void:
 func _on_return_sea() -> void:
 	# Clear remaining haul (discard unsorted fish)
 	Inventory.clear_haul()
+	SaveManager.save_game()
 	GameManager.transition_to("res://scenes/ocean_surface/OceanSurface.tscn")
 
 func _on_return_town() -> void:
 	Inventory.clear_haul()
+	SaveManager.save_game()
 	GameManager.transition_to("res://scenes/hub_town/HubTown.tscn")
 
 func _update_gold_display() -> void:

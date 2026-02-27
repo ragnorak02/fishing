@@ -12,18 +12,20 @@ const DRIFT_DAMP := 0.92
 const ROTATION_SPEED := 3.0
 const BOUNCE_FACTOR := 0.4
 
+
 func enter() -> void:
 	# Enable wake particles
 	var wake: GPUParticles2D = vehicle.get_node_or_null("WakeParticles")
 	if wake:
 		wake.emitting = false  # Will be controlled by physics
 
-	# Swap to surface collision shape
+	# Swap to surface collision shape only if needed (avoid resetting physics overlaps)
 	var col: CollisionShape2D = vehicle.get_node("CollisionShape2D")
-	var capsule := CapsuleShape2D.new()
-	capsule.radius = 10.0
-	capsule.height = 30.0
-	col.shape = capsule
+	if col.shape == null or not col.shape is CapsuleShape2D or col.shape.radius != 25.0 or col.shape.height != 75.0:
+		var capsule := CapsuleShape2D.new()
+		capsule.radius = 25.0
+		capsule.height = 75.0
+		col.shape = capsule
 
 	# Apply surface placeholder visuals
 	vehicle.apply_surface_visuals()

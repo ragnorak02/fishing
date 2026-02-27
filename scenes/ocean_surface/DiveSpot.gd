@@ -7,11 +7,11 @@ func _ready() -> void:
 	add_to_group("dive_spots")
 	set_meta("biome", biome)
 
-	# Set up collision shape
+	# Set up collision shape — large radius so the boat can sail into it easily
 	var col: CollisionShape2D = $CollisionShape2D
 	if col.shape == null:
 		var circle := CircleShape2D.new()
-		circle.radius = 40.0
+		circle.radius = 80.0
 		col.shape = circle
 
 	# Animated glow effect

@@ -1,12 +1,70 @@
 extends Node
 
-# Phase 1 stub — will add music/SFX bus management later
+const MUSIC_TRACKS := {
+	"ocean_surface": "res://assets/audio/music/ocean_surface.ogg",
+	"hub_town": "res://assets/audio/music/hub_town.ogg",
+	"dive": "res://assets/audio/music/dive.ogg",
+	"main_menu": "res://assets/audio/music/main_menu.ogg",
+}
 
-func play_sfx(_sfx_name: String) -> void:
-	pass
+const SFX_SOUNDS := {
+	"harpoon_miss": "res://assets/audio/sfx/harpoon_miss.ogg",
+	"catch": "res://assets/audio/sfx/catch.ogg",
+	"upgrade": "res://assets/audio/sfx/upgrade.ogg",
+	"sonar_pulse": "res://assets/audio/sfx/sonar_pulse.ogg",
+	"sell": "res://assets/audio/sfx/sell.ogg",
+	"achievement": "res://assets/audio/sfx/achievement.ogg",
+}
 
-func play_music(_track_name: String) -> void:
-	pass
+const SFX_POOL_SIZE := 8
+
+var volume_master: float = 1.0
+var volume_music: float = 0.8
+var volume_sfx: float = 1.0
+
+var _music_player: AudioStreamPlayer
+var _sfx_pool: Array[AudioStreamPlayer] = []
+var _sfx_index: int = 0
+var _current_music_track: String = ""
+
+func _ready() -> void:
+	_music_player = AudioStreamPlayer.new()
+	_music_player.bus = "Master"
+	add_child(_music_player)
+
+	for i in SFX_POOL_SIZE:
+		var player := AudioStreamPlayer.new()
+		player.bus = "Master"
+		add_child(player)
+		_sfx_pool.append(player)
+
+func play_music(track: String) -> void:
+	if track == _current_music_track and _music_player.playing:
+		return
+	_current_music_track = track
+	var path: String = MUSIC_TRACKS.get(track, "")
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return
+	var stream = load(path)
+	if stream == null:
+		return
+	_music_player.stream = stream
+	_music_player.volume_db = linear_to_db(volume_master * volume_music)
+	_music_player.play()
 
 func stop_music() -> void:
-	pass
+	_music_player.stop()
+	_current_music_track = ""
+
+func play_sfx(sfx_name: String) -> void:
+	var path: String = SFX_SOUNDS.get(sfx_name, "")
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return
+	var stream = load(path)
+	if stream == null:
+		return
+	var player := _sfx_pool[_sfx_index]
+	player.stream = stream
+	player.volume_db = linear_to_db(volume_master * volume_sfx)
+	player.play()
+	_sfx_index = (_sfx_index + 1) % SFX_POOL_SIZE

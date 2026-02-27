@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/entities/Harpoon.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/harpoon.svg" id="2_tex"]
+
+[node name="Harpoon" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+scale = Vector2(0.5, 0.5)
+
+[node name="BubbleTrail" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 6
+lifetime = 0.3
+direction = Vector2(-1, 0)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color = Color(0.6, 0.85, 1.0, 0.4)

@@ -16,7 +16,10 @@ const HARPOON_COOLDOWN_TIME := 0.5
 
 const DIVE_BOUNDS := Rect2(-800, -100, 1600, 1200)
 
+var _harpoon_scene: PackedScene = preload("res://scenes/entities/harpoon.tscn")
+
 func _ready() -> void:
+	AudioManager.play_music("dive")
 	dive_start_time = Time.get_ticks_msec() / 1000.0
 	surface_prompt.visible = false
 
@@ -41,6 +44,9 @@ func _ready() -> void:
 	# Create boundaries
 	_create_boundaries()
 
+	# Create terrain colliders so diver can't clip through floor/rocks/coral
+	_create_terrain_colliders()
+
 	# Add diver to group
 	diver.add_to_group("diver")
 
@@ -48,6 +54,8 @@ func _ready() -> void:
 
 	# Ambient underwater bubbles
 	_create_ambient_bubbles()
+
+	print("[DiveScene] Ready — diver at ", diver.global_position, " | fish_spawner biome: ", fish_spawner.biome)
 
 func _create_boundaries() -> void:
 	var bounds := $Boundaries as StaticBody2D
@@ -65,6 +73,30 @@ func _create_boundaries() -> void:
 		col.position = wall_data[0]
 		bounds.add_child(col)
 
+func _create_terrain_colliders() -> void:
+	var terrain_nodes := ["SeaFloor", "CoralLeft", "CoralCenter", "CoralRight", "RockLeft", "RockRight"]
+	for node_name in terrain_nodes:
+		var rect_node := get_node_or_null(node_name) as ColorRect
+		if rect_node == null:
+			continue
+		var left := rect_node.offset_left
+		var top := rect_node.offset_top
+		var right := rect_node.offset_right
+		var bottom := rect_node.offset_bottom
+		var size := Vector2(right - left, bottom - top)
+		var center := Vector2((left + right) / 2.0, (top + bottom) / 2.0)
+
+		var body := StaticBody2D.new()
+		body.collision_layer = 1
+		body.collision_mask = 0
+		var col := CollisionShape2D.new()
+		var shape := RectangleShape2D.new()
+		shape.size = size
+		col.shape = shape
+		body.add_child(col)
+		body.position = center
+		rect_node.add_child(body)
+
 func _process(delta: float) -> void:
 	# Harpoon firing
 	harpoon_cooldown -= delta
@@ -76,14 +108,13 @@ func _process(delta: float) -> void:
 	if near_surface and Input.is_action_just_pressed("interact"):
 		_end_dive()
 
-	# Update depth display
-	var depth := max(0, diver.global_position.y / 10.0)
-	depth_label.text = "Depth: %.1fm" % depth
+	# Update depth display (positive Y = deeper)
+	if is_instance_valid(diver):
+		var depth := maxf(0.0, diver.global_position.y / 10.0)
+		depth_label.text = "Depth: %.1fm" % depth
 
 func _fire_harpoon() -> void:
-	var harpoon_script = load("res://scripts/entities/Harpoon.gd")
-	var harpoon := Area2D.new()
-	harpoon.set_script(harpoon_script)
+	var harpoon := _harpoon_scene.instantiate() as Area2D
 
 	var mouse_pos := diver.get_global_mouse_position()
 	var direction := (mouse_pos - diver.global_position).normalized()
@@ -92,10 +123,10 @@ func _fire_harpoon() -> void:
 	harpoon.rotation = direction.angle()
 
 	harpoon.fish_hit.connect(_on_harpoon_hit)
-	harpoon.missed.connect(_on_harpoon_missed)
+	harpoon.missed.connect(_on_harpoon_missed.bind(harpoon))
 
+	harpoon.position = diver.global_position + direction * 15.0
 	add_child(harpoon)
-	harpoon.global_position = diver.global_position + direction * 15.0
 
 func _on_harpoon_hit(fish: Node2D) -> void:
 	if fish.has_meta("species_id"):
@@ -111,8 +142,38 @@ func _on_harpoon_hit(fish: Node2D) -> void:
 
 	fish.queue_free()
 
-func _on_harpoon_missed() -> void:
-	pass  # Could add miss feedback
+func _on_harpoon_missed(harpoon_node: Node2D) -> void:
+	var pos := harpoon_node.global_position if is_instance_valid(harpoon_node) else diver.global_position
+
+	# Splash particles
+	var splash := CPUParticles2D.new()
+	splash.emitting = true
+	splash.one_shot = true
+	splash.amount = 8
+	splash.lifetime = 0.5
+	splash.explosiveness = 0.9
+	splash.direction = Vector2(0, -1)
+	splash.spread = 120.0
+	splash.gravity = Vector2(0, -15)
+	splash.initial_velocity_min = 20.0
+	splash.initial_velocity_max = 45.0
+	splash.scale_amount_min = 0.8
+	splash.scale_amount_max = 2.0
+	splash.color = Color(0.3, 0.7, 0.8, 0.5)
+	add_child(splash)
+	splash.global_position = pos
+	get_tree().create_timer(1.0).timeout.connect(splash.queue_free)
+
+	# SFX
+	AudioManager.play_sfx("harpoon_miss")
+
+	# Brief rumble
+	Input.start_joy_vibration(0, 0.3, 0.1, 0.15)
+
+	# Red flash on diver
+	var tween := create_tween()
+	tween.tween_property(diver, "modulate", Color(1, 0.4, 0.4), 0.1)
+	tween.tween_property(diver, "modulate", Color(1, 1, 1), 0.2)
 
 func _spawn_catch_effect(pos: Vector2) -> void:
 	# Floating text

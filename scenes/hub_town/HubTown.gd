@@ -9,6 +9,7 @@ var nearby_npc: Node2D = null
 var nearby_exit: bool = false
 
 func _ready() -> void:
+	AudioManager.play_music("hub_town")
 	hud.set_location("Umi-no-Machi Harbor")
 	interact_prompt.visible = false
 

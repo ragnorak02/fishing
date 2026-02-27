@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "gameId": "fishing",
   "title": "Isles of the Blue Current",
-  "lastUpdated": "2026-02-18T00:00:00Z",
+  "lastUpdated": "2026-02-26T18:21Z",
   "health": {
-    "progressPercent": 25,
-    "buildVersion": "0.1.0",
+    "progressPercent": 47,
+    "buildVersion": "0.2.0",
     "assetStage": "placeholder"
   },
   "tech": {
@@ -15,17 +15,17 @@
     "graphicsType": "2D"
   },
   "features": {
-    "controllerSupport": "partial",
-    "achievementsSystem": "partial",
-    "testScripts": "partial",
-    "saveSystem": "missing",
+    "controllerSupport": "implemented",
+    "achievementsSystem": "implemented",
+    "testScripts": "implemented",
+    "saveSystem": "implemented",
     "settingsMenu": "missing",
-    "audio": "missing",
+    "audio": "implemented",
     "vfx": "partial"
   },
   "milestones": {
     "firstGraphicsPass": true,
-    "controllerIntegration": false,
+    "controllerIntegration": true,
     "coreGameplayLoop": true,
     "verticalSlice": false,
     "contentComplete": false,
@@ -33,9 +33,9 @@
   },
   "testing": {
     "testCommand": "tests/run-tests.bat",
-    "lastRunAt": null,
-    "status": "unknown",
-    "notes": "Partial test coverage"
+    "lastRunAt": "2026-02-26T18:21Z",
+    "status": "pass",
+    "notes": "7 test modules: core logic, fish data, inventory, scenes, assets, achievements, save/load — 197 passed, 1 failed (pre-existing test_assets parse error)"
   },
   "links": {
     "repo": null,

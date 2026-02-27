@@ -42,40 +42,37 @@ func _spawn_fish() -> void:
 		randf_range(spawn_bounds.position.y, spawn_bounds.position.y + spawn_bounds.size.y)
 	)
 
-	get_parent().add_child(fish)
+	get_parent().add_child.call_deferred(fish)
 	active_fish.append(fish)
 
 func _create_fish_node(species: FishSpecies) -> CharacterBody2D:
-	# Create fish programmatically
 	var fish := CharacterBody2D.new()
 	fish.name = "Fish_" + species.id + "_" + str(randi())
 
-	# Add sprite
+	# Attach script BEFORE adding children so @onready vars resolve
+	var script = load("res://scripts/entities/FishAI.gd")
+	fish.set_script(script)
+
+	# Set metadata before node enters tree (FishAI._ready() reads these)
+	fish.set_meta("species_id", species.id)
+	fish.set_meta("species", species)
+	fish.set_meta("spawn_bounds", spawn_bounds)
+
+	# Add children after script is set
 	var sprite := Sprite2D.new()
 	sprite.name = "Sprite2D"
 	fish.add_child(sprite)
 
-	# Add collision shape
 	var col := CollisionShape2D.new()
 	col.name = "CollisionShape2D"
 	fish.add_child(col)
 
-	# Add hitbox area
 	var hitbox := Area2D.new()
 	hitbox.name = "Hitbox"
 	var hitbox_col := CollisionShape2D.new()
 	hitbox_col.name = "CollisionShape2D"
 	hitbox.add_child(hitbox_col)
 	fish.add_child(hitbox)
-
-	# Attach FishAI script
-	var script = load("res://scripts/entities/FishAI.gd")
-	fish.set_script(script)
-
-	# Store species data for later setup
-	fish.set_meta("species_id", species.id)
-	fish.set_meta("species", species)
-	fish.set_meta("spawn_bounds", spawn_bounds)
 
 	return fish
 

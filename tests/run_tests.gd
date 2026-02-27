@@ -9,6 +9,9 @@ const TEST_MODULES := [
 	"res://tests/test_inventory.gd",
 	"res://tests/test_scenes.gd",
 	"res://tests/test_assets.gd",
+	"res://tests/test_achievements.gd",
+	"res://tests/test_save_load.gd",
+	"res://tests/test_ocean_interaction.gd",
 ]
 
 func _init() -> void:
@@ -18,8 +21,8 @@ func _init() -> void:
 	var all_details := []
 
 	for module_path in TEST_MODULES:
-		var script: GDScript = load(module_path)
-		if script == null:
+		var script = load(module_path)
+		if script == null or not script.can_instantiate():
 			total_failed += 1
 			all_details.append({
 				"name": module_path.get_file(),
@@ -28,7 +31,16 @@ func _init() -> void:
 			})
 			continue
 
-		var instance: RefCounted = script.new()
+		var instance = script.new()
+		if instance == null:
+			total_failed += 1
+			all_details.append({
+				"name": module_path.get_file(),
+				"status": "fail",
+				"message": "Failed to instantiate test module",
+			})
+			continue
+
 		var result: Dictionary = instance.run_tests()
 
 		total_passed += result.get("passed", 0)

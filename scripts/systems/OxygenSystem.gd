@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		return
 
 	current_oxygen -= delta
-	current_oxygen = max(current_oxygen, 0.0)
+	current_oxygen = maxf(current_oxygen, 0.0)
 	oxygen_changed.emit(current_oxygen, max_oxygen)
 
 	if current_oxygen <= 0.0:

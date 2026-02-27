@@ -8,15 +8,19 @@ signal mode_changed(mode: int)
 signal throttle_changed(throttle: float)
 
 func _ready() -> void:
-	# Load boat sprite
-	$Sprite2D.texture = preload("res://assets/sprites/boat/boat.svg")
+	# Ensure boat sprite is loaded (scene should set it, this is a fallback)
+	if $Sprite2D.texture == null:
+		$Sprite2D.texture = preload("res://assets/sprites/boat/boat.svg")
+	if $Sprite2D.texture == null:
+		push_warning("VehicleController: boat texture failed to load — creating placeholder")
+		_create_placeholder_visual()
 
-	# Set up collision shape (surface default)
+	# Set up collision shape (surface default — sized to match 2.5x sprite scale)
 	var col: CollisionShape2D = $CollisionShape2D
 	if col.shape == null:
 		var capsule := CapsuleShape2D.new()
-		capsule.radius = 10.0
-		capsule.height = 30.0
+		capsule.radius = 25.0
+		capsule.height = 75.0
 		col.shape = capsule
 
 	# Init systems (children added in scene or created here)
@@ -81,6 +85,14 @@ func _on_mode_changed(mode: VehicleStateMachine.Mode) -> void:
 	mode_changed.emit(mode)
 	GameManager.set_vehicle_mode(mode)
 
+func _physics_process(delta: float) -> void:
+	if state_machine and not state_machine.is_transforming and state_machine.current_state:
+		state_machine.current_state.physics_process(delta)
+
+func _process(delta: float) -> void:
+	if state_machine and not state_machine.is_transforming and state_machine.current_state:
+		state_machine.current_state.process(delta)
+
 func get_current_mode() -> VehicleStateMachine.Mode:
 	return state_machine.current_mode
 
@@ -97,3 +109,27 @@ func apply_surface_visuals() -> void:
 
 func apply_submerged_visuals() -> void:
 	$Sprite2D.modulate = Color(0.5, 0.6, 0.8)
+
+# --- Fallback placeholder (if SVG fails to load) ---
+
+func _create_placeholder_visual() -> void:
+	var hull := ColorRect.new()
+	hull.name = "HullRect"
+	hull.size = Vector2(40, 80)
+	hull.position = Vector2(-20, -40)
+	hull.color = Color(0.55, 0.35, 0.2)
+	add_child(hull)
+
+	var deck := ColorRect.new()
+	deck.name = "DeckRect"
+	deck.size = Vector2(25, 50)
+	deck.position = Vector2(-12.5, -25)
+	deck.color = Color(0.75, 0.55, 0.35)
+	add_child(deck)
+
+	var bow := ColorRect.new()
+	bow.name = "BowRect"
+	bow.size = Vector2(15, 15)
+	bow.position = Vector2(-7.5, -45)
+	bow.color = Color(0.9, 0.9, 0.9)
+	add_child(bow)

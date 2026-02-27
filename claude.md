@@ -1,86 +1,332 @@
-# Isles of the Blue Current — Project Intelligence
+# ISLES OF THE BLUE CURRENT
+AMARIS Development Specification
 
-## Project Overview
-- **Engine:** Godot 4.6 (GL Compatibility renderer)
-- **Genre:** 2D fishing adventure, Okinawa-inspired
-- **Viewport:** 1280x720, stretch mode `canvas_items`
-- **Godot path:** `Z:/Godot/Godot_v4.6-stable_win64.exe`
+Engine: Godot 4.6  
+Platform: PC  
+Renderer: 2D (GL Compatibility)  
+Genre: Fishing Adventure  
+Studio: AMARIS  
+Controller Required: Yes (Xbox + Keyboard)
 
-## Architecture
+---
 
-### Scene-per-Mode Pattern
-| Scene | Path | Purpose |
-|-------|------|---------|
-| MainMenu | `scenes/main_menu/MainMenu.tscn` | Title screen with wave animation |
-| HubTown | `scenes/hub_town/HubTown.tscn` | Harbor: NPCs, sell, upgrade |
-| OceanSurface | `scenes/ocean_surface/OceanSurface.tscn` | Open-sea vehicle gameplay + dive spots |
-| DiveScene | `scenes/dive_scene/DiveScene.tscn` | Underwater: fish, harpoon, O2 |
-| HaulSummary | `scenes/haul_summary/HaulSummary.tscn` | Catch review, sell/keep UI |
-| SceneTransition | `scenes/transitions/SceneTransition.tscn` | Fade overlay (autoload) |
+# AMARIS Studio Rules (Non-Negotiable)
 
-### Autoloads (project.godot singletons)
-- **GameManager** — state machine, vehicle mode, upgrade multipliers, scene transitions
-- **Inventory** — gold, haul array, sell/keep logic
-- **AudioManager** — **STUB** (Phase 1 placeholder, no audio yet)
-- **SceneTransition** — fade-in/out animation
-- **ControlsOverlay** — context-sensitive input hints
+- project_status.json is the single source of truth.
+- CLAUDE.md defines structure and checkpoints only.
+- Dashboard reads JSON only.
+- Do NOT duplicate completion percentages here.
+- All major systems must be testable.
+- Debug flags default false.
+- Never delete checklist items — mark N/A if unused.
 
-### Static Classes (class_name, NOT autoloads)
-- **FishDatabase** — lazy-loads 10 .tres fish species, weighted random by biome
-- **FishSpecies** — custom Resource (weight, rarity, sushi-grade, biome, value)
-- **EconomySystem** — fish value calculation with bonuses
-- **UpgradeSystem** — 6 tracks x 3 levels, costs, static getters/setters
+Launcher Contract:
+- game.config.json must remain valid.
+- testCommand must execute without manual steps.
+- ISO8601 minute precision timestamps.
 
-### Vehicle System (`scripts/vehicle/`)
-- **VehicleController** — CharacterBody2D, owns all subsystems
-- **VehicleStateMachine** — Mode enum (SURFACE, SUBMERGED, AIR), animated transforms
-- **States:** SurfaceState (complete), SubmergedState (complete), AirState (stub)
-- **Systems:** BatterySystem, DepthSystem, DurabilitySystem, SonarSystem, MountedHarpoon
+---
 
-### Key Conventions
-- All collision shapes are set up programmatically in `_ready()` (not in .tscn)
-- Placeholder visuals created programmatically when no texture is assigned
-- NPC interaction: body_entered signal → parent HubTown methods
-- Scene transitions: `GameManager.transition_to()` with debounce flag
-- Fish spawning: FishSpawner creates CharacterBody2D with FishAI + metadata
-- UI: CanvasLayer for screen-space, world-space Labels for in-game markers
+# Godot Execution Contract (MANDATORY)
 
-### Physics Layers
-| Layer | Name |
-|-------|------|
-| 1 | environment |
-| 2 | player |
-| 3 | fish |
-| 4 | harpoon |
-| 5 | interaction |
+Godot installed at:
 
-### Input Actions
-`move_up/down/left/right` (WASD + arrows + gamepad), `interact` (E), `boost` (Shift),
-`fire_harpoon` (LMB), `transform_vehicle` (R), `cast_line` (F), `ascend` (E),
-`descend` (Q), `sonar_pulse` (Space), `pause` (Esc)
+Z:/godot
 
-## Current Repo State (Auto-Detected)
+Claude MUST use:
 
-- **Phase 1 core loop complete:** Hub → Sail → Dive → Catch → Haul → Sell → Upgrade → Repeat
-- **AudioManager is a stub** — 3 empty methods, marked "Phase 1 stub" (no .ogg/.wav/.mp3 files exist)
-- **AirState is a stub** — pushes warning and falls back to SurfaceState immediately
-- **All 23 SVG assets are placeholders** — every sprite has a programmatic ColorRect fallback
-- **No test files exist** — no `tests/` directory, no `*test*.gd`, no CI/CD
-- **No README.md** — only CREDITS.md exists (fonts and audio marked TBD)
-- **Zero TODO/FIXME comments** in codebase — clean code discipline
-- **DiveScene._on_harpoon_missed()** is a `pass` stub (comment: "Could add miss feedback")
-- **No secrets or credentials found** — clean security posture
-- **75 tracked files:** 36 .gd, 6 .tscn, 10 .tres, 23 .svg, 2 .gdshader, 2 config, 1 .md
-- **Achievement system:** 15 achievements defined in `achievements.json` (infrastructure only, no unlock logic yet)
+Z:/godot/godot.exe
 
-## Achievement System
-- **Data:** `achievements.json` — 15 achievements, 490 total points
-- **Contract:** `achievements_integration.md` — menu tab, unlock flow, toast spec
-- **Dashboard:** `status.html` loads achievements.json and renders progress + recent unlocks
-- **Safe update rules:** append-only, never reset unlocked, always recalculate meta totals
-- **Implementation:** No `AchievementManager` autoload exists yet — contract only
+Never assume PATH.
+Never use local Downloads path.
+Never reinstall engine.
 
-## Workflow Commands
-- **"Where are we?"** → Read `status.html` for visual dashboard, or check this section
-- **"Please commit everything"** → Triggers hardened checkpoint (secret scan → stage → commit → push)
-- See `git_workflow.md` for full checkpoint protocol
+Headless boot:
+Z:/godot/godot.exe --path . --headless --quit-after 1
+
+Headless test runner:
+Z:/godot/godot.exe --path . --headless --scene res://tests/test_runner.tscn
+
+If adding new class_name scripts:
+Z:/godot/godot.exe --path . --headless --import
+
+---
+
+# Project Overview
+
+Okinawa-inspired 2D fishing adventure.
+
+Core Loop:
+
+Hub Town  
+→ Sail Ocean  
+→ Dive  
+→ Catch  
+→ Surface  
+→ Haul Summary  
+→ Sell / Keep  
+→ Upgrade  
+→ Repeat  
+
+Core Pillars:
+- Exploration
+- Real-time fish hunting
+- Upgrade-driven progression
+- Transforming vehicle modes
+
+---
+
+# Architecture Summary
+
+Scene-per-mode pattern:
+
+MainMenu  
+HubTown  
+OceanSurface  
+DiveScene  
+HaulSummary  
+
+Autoloads:
+GameManager  
+Inventory  
+AudioManager (stub)  
+SceneTransition  
+ControlsOverlay  
+
+Static Systems:
+FishDatabase  
+EconomySystem  
+UpgradeSystem  
+
+Vehicle Modes:
+Surface (complete)  
+Submerged (complete)  
+Air (stub)
+
+---
+
+# Structured Development Checklist
+AMARIS STANDARD — 85 Checkpoints
+
+---
+
+## Macro Phase 1 — Foundation (1–10)
+
+- [x] 1. Repo standardized
+- [x] 2. Scene-per-mode architecture
+- [x] 3. VehicleStateMachine implemented
+- [x] 4. Surface mode functional
+- [x] 5. Submerged mode functional
+- [ ] 6. Air mode implemented
+- [x] 7. Inventory gold system
+- [x] 8. UpgradeSystem implemented
+- [ ] 9. Version visible in UI
+- [ ] 10. Logging standardization
+
+---
+
+## Macro Phase 2 — Core Gameplay Loop (11–20)
+
+- [x] 11. Hub → Ocean transition
+- [x] 12. Dive spot detection
+- [x] 13. FishSpawner system
+- [x] 14. FishAI behavior
+- [x] 15. Harpoon firing system
+- [x] 16. Catch logic
+- [x] 17. Haul summary screen
+- [x] 18. Sell / Keep logic
+- [x] 19. Upgrade purchase logic
+- [ ] 20. Harpoon miss feedback
+
+---
+
+## Macro Phase 3 — Fish & Economy Systems (21–30)
+
+- [x] 21. 10 fish species loaded
+- [x] 22. Biome-weighted spawning
+- [x] 23. Sushi-grade tagging
+- [x] 24. Legendary rarity tier
+- [x] 25. EconomySystem value calculation
+- [ ] 26. Species discovery tracking
+- [ ] 27. Fish encyclopedia UI
+- [ ] 28. Dynamic fish scaling
+- [ ] 29. Market fluctuation system
+- [ ] 30. Special event fish
+
+---
+
+## Macro Phase 4 — Achievements (31–45)
+
+Source: achievements.json
+
+IDs:
+first_catch  
+catch_10  
+catch_50  
+sushi_grade  
+catch_legendary  
+all_species  
+first_sale  
+earn_500_gold  
+earn_2000_gold  
+first_upgrade  
+max_upgrade_track  
+all_upgrades_max  
+first_dive  
+first_transform  
+sonar_pulse  
+
+- [ ] 31. first_catch hook
+- [ ] 32. catch_10 tracking
+- [ ] 33. catch_50 tracking
+- [ ] 34. sushi_grade hook
+- [ ] 35. catch_legendary hook
+- [ ] 36. all_species tracking
+- [ ] 37. first_sale hook
+- [ ] 38. earn_500_gold tracking
+- [ ] 39. earn_2000_gold tracking
+- [ ] 40. first_upgrade hook
+- [ ] 41. max_upgrade_track hook
+- [ ] 42. all_upgrades_max hook
+- [ ] 43. first_dive hook
+- [ ] 44. first_transform hook
+- [ ] 45. sonar_pulse hook
+
+Toast queue required.
+Never reset unlocked flags.
+
+---
+
+## Macro Phase 5 — Save & Persistence (46–55)
+
+- [ ] 46. Save system implemented
+- [ ] 47. Continue menu condition
+- [ ] 48. Gold persistence
+- [ ] 49. Upgrade persistence
+- [ ] 50. Species caught persistence
+- [ ] 51. Achievement persistence
+- [ ] 52. Save migration support
+- [ ] 53. Auto-save after haul
+- [ ] 54. Load validation test
+- [ ] 55. Save corruption handling
+
+---
+
+## Macro Phase 6 — Audio & Atmosphere (56–65)
+
+- [ ] 56. AudioManager implemented
+- [ ] 57. Surface music
+- [ ] 58. Dive ambience
+- [ ] 59. Catch SFX
+- [ ] 60. Upgrade SFX
+- [ ] 61. Sonar pulse SFX
+- [ ] 62. Weather ambience
+- [ ] 63. Particle polish pass
+- [ ] 64. Real art asset swap
+- [ ] 65. Final VFX polish
+
+---
+
+## Macro Phase 7 — Expansion Systems (66–75)
+
+- [ ] 66. Air vehicle mode
+- [ ] 67. New islands
+- [ ] 68. Weather system
+- [ ] 69. Quest system
+- [ ] 70. Story NPCs
+- [ ] 71. Multiplayer architecture draft
+- [ ] 72. Deep-sea biome
+- [ ] 73. Rare event system
+- [ ] 74. Time-of-day cycle
+- [ ] 75. Boss fish encounter
+
+---
+
+## Macro Phase 8 — Testing & Automation (76–85)
+
+- [x] 76. Test runner implemented
+- [x] 77. test_results.json contract
+- [x] 78. Catch logic regression tests
+- [x] 79. Economy regression tests
+- [x] 80. Upgrade regression tests
+- [ ] 81. Achievement regression tests
+- [ ] 82. Save/load regression tests
+- [ ] 83. Performance baseline
+- [ ] 84. Launcher compliance verified
+- [ ] 85. Release candidate checklist
+
+---
+
+# Debug Flags
+
+Must exist:
+
+- DEBUG_VEHICLE
+- DEBUG_FISH
+- DEBUG_ECONOMY
+- DEBUG_UPGRADES
+- DEBUG_ACHIEVEMENTS
+
+All default false.
+
+---
+
+# Automation Contract
+
+After major updates:
+
+1. Update project_status.json:
+   - macroPhase
+   - subphaseIndex
+   - completionPercent
+   - timestamps
+   - testStatus
+
+2. Run headless boot:
+Z:/godot/godot.exe --path . --headless --quit-after 1
+
+3. Run test suite (when implemented).
+4. Commit.
+5. Push.
+
+Launcher depends on this.
+
+---
+
+# Current Focus
+
+Current Goal:
+Current Task:
+Work Mode:
+Next Milestone:
+
+---
+
+# Known Gaps
+
+- AchievementManager not implemented
+- No Save system
+- AudioManager stub
+- Air vehicle mode stub
+- Harpoon miss feedback missing
+- Debug flags (DEBUG_VEHICLE, etc.) not defined in codebase
+- No version display in game UI
+- Species discovery tracking not implemented
+- Fish encyclopedia UI not implemented
+
+---
+
+# Long-Term Vision
+
+Isles of the Blue Current should evolve into:
+
+- Multi-region ocean world
+- Rare dynamic weather
+- Legendary boss fish hunts
+- Fully atmospheric Okinawa-inspired audio/visual experience
+- Expedition system
+- Upgrade mastery progression
+
+---
+
+END OF FILE
