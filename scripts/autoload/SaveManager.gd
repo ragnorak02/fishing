@@ -1,7 +1,7 @@
 extends Node
 
 const SAVE_PATH := "user://save_data.json"
-const CURRENT_SAVE_VERSION := 1
+const CURRENT_SAVE_VERSION := 2
 
 var total_catches: int = 0
 var total_gold_earned: int = 0
@@ -93,6 +93,7 @@ func _build_save_data() -> Dictionary:
 	var am = get_node_or_null("/root/AchievementManager")
 	if am and am.has_method("get_save_state"):
 		achievement_state = am.get_save_state()
+	var tm = get_node_or_null("/root/TimeManager")
 	return {
 		"save_version": CURRENT_SAVE_VERSION,
 		"gold": Inventory.gold,
@@ -104,6 +105,10 @@ func _build_save_data() -> Dictionary:
 			"total_catches": total_catches,
 			"total_gold_earned": total_gold_earned,
 		},
+		"active_menu": Inventory.active_menu.duplicate(),
+		"unlocked_recipes": Inventory.unlocked_recipes.duplicate(),
+		"current_day": tm.current_day if tm else 1,
+		"current_time": tm.current_time if tm else 0,
 	}
 
 func _apply_save_data(data: Dictionary) -> void:
@@ -127,6 +132,21 @@ func _apply_save_data(data: Dictionary) -> void:
 	total_catches = stats.get("total_catches", 0)
 	total_gold_earned = stats.get("total_gold_earned", 0)
 
+	# v2 fields: recipes and time
+	var menu_data = data.get("active_menu", [])
+	Inventory.active_menu.clear()
+	for item in menu_data:
+		Inventory.active_menu.append(str(item))
+	var recipe_data = data.get("unlocked_recipes", [])
+	Inventory.unlocked_recipes.clear()
+	for item in recipe_data:
+		Inventory.unlocked_recipes.append(str(item))
+
+	var tm = get_node_or_null("/root/TimeManager")
+	if tm:
+		tm.current_day = data.get("current_day", 1)
+		tm.current_time = data.get("current_time", 0) as TimeManager.TimeOfDay
+
 func _apply_defaults() -> void:
 	total_catches = 0
 	total_gold_earned = 0
@@ -149,4 +169,15 @@ func _migrate(data: Dictionary, from_version: int) -> Dictionary:
 		if not data.has("species_caught"):
 			data["species_caught"] = []
 		data["save_version"] = 1
+	if from_version < 2:
+		# v1 -> v2: add recipe/menu/time fields
+		if not data.has("active_menu"):
+			data["active_menu"] = []
+		if not data.has("unlocked_recipes"):
+			data["unlocked_recipes"] = []
+		if not data.has("current_day"):
+			data["current_day"] = 1
+		if not data.has("current_time"):
+			data["current_time"] = 0
+		data["save_version"] = 2
 	return data

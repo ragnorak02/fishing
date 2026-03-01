@@ -24,6 +24,7 @@ AudioManager="*res://scripts/autoload/AudioManager.gd"
 SceneTransition="*res://scenes/transitions/SceneTransition.tscn"
 ControlsOverlay="*res://scripts/ui/ControlsOverlay.gd"
 DebugFlags="*res://scripts/autoload/DebugFlags.gd"
+TimeManager="*res://scripts/autoload/TimeManager.gd"
 SaveManager="*res://scripts/autoload/SaveManager.gd"
 AchievementManager="*res://scripts/autoload/AchievementManager.gd"
 

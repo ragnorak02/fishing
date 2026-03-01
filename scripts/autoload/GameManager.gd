@@ -1,6 +1,6 @@
 extends Node
 
-enum GameState { MAIN_MENU, HUB_TOWN, OCEAN_SURFACE, DIVING, HAUL_SUMMARY }
+enum GameState { MAIN_MENU, HUB_TOWN, OCEAN_SURFACE, DIVING, HAUL_SUMMARY, RESTAURANT, DINNER_SERVICE }
 
 var current_state: GameState = GameState.MAIN_MENU
 var is_transitioning: bool = false
@@ -47,6 +47,10 @@ func _detect_state(path: String) -> GameState:
 		return GameState.DIVING
 	elif "haul_summary" in path:
 		return GameState.HAUL_SUMMARY
+	elif "restaurant" in path:
+		return GameState.RESTAURANT
+	elif "dinner_service" in path:
+		return GameState.DINNER_SERVICE
 	elif "main_menu" in path:
 		return GameState.MAIN_MENU
 	return GameState.MAIN_MENU

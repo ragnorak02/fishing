@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/Recipe.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/RecipeIngredient.gd" id="2"]
+
+[sub_resource type="Resource" id="ing_1"]
+script = ExtResource("2")
+species_id = "yellowtail"
+quantity = 1
+
+[resource]
+script = ExtResource("1")
+id = "yellowtail_nigiri"
+display_name = "Yellowtail Nigiri"
+description = "Premium sushi-grade yellowtail on seasoned rice."
+ingredients = [SubResource("ing_1")]
+sell_price = 55
+cook_time = 1.1

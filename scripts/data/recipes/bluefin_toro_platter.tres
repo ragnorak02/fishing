@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/Recipe.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/RecipeIngredient.gd" id="2"]
+
+[sub_resource type="Resource" id="ing_1"]
+script = ExtResource("2")
+species_id = "bluefin_tuna"
+quantity = 1
+
+[resource]
+script = ExtResource("1")
+id = "bluefin_toro_platter"
+display_name = "Bluefin Toro Platter"
+description = "The finest fatty tuna, served with ceremony."
+ingredients = [SubResource("ing_1")]
+sell_price = 120
+cook_time = 1.4

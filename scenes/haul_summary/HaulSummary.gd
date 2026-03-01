@@ -135,7 +135,8 @@ func _on_return_sea() -> void:
 func _on_return_town() -> void:
 	Inventory.clear_haul()
 	SaveManager.save_game()
-	GameManager.transition_to("res://scenes/hub_town/HubTown.tscn")
+	TimeManager.advance_to(TimeManager.TimeOfDay.AFTERNOON)
+	GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
 
 func _update_gold_display() -> void:
 	gold_label.text = "%dg" % Inventory.gold

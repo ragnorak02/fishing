@@ -16,6 +16,11 @@ func _ready() -> void:
 	hud.set_location("Open Sea")
 	hud.interact_prompt.visible = false
 
+	# Time-of-day tinting
+	var canvas_mod := CanvasModulate.new()
+	canvas_mod.color = TimeManager.get_ambient_color()
+	add_child(canvas_mod)
+
 	# Fallback: set up island collision shapes if not baked in .tscn
 	_setup_island($Island1, Vector2(55, 40))
 	_setup_island($Island2, Vector2(45, 35))
@@ -159,7 +164,7 @@ func _process(_delta: float) -> void:
 			if near_dive_spot:
 				_start_dive(near_dive_spot)
 			elif near_hub_return:
-				GameManager.transition_to("res://scenes/hub_town/HubTown.tscn")
+				GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
 
 	# Transform vehicle
 	if Input.is_action_just_pressed("transform_vehicle") and not vehicle.is_transforming():
@@ -217,7 +222,7 @@ func _on_hull_destroyed() -> void:
 	tween.tween_property(vehicle, "modulate", Color(1, 0.2, 0.2), 0.15)
 	tween.tween_property(vehicle, "modulate", Color(1, 1, 1), 0.15)
 	tween.tween_callback(func():
-		GameManager.transition_to("res://scenes/hub_town/HubTown.tscn")
+		GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
 	)
 
 func _on_battery_changed(current: float, maximum: float) -> void:

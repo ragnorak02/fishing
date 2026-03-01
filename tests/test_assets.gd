@@ -59,9 +59,9 @@ const SVG_FILES := [
 ]
 
 func _test_svg_files() -> void:
-	for path in SVG_FILES:
-		var name := path.get_file()
-		_assert_true("Asset.svg_%s" % name,
+	for path: String in SVG_FILES:
+		var fname := path.get_file()
+		_assert_true("Asset.svg_%s" % fname,
 			FileAccess.file_exists(path),
 			"Missing: %s" % path)
 
@@ -81,9 +81,9 @@ const TRES_FILES := [
 ]
 
 func _test_tres_files() -> void:
-	for path in TRES_FILES:
-		var name := path.get_file()
-		_assert_true("Asset.tres_%s" % name,
+	for path: String in TRES_FILES:
+		var fname := path.get_file()
+		_assert_true("Asset.tres_%s" % fname,
 			FileAccess.file_exists(path),
 			"Missing: %s" % path)
 

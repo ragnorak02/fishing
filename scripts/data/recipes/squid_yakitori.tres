@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/Recipe.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/RecipeIngredient.gd" id="2"]
+
+[sub_resource type="Resource" id="ing_1"]
+script = ExtResource("2")
+species_id = "squid"
+quantity = 2
+
+[resource]
+script = ExtResource("1")
+id = "squid_yakitori"
+display_name = "Squid Yakitori"
+description = "Grilled squid skewers with sweet soy glaze."
+ingredients = [SubResource("ing_1")]
+sell_price = 25
+cook_time = 0.9

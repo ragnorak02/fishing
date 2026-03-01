@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/Recipe.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/RecipeIngredient.gd" id="2"]
+
+[sub_resource type="Resource" id="ing_1"]
+script = ExtResource("2")
+species_id = "mackerel"
+quantity = 1
+
+[resource]
+script = ExtResource("1")
+id = "grilled_mackerel"
+display_name = "Grilled Mackerel"
+description = "Salt-grilled mackerel, a classic Okinawan staple."
+ingredients = [SubResource("ing_1")]
+sell_price = 20
+cook_time = 0.9

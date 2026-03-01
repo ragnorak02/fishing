@@ -16,7 +16,7 @@ func _start_wave_animation() -> void:
 	tween.tween_property(wave_overlay, "color:a", 0.35, 2.0).set_trans(Tween.TRANS_SINE)
 
 func _on_start_pressed() -> void:
-	GameManager.transition_to("res://scenes/hub_town/HubTown.tscn")
+	GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

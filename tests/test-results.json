@@ -771,9 +771,764 @@
       "status": "pass"
     },
     {
-      "message": "Failed to load test module",
-      "name": "test_assets.gd",
-      "status": "fail"
+      "message": "",
+      "name": "Scene.exists_Restaurant",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_Restaurant",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.exists_DinnerService",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Scene.load_DinnerService",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_icon.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_boat.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_diver.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_sardine.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_mackerel.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_sea_bream.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_squid.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_octopus.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_yellowtail.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_grouper.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_bluefin_tuna.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_manta_ray.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_golden_koi.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_fishmonger.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_upgrade_npc.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_player_topdown.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_harpoon.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_dock_tile.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_ground_tile.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_building.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_island.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_dive_spot.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.svg_bubble.svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_sardine.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_mackerel.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_sea_bream.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_squid.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_octopus.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_yellowtail.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_grouper.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_bluefin_tuna.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_manta_ray.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.tres_golden_koi.tres",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.shader_ocean",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.shader_underwater",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.icon_svg",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Asset.project_godot",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.file_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.gameId",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_catch.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_10.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_50.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sushi_grade.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.catch_legendary.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_species.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_sale.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_500_gold.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.earn_2000_gold.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_upgrade.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.max_upgrade_track.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.all_upgrades_max.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_dive.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.first_transform.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.has_name",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.has_description",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.has_points",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.has_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.unique_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.sonar_pulse.icon_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.meta.totalPointsPossible",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Achievements.points_sum_matches",
+      "status": "pass"
     },
     {
       "message": "",
@@ -1027,10 +1782,10 @@
       "status": "pass"
     }
   ],
-  "durationMs": 224,
-  "status": "fail",
-  "testsFailed": 1,
-  "testsPassed": 206,
-  "testsTotal": 207,
-  "timestamp": "2026-02-26T21:36:09Z"
+  "durationMs": 1000,
+  "status": "pass",
+  "testsFailed": 0,
+  "testsPassed": 358,
+  "testsTotal": 358,
+  "timestamp": "2026-03-01T23:03:37Z"
 }

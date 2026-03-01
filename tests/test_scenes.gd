@@ -25,6 +25,8 @@ const SCENES := {
 	"DiveScene": "res://scenes/dive_scene/DiveScene.tscn",
 	"HaulSummary": "res://scenes/haul_summary/HaulSummary.tscn",
 	"SceneTransition": "res://scenes/transitions/SceneTransition.tscn",
+	"Restaurant": "res://scenes/restaurant/Restaurant.tscn",
+	"DinnerService": "res://scenes/dinner_service/DinnerService.tscn",
 }
 
 func _test_scene_loading() -> void:

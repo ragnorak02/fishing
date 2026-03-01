@@ -31,6 +31,10 @@ func _on_state_changed(new_state) -> void:
 			context = "dive"
 		GameManager.GameState.HAUL_SUMMARY:
 			context = "haul"
+		GameManager.GameState.RESTAURANT:
+			context = "restaurant"
+		GameManager.GameState.DINNER_SERVICE:
+			context = "dinner_service"
 	_rebuild_controls()
 
 func _on_vehicle_mode_changed(mode: int) -> void:
@@ -140,6 +144,16 @@ func _get_controls_for_context() -> Array:
 		"haul":
 			return [
 				["interact", "E", "A", "Confirm"],
+			]
+		"restaurant":
+			return [
+				["move_left", "A/D", "LS", "Walk"],
+				["interact", "E", "A", "Interact"],
+			]
+		"dinner_service":
+			return [
+				["move_up", "W/S", "D-pad", "Select Order"],
+				["interact", "E", "A", "Cook"],
 			]
 		_:
 			return [
