@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "storm_marlin"
+display_name = "Storm Marlin"
+rarity = 3
+base_value = 300
+sushi_grade = true
+weight_range = Vector2(5.0, 15.0)
+swim_speed = 100.0
+awareness_radius = 180.0
+flee_speed = 200.0
+description = "A legendary marlin that rides ocean storms. Appears every 5th day in deep waters."
+biomes = PackedStringArray("deep")
+is_event_fish = true
+event_min_day = 5
+event_biome = "deep"
+event_times = PackedInt32Array(2, 3)
+event_day_divisor = 5

@@ -28,7 +28,10 @@ func _process(delta: float) -> void:
 		spawn_timer = spawn_interval
 
 func _spawn_fish() -> void:
-	var species := FishDatabase.get_random_species_for_biome(biome)
+	# Try event fish first
+	var species := EventFishSystem.try_spawn_event_fish(biome)
+	if species == null:
+		species = FishDatabase.get_random_species_for_biome(biome)
 	if species == null:
 		return
 

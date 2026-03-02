@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "ghost_jellyfish"
+display_name = "Ghost Jellyfish"
+rarity = 2
+base_value = 80
+sushi_grade = false
+weight_range = Vector2(0.5, 2.0)
+swim_speed = 30.0
+awareness_radius = 60.0
+flee_speed = 80.0
+description = "A translucent jellyfish that glows faintly in the dark. Only appears at night."
+biomes = PackedStringArray("shallow", "deep")
+is_event_fish = true
+event_min_day = 1
+event_biome = ""
+event_times = PackedInt32Array(4)
+event_day_divisor = 0

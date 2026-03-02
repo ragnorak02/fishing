@@ -18,7 +18,7 @@ func _ready() -> void:
 	var catch_count := Inventory.current_haul.size()
 	var total_value := 0
 	for fish in Inventory.current_haul:
-		total_value += fish.value
+		total_value += MarketSystem.get_sell_price(fish)
 
 	stats_label.text = "Time: %ds | Caught: %d | Value: %dg" % [int(dive_time), catch_count, total_value]
 
@@ -83,9 +83,10 @@ func _create_fish_card(fish: Dictionary, index: int) -> PanelContainer:
 
 	hbox.add_child(info_vbox)
 
-	# Sell button
+	# Sell button with market price
+	var market_price := MarketSystem.get_sell_price(fish)
 	var sell_btn := Button.new()
-	sell_btn.text = "Sell (%dg)" % fish.value
+	sell_btn.text = "Sell (%dg)" % market_price
 	sell_btn.custom_minimum_size = Vector2(100, 0)
 	sell_btn.pressed.connect(_on_sell_fish.bind(index))
 	hbox.add_child(sell_btn)

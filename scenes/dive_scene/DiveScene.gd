@@ -212,12 +212,17 @@ func _on_harpoon_hit(fish: Node2D) -> void:
 		var species_id: String = fish.get_meta("species_id")
 		var species := FishDatabase.get_species(species_id)
 		if species:
-			var weight := species.get_random_weight()
+			var is_new := not SaveManager.is_species_discovered(species_id)
+			var weight := FishScaling.get_scaled_weight(species)
 			Inventory.add_to_haul(species_id, weight)
 			_update_catch_label()
 
 			# Catch effect
 			_spawn_catch_effect(fish.global_position)
+
+			# New species discovery label
+			if is_new:
+				_spawn_discovery_label(fish.global_position)
 
 	fish.queue_free()
 
@@ -293,6 +298,20 @@ func _spawn_catch_effect(pos: Vector2) -> void:
 	add_child(burst)
 	burst.global_position = pos
 	get_tree().create_timer(1.0).timeout.connect(burst.queue_free)
+
+func _spawn_discovery_label(pos: Vector2) -> void:
+	var label := Label.new()
+	label.text = "NEW SPECIES!"
+	label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.0))
+	label.add_theme_font_size_override("font_size", 18)
+	add_child(label)
+	label.global_position = pos + Vector2(-45, -45)
+	label.z_index = 20
+
+	var tween := create_tween()
+	tween.tween_property(label, "global_position:y", pos.y - 80, 1.2)
+	tween.parallel().tween_property(label, "modulate:a", 0.0, 1.2).set_delay(0.5)
+	tween.tween_callback(label.queue_free)
 
 func _create_ambient_bubbles() -> void:
 	var bubbles := CPUParticles2D.new()

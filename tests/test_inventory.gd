@@ -77,11 +77,14 @@ func _test_clear_haul() -> void:
 
 func _test_sell_all_haul() -> void:
 	var inv := _make_inventory()
-	inv.current_haul.append(_make_fish_entry(10))
-	inv.current_haul.append(_make_fish_entry(25))
+	var fish1 := _make_fish_entry(10)
+	var fish2 := _make_fish_entry(25)
+	inv.current_haul.append(fish1)
+	inv.current_haul.append(fish2)
 	var gold_before: int = inv.gold
+	var expected_total := MarketSystem.get_sell_price(fish1) + MarketSystem.get_sell_price(fish2)
 	inv.sell_all_haul()
-	_assert_eq("Inventory.sell_all_gold", inv.gold, gold_before + 35)
+	_assert_eq("Inventory.sell_all_gold", inv.gold, gold_before + expected_total)
 	_assert_eq("Inventory.sell_all_haul_empty", inv.current_haul.size(), 0)
 	inv.free()
 
@@ -96,10 +99,12 @@ func _test_keep_all_haul() -> void:
 
 func _test_sell_from_storage() -> void:
 	var inv := _make_inventory()
-	inv.fish_storage.append(_make_fish_entry(30))
+	var fish := _make_fish_entry(30)
+	inv.fish_storage.append(fish)
 	var gold_before: int = inv.gold
+	var expected_price := MarketSystem.get_sell_price(fish)
 	inv.sell_from_storage(0)
-	_assert_eq("Inventory.sell_storage_gold", inv.gold, gold_before + 30)
+	_assert_eq("Inventory.sell_storage_gold", inv.gold, gold_before + expected_price)
 	_assert_eq("Inventory.sell_storage_removed", inv.fish_storage.size(), 0)
 	inv.free()
 

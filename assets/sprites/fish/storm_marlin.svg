@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 10">
+  <!-- Body -->
+  <ellipse cx="10" cy="5" rx="9" ry="3.5" fill="#1A3366" stroke="#0F2244" stroke-width="0.3"/>
+  <!-- Belly -->
+  <ellipse cx="10" cy="6.5" rx="7" ry="1.5" fill="#2A5588" opacity="0.7"/>
+  <!-- Bill/sword -->
+  <polygon points="1,5 -2,4.5 -2,5.5" fill="#556688"/>
+  <!-- Dorsal fin -->
+  <polygon points="6,2 10,0.5 14,2" fill="#2255AA" stroke="#1A3366" stroke-width="0.2"/>
+  <!-- Tail -->
+  <polygon points="19,5 24,1 24,9" fill="#1A4488" stroke="#0F2244" stroke-width="0.3"/>
+  <!-- Lightning stripe -->
+  <polyline points="4,4 7,3.5 9,5 12,3 15,4.5" fill="none" stroke="#FFDD44" stroke-width="0.4" opacity="0.8"/>
+  <!-- Eye -->
+  <circle cx="4" cy="4.5" r="0.8" fill="#FFCC22"/>
+  <circle cx="3.8" cy="4.3" r="0.3" fill="#111"/>
+</svg>

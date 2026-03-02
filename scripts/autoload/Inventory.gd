@@ -34,11 +34,12 @@ func sell_fish_from_haul(index: int) -> void:
 	if index < 0 or index >= current_haul.size():
 		return
 	var fish = current_haul[index]
-	gold += fish.value
+	var price := MarketSystem.get_sell_price(fish)
+	gold += price
 	current_haul.remove_at(index)
 	gold_changed.emit(gold)
 	haul_changed.emit()
-	fish_sold.emit(fish.value)
+	fish_sold.emit(price)
 
 func keep_fish_from_haul(index: int) -> void:
 	if index < 0 or index >= current_haul.size():
@@ -52,7 +53,7 @@ func keep_fish_from_haul(index: int) -> void:
 func sell_all_haul() -> void:
 	var total := 0
 	for fish in current_haul:
-		total += fish.value
+		total += MarketSystem.get_sell_price(fish)
 	gold += total
 	current_haul.clear()
 	gold_changed.emit(gold)
@@ -70,16 +71,17 @@ func sell_from_storage(index: int) -> void:
 	if index < 0 or index >= fish_storage.size():
 		return
 	var fish = fish_storage[index]
-	gold += fish.value
+	var price := MarketSystem.get_sell_price(fish)
+	gold += price
 	fish_storage.remove_at(index)
 	gold_changed.emit(gold)
 	storage_changed.emit()
-	fish_sold.emit(fish.value)
+	fish_sold.emit(price)
 
 func sell_all_storage() -> void:
 	var total := 0
 	for fish in fish_storage:
-		total += fish.value
+		total += MarketSystem.get_sell_price(fish)
 	gold += total
 	fish_storage.clear()
 	gold_changed.emit(gold)

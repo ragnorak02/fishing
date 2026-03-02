@@ -302,6 +302,36 @@
     },
     {
       "message": "",
+      "name": "FishSpecies.load_ghost_jellyfish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_ghost_jellyfish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_storm_marlin",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_storm_marlin",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.load_sunrise_coral_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.type_sunrise_coral_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
       "name": "FishSpecies.sardine.id_nonempty",
       "status": "pass"
     },
@@ -552,6 +582,81 @@
     },
     {
       "message": "",
+      "name": "FishSpecies.ghost_jellyfish.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.ghost_jellyfish.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.ghost_jellyfish.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.ghost_jellyfish.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.ghost_jellyfish.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.storm_marlin.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.storm_marlin.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.storm_marlin.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.storm_marlin.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.storm_marlin.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sunrise_coral_fish.id_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sunrise_coral_fish.name_nonempty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sunrise_coral_fish.base_value_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sunrise_coral_fish.weight_range_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishSpecies.sunrise_coral_fish.has_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
       "name": "FishData.has_common",
       "status": "pass"
     },
@@ -613,6 +718,51 @@
     {
       "message": "",
       "name": "FishDatabase.random_biome_type",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_is_event",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_rarity",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_is_event",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_rarity",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_day_divisor",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_is_event",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_min_day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.sardine_not_event",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.excluded_from_pool",
       "status": "pass"
     },
     {
@@ -1746,6 +1896,31 @@
       "status": "pass"
     },
     {
+      "message": "",
+      "name": "discovery.empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "discovery.after_catch",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "discovery.count_1",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "discovery.count_2",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "discovery.no_dup",
+      "status": "pass"
+    },
+    {
       "name": "DiveSpot script loads",
       "status": "pass"
     },
@@ -1780,12 +1955,332 @@
     {
       "name": "transform_vehicle input action exists",
       "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.diff_day1",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.diff_day10",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.diff_clamp",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.reward_0",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.reward_half",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.reward_clamp",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.reward_over_clamp",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.swim_speed_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.swim_speed_ge_base",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.flee_speed_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.awareness_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.weight_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.rarity_keys",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.rarity_common",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.rarity_legendary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.common_floor",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.legendary_ceiling",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.weight_0_pos",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.weight_1_pos",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.weight_2_pos",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "FishScaling.weight_3_pos",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.deterministic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.sardine_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.tuna_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.range_sardine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.range_mackerel",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.range_sea_bream",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.range_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.range_octopus",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.sell_positive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.sell_calc",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.sell_min",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_high_logic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_up_logic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_normal_logic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_down_logic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.trend_low_logic",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.color_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "Market.color_not_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_loads",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_loads",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_loads",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_event",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_min_day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_night",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_divisor",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_sushi",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_min_day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_morning",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_not_morning",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.coral_day_fail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_day_fail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_shallow_fail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.marlin_deep_pass",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.ghost_any_biome",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.spawn_chance",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "EventFish.none_eligible_day1",
+      "status": "pass"
     }
   ],
-  "durationMs": 1000,
+  "durationMs": 264,
   "status": "pass",
   "testsFailed": 0,
-  "testsPassed": 358,
-  "testsTotal": 358,
-  "timestamp": "2026-03-01T23:03:37Z"
+  "testsPassed": 457,
+  "testsTotal": 457,
+  "timestamp": "2026-03-02T00:08:59Z"
 }

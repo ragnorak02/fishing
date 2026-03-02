@@ -147,11 +147,11 @@ AMARIS STANDARD — 85 Checkpoints
 - [x] 23. Sushi-grade tagging
 - [x] 24. Legendary rarity tier
 - [x] 25. EconomySystem value calculation
-- [ ] 26. Species discovery tracking
-- [ ] 27. Fish encyclopedia UI
-- [ ] 28. Dynamic fish scaling
-- [ ] 29. Market fluctuation system
-- [ ] 30. Special event fish
+- [x] 26. Species discovery tracking
+- [x] 27. Fish encyclopedia UI
+- [x] 28. Dynamic fish scaling
+- [x] 29. Market fluctuation system
+- [x] 30. Special event fish
 
 ---
 
@@ -176,20 +176,20 @@ first_dive
 first_transform  
 sonar_pulse  
 
-- [ ] 31. first_catch hook
-- [ ] 32. catch_10 tracking
-- [ ] 33. catch_50 tracking
-- [ ] 34. sushi_grade hook
-- [ ] 35. catch_legendary hook
-- [ ] 36. all_species tracking
-- [ ] 37. first_sale hook
-- [ ] 38. earn_500_gold tracking
-- [ ] 39. earn_2000_gold tracking
-- [ ] 40. first_upgrade hook
-- [ ] 41. max_upgrade_track hook
-- [ ] 42. all_upgrades_max hook
-- [ ] 43. first_dive hook
-- [ ] 44. first_transform hook
+- [x] 31. first_catch hook
+- [x] 32. catch_10 tracking
+- [x] 33. catch_50 tracking
+- [x] 34. sushi_grade hook
+- [x] 35. catch_legendary hook
+- [x] 36. all_species tracking
+- [x] 37. first_sale hook
+- [x] 38. earn_500_gold tracking
+- [x] 39. earn_2000_gold tracking
+- [x] 40. first_upgrade hook
+- [x] 41. max_upgrade_track hook
+- [x] 42. all_upgrades_max hook
+- [x] 43. first_dive hook
+- [x] 44. first_transform hook
 - [ ] 45. sonar_pulse hook
 
 Toast queue required.
@@ -199,16 +199,16 @@ Never reset unlocked flags.
 
 ## Macro Phase 5 — Save & Persistence (46–55)
 
-- [ ] 46. Save system implemented
-- [ ] 47. Continue menu condition
-- [ ] 48. Gold persistence
-- [ ] 49. Upgrade persistence
-- [ ] 50. Species caught persistence
-- [ ] 51. Achievement persistence
-- [ ] 52. Save migration support
-- [ ] 53. Auto-save after haul
-- [ ] 54. Load validation test
-- [ ] 55. Save corruption handling
+- [x] 46. Save system implemented
+- [x] 47. Continue menu condition
+- [x] 48. Gold persistence
+- [x] 49. Upgrade persistence
+- [x] 50. Species caught persistence
+- [x] 51. Achievement persistence
+- [x] 52. Save migration support
+- [x] 53. Auto-save after haul
+- [x] 54. Load validation test
+- [x] 55. Save corruption handling
 
 ---
 

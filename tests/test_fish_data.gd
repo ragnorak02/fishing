@@ -27,6 +27,8 @@ func run_tests() -> Dictionary:
 	_test_species_validation()
 	_test_rarity_distribution()
 	_test_database_api()
+	_test_event_fish_flags()
+	_test_event_fish_excluded_from_normal()
 	return {"passed": _passed, "failed": _failed, "details": _details}
 
 # --- Individual .tres loading ---
@@ -34,6 +36,7 @@ func run_tests() -> Dictionary:
 const FISH_FILES := [
 	"sardine", "mackerel", "sea_bream", "squid", "octopus",
 	"yellowtail", "grouper", "bluefin_tuna", "manta_ray", "golden_koi",
+	"ghost_jellyfish", "storm_marlin", "sunrise_coral_fish",
 ]
 
 func _test_tres_files_load() -> void:
@@ -76,7 +79,7 @@ func _test_rarity_distribution() -> void:
 
 func _test_database_api() -> void:
 	var all_species: Array = FishDatabase.get_all_species()
-	_assert_eq("FishDatabase.all_count", all_species.size(), 10)
+	_assert_eq("FishDatabase.all_count", all_species.size(), 13)
 
 	var sardine: FishSpecies = FishDatabase.get_species("sardine")
 	_assert_true("FishDatabase.get_sardine", sardine != null, "get_species('sardine') returned null")
@@ -97,3 +100,35 @@ func _test_database_api() -> void:
 	_assert_true("FishDatabase.random_biome_valid", random_fish != null, "random_species returned null")
 	if random_fish != null:
 		_assert_true("FishDatabase.random_biome_type", random_fish is FishSpecies, "Not a FishSpecies")
+
+func _test_event_fish_flags() -> void:
+	var ghost: FishSpecies = load("res://scripts/data/fish/ghost_jellyfish.tres")
+	_assert_true("EventFish.ghost_is_event", ghost != null and ghost.is_event_fish, "ghost_jellyfish should be event fish")
+	if ghost:
+		_assert_eq("EventFish.ghost_rarity", ghost.rarity, FishSpecies.Rarity.RARE)
+
+	var marlin: FishSpecies = load("res://scripts/data/fish/storm_marlin.tres")
+	_assert_true("EventFish.marlin_is_event", marlin != null and marlin.is_event_fish, "storm_marlin should be event fish")
+	if marlin:
+		_assert_eq("EventFish.marlin_rarity", marlin.rarity, FishSpecies.Rarity.LEGENDARY)
+		_assert_eq("EventFish.marlin_day_divisor", marlin.event_day_divisor, 5)
+
+	var coral: FishSpecies = load("res://scripts/data/fish/sunrise_coral_fish.tres")
+	_assert_true("EventFish.coral_is_event", coral != null and coral.is_event_fish, "sunrise_coral_fish should be event fish")
+	if coral:
+		_assert_eq("EventFish.coral_min_day", coral.event_min_day, 3)
+
+	# Non-event fish should not have is_event_fish set
+	var sardine: FishSpecies = load("res://scripts/data/fish/sardine.tres")
+	_assert_true("EventFish.sardine_not_event", sardine != null and not sardine.is_event_fish, "sardine should not be event fish")
+
+func _test_event_fish_excluded_from_normal() -> void:
+	# get_random_species_for_biome should never return event fish
+	var attempts := 100
+	var event_found := false
+	for i in attempts:
+		var species := FishDatabase.get_random_species_for_biome("shallow")
+		if species and species.is_event_fish:
+			event_found = true
+			break
+	_assert_true("EventFish.excluded_from_pool", not event_found, "Event fish should not appear in normal spawn pool")

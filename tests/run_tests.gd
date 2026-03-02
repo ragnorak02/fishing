@@ -12,6 +12,9 @@ const TEST_MODULES := [
 	"res://tests/test_achievements.gd",
 	"res://tests/test_save_load.gd",
 	"res://tests/test_ocean_interaction.gd",
+	"res://tests/test_fish_scaling.gd",
+	"res://tests/test_market.gd",
+	"res://tests/test_event_fish.gd",
 ]
 
 func _init() -> void:

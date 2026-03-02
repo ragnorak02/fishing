@@ -16,6 +16,13 @@ enum Rarity { COMMON, UNCOMMON, RARE, LEGENDARY }
 @export var description: String = ""
 @export var biomes: PackedStringArray = ["shallow"]
 
+# Event fish properties
+@export var is_event_fish: bool = false
+@export var event_min_day: int = 0
+@export var event_biome: String = ""
+@export var event_times: PackedInt32Array = []
+@export var event_day_divisor: int = 0
+
 func get_random_weight() -> float:
 	return randf_range(weight_range.x, weight_range.y)
 

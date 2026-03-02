@@ -3,6 +3,8 @@ extends Node
 const SAVE_PATH := "user://save_data.json"
 const CURRENT_SAVE_VERSION := 2
 
+signal species_discovered(species_id: String)
+
 var total_catches: int = 0
 var total_gold_earned: int = 0
 var species_caught: Array = []
@@ -74,6 +76,13 @@ func record_catch(species_id: String) -> void:
 	total_catches += 1
 	if species_id not in species_caught:
 		species_caught.append(species_id)
+		species_discovered.emit(species_id)
+
+func is_species_discovered(species_id: String) -> bool:
+	return species_id in species_caught
+
+func get_discovery_count() -> int:
+	return species_caught.size()
 
 func record_gold_earned(amount: int) -> void:
 	total_gold_earned += amount

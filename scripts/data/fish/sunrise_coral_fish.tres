@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "sunrise_coral_fish"
+display_name = "Sunrise Coral Fish"
+rarity = 1
+base_value = 40
+sushi_grade = false
+weight_range = Vector2(0.3, 1.0)
+swim_speed = 55.0
+awareness_radius = 90.0
+flee_speed = 110.0
+description = "A vibrant coral fish that feeds at dawn. Only seen in shallow waters from day 3 onward."
+biomes = PackedStringArray("shallow")
+is_event_fish = true
+event_min_day = 3
+event_biome = "shallow"
+event_times = PackedInt32Array(0)
+event_day_divisor = 0

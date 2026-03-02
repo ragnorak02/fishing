@@ -9,6 +9,7 @@ var near_menu: bool = false
 var near_upgrade: bool = false
 var near_door: bool = false
 var near_dinner: bool = false
+var near_encyclopedia: bool = false
 
 var ui_open: bool = false
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	_setup_area_shape($UpgradeStation, Vector2(60, 60))
 	_setup_area_shape($DoorExit, Vector2(60, 60))
 	_setup_area_shape($DinnerPrompt, Vector2(60, 60))
+	_setup_area_shape($EncyclopediaBoard, Vector2(60, 60))
 	_create_boundaries()
 
 	# Set up station visuals
@@ -30,6 +32,7 @@ func _ready() -> void:
 	_setup_station_sprite($UpgradeStation, Color(0.5, 0.6, 0.3))
 	_setup_station_sprite($DoorExit, Color(0.7, 0.4, 0.3))
 	_setup_station_sprite($DinnerPrompt, Color(0.8, 0.6, 0.2))
+	_setup_station_sprite($EncyclopediaBoard, Color(0.3, 0.6, 0.7))
 
 	# Update gold display
 	_update_gold_display()
@@ -46,6 +49,8 @@ func _ready() -> void:
 	$DoorExit.body_exited.connect(_on_door_exited)
 	$DinnerPrompt.body_entered.connect(_on_dinner_entered)
 	$DinnerPrompt.body_exited.connect(_on_dinner_exited)
+	$EncyclopediaBoard.body_entered.connect(_on_encyclopedia_entered)
+	$EncyclopediaBoard.body_exited.connect(_on_encyclopedia_exited)
 
 	# Time-of-day tint
 	_apply_time_tint()
@@ -71,6 +76,8 @@ func _process(_delta: float) -> void:
 			_open_menu_board()
 		elif near_upgrade:
 			_open_upgrade()
+		elif near_encyclopedia:
+			_open_encyclopedia()
 		elif near_dinner:
 			_start_dinner()
 		elif near_door:
@@ -156,6 +163,17 @@ func _open_upgrade() -> void:
 	canvas.add_child(ui)
 	add_child(canvas)
 
+# --- Encyclopedia UI ---
+
+func _open_encyclopedia() -> void:
+	ui_open = true
+	var ui = preload("res://scripts/ui/EncyclopediaUI.gd").new()
+	ui.closed.connect(func(): ui_open = false)
+	var canvas := CanvasLayer.new()
+	canvas.layer = 20
+	canvas.add_child(ui)
+	add_child(canvas)
+
 # --- Dinner Service ---
 
 func _start_dinner() -> void:
@@ -219,8 +237,19 @@ func _on_dinner_exited(body: Node2D) -> void:
 		near_dinner = false
 		_hide_prompt_if_clear()
 
+func _on_encyclopedia_entered(body: Node2D) -> void:
+	if body == player:
+		near_encyclopedia = true
+		interact_prompt.visible = true
+		interact_prompt.text = "[E] Fish Encyclopedia"
+
+func _on_encyclopedia_exited(body: Node2D) -> void:
+	if body == player:
+		near_encyclopedia = false
+		_hide_prompt_if_clear()
+
 func _hide_prompt_if_clear() -> void:
-	if not near_storage and not near_menu and not near_upgrade and not near_door and not near_dinner:
+	if not near_storage and not near_menu and not near_upgrade and not near_door and not near_dinner and not near_encyclopedia:
 		interact_prompt.visible = false
 
 func _setup_area_shape(area: Area2D, size: Vector2) -> void:

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 10">
+  <!-- Body -->
+  <ellipse cx="7" cy="5" rx="5" ry="3.5" fill="#FF8844" stroke="#DD6633" stroke-width="0.3"/>
+  <!-- Belly -->
+  <ellipse cx="7" cy="6.5" rx="3.5" ry="1.5" fill="#FFAA66" opacity="0.7"/>
+  <!-- Coral pattern stripes -->
+  <path d="M4,3 Q7,2 10,3" fill="none" stroke="#FFCC88" stroke-width="0.6" opacity="0.6"/>
+  <path d="M5,7 Q7,8 9,7" fill="none" stroke="#FFCC88" stroke-width="0.6" opacity="0.6"/>
+  <!-- Dorsal fin -->
+  <polygon points="5,2 7,0.5 9,2" fill="#FF6633" stroke="#DD5522" stroke-width="0.2"/>
+  <!-- Tail -->
+  <polygon points="12,5 14,2.5 14,7.5" fill="#FF7744" stroke="#DD6633" stroke-width="0.3"/>
+  <!-- Eye -->
+  <circle cx="4" cy="4" r="0.8" fill="#222222"/>
+  <circle cx="3.8" cy="3.8" r="0.3" fill="white"/>
+  <!-- Pectoral fin -->
+  <ellipse cx="6" cy="6.5" rx="1.5" ry="0.8" fill="#FF9955" opacity="0.7"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- Bell -->
+  <ellipse cx="8" cy="5" rx="5" ry="4" fill="#AACCEE" opacity="0.5" stroke="#88AADD" stroke-width="0.3"/>
+  <!-- Inner glow -->
+  <ellipse cx="8" cy="5" rx="3" ry="2.5" fill="#CCDDFF" opacity="0.4"/>
+  <!-- Tentacles -->
+  <path d="M4,9 Q4.5,12 4,15" fill="none" stroke="#99BBDD" stroke-width="0.5" opacity="0.6"/>
+  <path d="M6,9 Q6.5,13 6,16" fill="none" stroke="#99BBDD" stroke-width="0.5" opacity="0.6"/>
+  <path d="M8,9 Q8,13 8,16" fill="none" stroke="#99BBDD" stroke-width="0.5" opacity="0.6"/>
+  <path d="M10,9 Q9.5,13 10,16" fill="none" stroke="#99BBDD" stroke-width="0.5" opacity="0.6"/>
+  <path d="M12,9 Q11.5,12 12,15" fill="none" stroke="#99BBDD" stroke-width="0.5" opacity="0.6"/>
+  <!-- Eyes -->
+  <circle cx="6.5" cy="4.5" r="0.6" fill="#334466" opacity="0.7"/>
+  <circle cx="9.5" cy="4.5" r="0.6" fill="#334466" opacity="0.7"/>
+</svg>

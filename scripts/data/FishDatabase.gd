@@ -39,13 +39,14 @@ static func get_all_species() -> Array:
 
 static func get_random_species_for_biome(biome: String) -> FishSpecies:
 	_ensure_loaded()
-	# Filter species by biome
+	var adjusted_weights := FishScaling.get_adjusted_rarity_weights()
+	# Filter species by biome — exclude event fish from normal pool
 	var candidates: Array[FishSpecies] = []
 	var weights: Array[float] = []
 	for species: FishSpecies in _species.values():
-		if biome in species.biomes:
+		if biome in species.biomes and not species.is_event_fish:
 			candidates.append(species)
-			weights.append(RARITY_WEIGHTS[species.rarity])
+			weights.append(adjusted_weights[species.rarity])
 
 	if candidates.is_empty():
 		# Fallback: return any species

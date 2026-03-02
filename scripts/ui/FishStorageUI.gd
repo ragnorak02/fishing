@@ -109,6 +109,11 @@ func _populate_list() -> void:
 		var display := species.display_name if species else sid
 		var color := species.get_rarity_color() if species else Color.WHITE
 
+		# Calculate market-adjusted total
+		var market_total := 0
+		for f in group.fish_list:
+			market_total += MarketSystem.get_sell_price(f)
+
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
 
@@ -122,20 +127,21 @@ func _populate_list() -> void:
 		var info := VBoxContainer.new()
 		info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var name_lbl := Label.new()
-		name_lbl.text = "%s  x%d" % [display, group.fish_list.size()]
+		var trend := MarketSystem.get_market_trend(sid)
+		name_lbl.text = "%s  x%d  [%s]" % [display, group.fish_list.size(), trend]
 		name_lbl.add_theme_font_size_override("font_size", 15)
 		name_lbl.add_theme_color_override("font_color", color)
 		info.add_child(name_lbl)
 		var val_lbl := Label.new()
-		val_lbl.text = "Total: %dg" % group.total_value
+		val_lbl.text = "Market: %dg" % market_total
 		val_lbl.add_theme_font_size_override("font_size", 12)
-		val_lbl.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
+		val_lbl.add_theme_color_override("font_color", MarketSystem.get_trend_color(sid))
 		info.add_child(val_lbl)
 		row.add_child(info)
 
 		# Sell button
 		var sell_btn := Button.new()
-		sell_btn.text = "Sell All (%dg)" % group.total_value
+		sell_btn.text = "Sell All (%dg)" % market_total
 		sell_btn.custom_minimum_size = Vector2(130, 35)
 		var species_id := sid
 		sell_btn.pressed.connect(func():
@@ -150,7 +156,7 @@ func _sell_species(species_id: String) -> void:
 	var total := 0
 	while i >= 0:
 		if Inventory.fish_storage[i].species_id == species_id:
-			total += Inventory.fish_storage[i].value
+			total += MarketSystem.get_sell_price(Inventory.fish_storage[i])
 			Inventory.fish_storage.remove_at(i)
 		i -= 1
 	if total > 0:

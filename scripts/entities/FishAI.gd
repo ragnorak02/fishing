@@ -50,7 +50,7 @@ func _ready() -> void:
 func setup(fish_species: FishSpecies, spawn_bounds: Rect2) -> void:
 	species = fish_species
 	bounds = spawn_bounds
-	awareness_radius = species.awareness_radius
+	awareness_radius = FishScaling.get_scaled_awareness(species)
 
 	_load_species_sprite()
 
@@ -107,7 +107,7 @@ func _process_idle(_delta: float) -> void:
 		_enter_state(State.SWIMMING)
 
 func _process_swimming(delta: float) -> void:
-	var speed := species.swim_speed if species else 60.0
+	var speed := FishScaling.get_scaled_swim_speed(species) if species else 60.0
 	velocity = swim_direction * speed
 
 	# Slight random wobble
@@ -119,8 +119,8 @@ func _process_swimming(delta: float) -> void:
 	if state_timer <= 0:
 		_enter_state(State.IDLE)
 
-func _process_fleeing(delta: float) -> void:
-	var speed := species.flee_speed if species else 120.0
+func _process_fleeing(_delta: float) -> void:
+	var speed := FishScaling.get_scaled_flee_speed(species) if species else 120.0
 	var flee_dir := (global_position - flee_target).normalized()
 	velocity = flee_dir * speed
 

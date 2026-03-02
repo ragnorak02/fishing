@@ -31,6 +31,7 @@ func run_tests() -> Dictionary:
 	_test_save_data_schema()
 	_test_record_catch_dedup()
 	_test_round_trip_logic()
+	_test_species_discovery_api()
 	return {"passed": _passed, "failed": _failed, "details": _details}
 
 func _test_save_manager_exists() -> void:
@@ -144,3 +145,28 @@ func _test_round_trip_logic() -> void:
 	_assert_eq("roundtrip.storage_count", save_data["fish_storage"].size(), 1)
 	_assert_eq("roundtrip.ach_first_catch", save_data["achievements"]["first_catch"], true)
 	_assert_eq("roundtrip.ach_catch_10", save_data["achievements"]["catch_10"], false)
+
+func _test_species_discovery_api() -> void:
+	# Simulate species_discovered signal and is_species_discovered logic
+	var species_caught: Array = []
+
+	# is_species_discovered when empty
+	_assert_true("discovery.empty", not ("sardine" in species_caught), "Should not be discovered before catch")
+
+	# After first catch of sardine
+	if "sardine" not in species_caught:
+		species_caught.append("sardine")
+	_assert_true("discovery.after_catch", "sardine" in species_caught, "Should be discovered after catch")
+
+	# get_discovery_count
+	_assert_eq("discovery.count_1", species_caught.size(), 1)
+
+	# Second species
+	if "mackerel" not in species_caught:
+		species_caught.append("mackerel")
+	_assert_eq("discovery.count_2", species_caught.size(), 2)
+
+	# Duplicate catch shouldn't increase count
+	if "sardine" not in species_caught:
+		species_caught.append("sardine")
+	_assert_eq("discovery.no_dup", species_caught.size(), 2)

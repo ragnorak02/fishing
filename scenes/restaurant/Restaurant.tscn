@@ -130,6 +130,23 @@ offset_bottom = -25.0
 text = "Dinner"
 horizontal_alignment = 1
 
+[node name="EncyclopediaBoard" type="Area2D" parent="."]
+position = Vector2(350, 200)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EncyclopediaBoard"]
+
+[node name="Sprite2D" type="Sprite2D" parent="EncyclopediaBoard"]
+
+[node name="Label" type="Label" parent="EncyclopediaBoard"]
+offset_left = -50.0
+offset_top = -45.0
+offset_right = 50.0
+offset_bottom = -25.0
+text = "Encyclopedia"
+horizontal_alignment = 1
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(1, 0.95, 0.85, 1)
 
