@@ -85,36 +85,19 @@ func _connect_interaction_signals() -> void:
 			if node and node is Area2D:
 				spots.append(node)
 
-	print("=== OCEAN SURFACE DIAGNOSTIC — SIGNAL WIRING ===")
-	print("[DIAG] Found %d dive spots" % spots.size())
+	GameLog.vehicle("Signal wiring: found %d dive spots" % spots.size())
 	for spot in spots:
 		var col_shape: CollisionShape2D = spot.get_node("CollisionShape2D")
-		print("[DIAG] Spot: %s | pos=%s | monitoring=%s | monitorable=%s | layer=%d | mask=%d | shape=%s | shape_disabled=%s" % [
-			spot.name, spot.global_position, spot.monitoring, spot.monitorable,
-			spot.collision_layer, spot.collision_mask,
-			col_shape.shape, col_shape.disabled])
-		# Check signal connections before wiring
+		GameLog.vehicle("Spot: %s | pos=%s | monitoring=%s | shape=%s" % [
+			spot.name, spot.global_position, spot.monitoring, col_shape.shape])
 		var already_connected := spot.body_entered.is_connected(_on_dive_spot_entered)
-		print("[DIAG]   body_entered already connected: %s" % already_connected)
 		if not already_connected:
 			spot.body_entered.connect(_on_dive_spot_entered.bind(spot))
 			spot.body_exited.connect(_on_dive_spot_exited.bind(spot))
-		print("[DIAG]   body_entered connections after wiring: %d" % spot.body_entered.get_connections().size())
 
 	var hub_zone: Area2D = $HubReturnZone
-	var hub_col: CollisionShape2D = hub_zone.get_node("CollisionShape2D")
-	print("[DIAG] HubReturnZone | pos=%s | monitoring=%s | monitorable=%s | layer=%d | mask=%d | shape=%s | shape_disabled=%s" % [
-		hub_zone.global_position, hub_zone.monitoring, hub_zone.monitorable,
-		hub_zone.collision_layer, hub_zone.collision_mask,
-		hub_col.shape, hub_col.disabled])
 	hub_zone.body_entered.connect(_on_hub_return_entered)
 	hub_zone.body_exited.connect(_on_hub_return_exited)
-
-	var veh_col: CollisionShape2D = vehicle.get_node("CollisionShape2D")
-	print("[DIAG] Vehicle | pos=%s | layer=%d | mask=%d | shape=%s | shape_disabled=%s" % [
-		vehicle.global_position, vehicle.collision_layer, vehicle.collision_mask,
-		veh_col.shape, veh_col.disabled])
-	print("=== END SIGNAL WIRING DIAGNOSTIC ===")
 
 func _setup_island(island: StaticBody2D, half_size: Vector2) -> void:
 	var col: CollisionShape2D = island.get_node("CollisionShape2D")
@@ -132,33 +115,16 @@ func _check_initial_overlaps() -> void:
 		_on_hub_return_entered(vehicle)
 
 func _process(_delta: float) -> void:
-	# === ALWAYS-ON DIAGNOSTIC (every ~2s = 120 frames) ===
+	# Periodic diagnostic (every ~2s, gated by DEBUG_VEHICLE)
 	if Engine.get_process_frames() % 120 == 0:
-		var veh_col: CollisionShape2D = vehicle.get_node("CollisionShape2D")
-		print("[DIAG-TICK] Vehicle pos=%s | layer=%d | mask=%d | shape_disabled=%s | near_dive=%s | near_hub=%s" % [
-			vehicle.global_position, vehicle.collision_layer, vehicle.collision_mask,
-			veh_col.disabled, near_dive_spot != null, near_hub_return])
-		# Check each dive spot overlap status
-		for child in get_children():
-			if child is Area2D and child.is_in_group("dive_spots"):
-				var dist = vehicle.global_position.distance_to(child.global_position)
-				var overlapping = child.get_overlapping_bodies()
-				var spot_col: CollisionShape2D = child.get_node("CollisionShape2D")
-				print("[DIAG-TICK]   %s | dist=%.0f | overlapping=%s | monitoring=%s | shape_disabled=%s" % [
-					child.name, dist, overlapping, child.monitoring, spot_col.disabled])
-		# Check hub return zone
-		var hub: Area2D = $HubReturnZone
-		var hub_dist := vehicle.global_position.distance_to(hub.global_position)
-		var hub_overlapping = hub.get_overlapping_bodies()
-		var hub_col_node: CollisionShape2D = hub.get_node("CollisionShape2D")
-		print("[DIAG-TICK]   HubReturnZone | dist=%.0f | overlapping=%s | monitoring=%s | shape_disabled=%s" % [
-			hub_dist, hub_overlapping, hub.monitoring, hub_col_node.disabled])
+		GameLog.vehicle("pos=%s | near_dive=%s | near_hub=%s" % [
+			vehicle.global_position, near_dive_spot != null, near_hub_return])
 
 	var is_surface = vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE
 
 	# Interaction — only in surface mode
 	if Input.is_action_just_pressed("interact"):
-		print("[DIAG-INPUT] E pressed! mode=%d is_surface=%s near_dive=%s near_hub=%s" % [
+		GameLog.vehicle("E pressed | mode=%d is_surface=%s near_dive=%s near_hub=%s" % [
 			vehicle.get_current_mode(), is_surface, near_dive_spot != null, near_hub_return])
 		if is_surface:
 			if near_dive_spot:
@@ -166,23 +132,47 @@ func _process(_delta: float) -> void:
 			elif near_hub_return:
 				GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
 
-	# Transform vehicle
+	# Submerge (R / RB) — requires unlock
 	if Input.is_action_just_pressed("transform_vehicle") and not vehicle.is_transforming():
-		var current_mode = vehicle.get_current_mode()
-		if current_mode == VehicleStateMachine.Mode.SURFACE:
-			vehicle.request_transform(VehicleStateMachine.Mode.SUBMERGED)
-		elif current_mode == VehicleStateMachine.Mode.SUBMERGED:
-			var depth_sys: DepthSystem = vehicle.get_node_or_null("DepthSystem")
-			if depth_sys and not depth_sys.is_at_surface():
-				# Show "ascend first" message
-				hud.interact_prompt.visible = true
-				hud.interact_prompt.text = "Ascend to surface first!"
-				# Auto-hide after 1.5s
-				get_tree().create_timer(1.5).timeout.connect(func():
-					if not near_dive_spot and not near_hub_return:
-						hud.interact_prompt.visible = false
-				)
-			else:
+		if not GameManager.submerge_unlocked:
+			hud.interact_prompt.visible = true
+			hud.interact_prompt.text = "Submerge not unlocked yet!"
+			get_tree().create_timer(1.5).timeout.connect(func():
+				if not near_dive_spot and not near_hub_return:
+					hud.interact_prompt.visible = false
+			)
+		else:
+			var current_mode = vehicle.get_current_mode()
+			if current_mode == VehicleStateMachine.Mode.SURFACE:
+				vehicle.request_transform(VehicleStateMachine.Mode.SUBMERGED)
+			elif current_mode == VehicleStateMachine.Mode.SUBMERGED:
+				var depth_sys: DepthSystem = vehicle.get_node_or_null("DepthSystem")
+				if depth_sys and not depth_sys.is_at_surface():
+					hud.interact_prompt.visible = true
+					hud.interact_prompt.text = "Ascend to surface first!"
+					get_tree().create_timer(1.5).timeout.connect(func():
+						if not near_dive_spot and not near_hub_return:
+							hud.interact_prompt.visible = false
+					)
+				else:
+					vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
+			elif current_mode == VehicleStateMachine.Mode.AIR:
+				vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
+
+	# Fly (T / RT) — requires unlock
+	if Input.is_action_just_pressed("transform_air") and not vehicle.is_transforming():
+		if not GameManager.air_mode_unlocked:
+			hud.interact_prompt.visible = true
+			hud.interact_prompt.text = "Air mode not unlocked yet!"
+			get_tree().create_timer(1.5).timeout.connect(func():
+				if not near_dive_spot and not near_hub_return:
+					hud.interact_prompt.visible = false
+			)
+		else:
+			var current_mode = vehicle.get_current_mode()
+			if current_mode == VehicleStateMachine.Mode.SURFACE:
+				vehicle.request_transform(VehicleStateMachine.Mode.AIR)
+			elif current_mode == VehicleStateMachine.Mode.AIR:
 				vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
 
 	# Boundary enforcement
@@ -241,6 +231,7 @@ func _on_depth_changed(depth: float, max_depth: float) -> void:
 	hud.update_depth(depth, max_depth)
 
 func _on_sonar_pulsed(origin: Vector2, pulse_range: float) -> void:
+	AudioManager.play_sfx("sonar_pulse")
 	_spawn_sonar_ring(origin, pulse_range)
 
 func _on_harpoon_hit(fish: Node2D) -> void:
@@ -297,7 +288,7 @@ func _create_ring_visual() -> Node2D:
 # --- Dive/Hub interaction signals ---
 
 func _on_dive_spot_entered(body: Node2D, spot: Area2D) -> void:
-	print("[OceanSurface] body_entered on %s — body=%s (is vehicle: %s)" % [spot.name, body.name, body == vehicle])
+	GameLog.vehicle("body_entered on %s — body=%s" % [spot.name, body.name])
 	if body == vehicle:
 		near_dive_spot = spot
 		if vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE:
@@ -312,7 +303,7 @@ func _on_dive_spot_exited(body: Node2D, spot: Area2D) -> void:
 			hud.interact_prompt.visible = false
 
 func _on_hub_return_entered(body: Node2D) -> void:
-	print("[OceanSurface] HubReturnZone body_entered — body=%s (is vehicle: %s)" % [body.name, body == vehicle])
+	GameLog.vehicle("HubReturnZone body_entered — body=%s" % body.name)
 	if body == vehicle:
 		near_hub_return = true
 		if vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE:

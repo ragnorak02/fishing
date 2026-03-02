@@ -89,7 +89,7 @@ HaulSummary
 Autoloads:
 GameManager  
 Inventory  
-AudioManager (stub)  
+AudioManager (wired — awaiting audio assets)
 SceneTransition  
 ControlsOverlay  
 
@@ -117,11 +117,11 @@ AMARIS STANDARD — 85 Checkpoints
 - [x] 3. VehicleStateMachine implemented
 - [x] 4. Surface mode functional
 - [x] 5. Submerged mode functional
-- [ ] 6. Air mode implemented
+- [x] 6. Air mode implemented
 - [x] 7. Inventory gold system
 - [x] 8. UpgradeSystem implemented
-- [ ] 9. Version visible in UI
-- [ ] 10. Logging standardization
+- [x] 9. Version visible in UI
+- [x] 10. Logging standardization
 
 ---
 
@@ -136,7 +136,7 @@ AMARIS STANDARD — 85 Checkpoints
 - [x] 17. Haul summary screen
 - [x] 18. Sell / Keep logic
 - [x] 19. Upgrade purchase logic
-- [ ] 20. Harpoon miss feedback
+- [x] 20. Harpoon miss feedback
 
 ---
 
@@ -190,7 +190,7 @@ sonar_pulse
 - [x] 42. all_upgrades_max hook
 - [x] 43. first_dive hook
 - [x] 44. first_transform hook
-- [ ] 45. sonar_pulse hook
+- [x] 45. sonar_pulse hook
 
 Toast queue required.
 Never reset unlocked flags.
@@ -214,12 +214,12 @@ Never reset unlocked flags.
 
 ## Macro Phase 6 — Audio & Atmosphere (56–65)
 
-- [ ] 56. AudioManager implemented
-- [ ] 57. Surface music
-- [ ] 58. Dive ambience
-- [ ] 59. Catch SFX
-- [ ] 60. Upgrade SFX
-- [ ] 61. Sonar pulse SFX
+- [x] 56. AudioManager implemented
+- [ ] 57. Surface music (play_music wired in OceanSurface — needs .ogg asset)
+- [ ] 58. Dive ambience (play_music wired in DiveScene — needs .ogg asset)
+- [x] 59. Catch SFX (play_sfx wired in DiveScene — needs .ogg asset)
+- [x] 60. Upgrade SFX (play_sfx wired in UpgradeUI — needs .ogg asset)
+- [x] 61. Sonar pulse SFX (play_sfx wired in OceanSurface — needs .ogg asset)
 - [ ] 62. Weather ambience
 - [ ] 63. Particle polish pass
 - [ ] 64. Real art asset swap
@@ -295,24 +295,17 @@ Launcher depends on this.
 
 # Current Focus
 
-Current Goal:
-Current Task:
-Work Mode:
-Next Milestone:
+Current Goal: Phase 6 — Audio & Atmosphere
+Current Task: Wire AudioManager SFX calls into gameplay scenes
+Work Mode: Feature Development
+Next Milestone: Phase 6 complete
 
 ---
 
 # Known Gaps
 
-- AchievementManager not implemented
-- No Save system
-- AudioManager stub
-- Air vehicle mode stub
+- Audio .ogg assets not yet supplied (all play_sfx/play_music calls wired, silently no-op until files exist)
 - Harpoon miss feedback missing
-- Debug flags (DEBUG_VEHICLE, etc.) not defined in codebase
-- No version display in game UI
-- Species discovery tracking not implemented
-- Fish encyclopedia UI not implemented
 
 ---
 

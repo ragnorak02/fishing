@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "gameId": "fishing",
   "title": "Isles of the Blue Current",
-  "lastUpdated": "2026-03-02T00:09Z",
+  "lastUpdated": "2026-03-02T18:00Z",
   "health": {
-    "progressPercent": 55,
+    "progressPercent": 58,
     "buildVersion": "0.4.0",
     "assetStage": "placeholder"
   },
@@ -20,7 +20,7 @@
     "testScripts": "implemented",
     "saveSystem": "implemented",
     "settingsMenu": "missing",
-    "audio": "implemented",
+    "audio": "partial",
     "vfx": "partial"
   },
   "milestones": {
@@ -33,7 +33,7 @@
   },
   "testing": {
     "testCommand": "tests/run-tests.bat",
-    "lastRunAt": "2026-03-02T00:09Z",
+    "lastRunAt": "2026-03-02T04:01Z",
     "status": "pass",
     "notes": "11 test modules: core logic, fish data, inventory, scenes, assets, achievements, save/load, ocean interaction, fish scaling, market, event fish — 457 passed, 0 failed"
   },

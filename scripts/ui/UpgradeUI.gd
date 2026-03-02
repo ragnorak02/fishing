@@ -118,6 +118,7 @@ func _create_upgrade_row(type: UpgradeSystem.UpgradeType, gold_label: Label) -> 
 		btn.disabled = not UpgradeSystem.can_upgrade(type)
 		btn.pressed.connect(func():
 			if UpgradeSystem.purchase_upgrade(type):
+				AudioManager.play_sfx("upgrade")
 				level_lbl.text = "Current: %s" % UpgradeSystem.get_level_name(type)
 				gold_label.text = "Your Gold: %dg" % Inventory.gold
 				if UpgradeSystem.is_maxed(type):

@@ -102,6 +102,7 @@ func _create_fish_card(fish: Dictionary, index: int) -> PanelContainer:
 
 func _on_sell_fish(index: int) -> void:
 	Inventory.sell_fish_from_haul(index)
+	AudioManager.play_sfx("sell")
 	_populate_fish_cards()
 	_check_empty()
 
@@ -112,6 +113,7 @@ func _on_keep_fish(index: int) -> void:
 
 func _on_sell_all() -> void:
 	Inventory.sell_all_haul()
+	AudioManager.play_sfx("sell")
 	_populate_fish_cards()
 	_check_empty()
 
