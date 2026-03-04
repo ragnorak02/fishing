@@ -1,3 +1,63 @@
+# GLOBAL RULES (AMATRIS)
+
+This project inherits the AMATRIS studio rules.
+
+Non-negotiable:
+- Claude must run the implementation-verification skill before declaring completion.
+- Claude must provide verification proof output.
+- Claude must confirm the working directory before modifying files.
+- If a Godot scene changes, Claude must print the node tree and key node positions.
+- Claude may not claim completion without verification output.
+
+If there is any conflict between local rules and global rules, **global rules win**.
+
+---
+
+# Mandatory Verification Protocol
+
+Claude must run the **implementation-verification skill** before declaring completion of any task involving:
+
+- code changes
+- scene changes
+- UI changes
+- system modifications
+- gameplay systems
+- signals or input systems
+
+Claude **may not report completion** until verification output is printed.
+
+### Required Proof
+
+Verification output must include:
+
+• scene node tree  
+• scripts attached to nodes  
+• signal connections  
+• interaction confirmation  
+
+If a **Godot scene is modified**, Claude must print the node tree using:
+
+- Godot CLI inspection  
+- scene structure inspection  
+
+Completion **without verification output is invalid**.
+
+---
+
+# Implementation Protocol
+
+Before implementing any feature Claude must:
+
+1. Explain the architecture change
+2. List files that will be modified
+3. Implement the change
+4. Run verification
+5. Print verification output
+
+Claude must **not silently modify large systems without explanation**.
+
+---
+
 # ISLES OF THE BLUE CURRENT
 AMARIS Development Specification
 
@@ -12,42 +72,55 @@ Controller Required: Yes (Xbox + Keyboard)
 
 # AMARIS Studio Rules (Non-Negotiable)
 
-- project_status.json is the single source of truth.
-- CLAUDE.md defines structure and checkpoints only.
-- Dashboard reads JSON only.
-- Do NOT duplicate completion percentages here.
-- All major systems must be testable.
-- Debug flags default false.
-- Never delete checklist items — mark N/A if unused.
+- `project_status.json` is the **single source of truth**
+- `CLAUDE.md` defines **structure and checkpoints only**
+- Dashboard reads **JSON only**
+- Do **NOT duplicate completion percentages** here
+- All major systems **must be testable**
+- Debug flags **default false**
+- Never delete checklist items — mark **N/A** if unused
 
-Launcher Contract:
-- game.config.json must remain valid.
-- testCommand must execute without manual steps.
-- ISO8601 minute precision timestamps.
+---
+
+# Launcher Contract
+
+Launcher integration must remain valid.
+
+- `game.config.json` must remain valid
+- `testCommand` must execute without manual steps
+- ISO8601 **minute precision timestamps**
 
 ---
 
 # Godot Execution Contract (MANDATORY)
 
-Godot installed at:
+Godot installed at: Z:/godot  
+Claude MUST use: Z:/godot/godot.exe
 
-Z:/godot
+Rules:
 
-Claude MUST use:
+- Never assume PATH
+- Never use local Downloads path
+- Never reinstall the engine
 
-Z:/godot/godot.exe
+---
 
-Never assume PATH.
-Never use local Downloads path.
-Never reinstall engine.
+## Headless Boot
 
-Headless boot:
 Z:/godot/godot.exe --path . --headless --quit-after 1
 
-Headless test runner:
+---
+
+## Headless Test Runner
+
 Z:/godot/godot.exe --path . --headless --scene res://tests/test_runner.tscn
 
-If adding new class_name scripts:
+---
+
+## Script Registration
+
+If adding new `class_name` scripts:
+
 Z:/godot/godot.exe --path . --headless --import
 
 ---
@@ -56,19 +129,24 @@ Z:/godot/godot.exe --path . --headless --import
 
 Okinawa-inspired 2D fishing adventure.
 
-Core Loop:
+---
+
+## Core Gameplay Loop
 
 Hub Town  
 → Sail Ocean  
 → Dive  
-→ Catch  
+→ Catch Fish  
 → Surface  
 → Haul Summary  
-→ Sell / Keep  
-→ Upgrade  
-→ Repeat  
+→ Sell / Keep Catch  
+→ Upgrade Equipment  
+→ Repeat
 
-Core Pillars:
+---
+
+## Core Pillars
+
 - Exploration
 - Real-time fish hunting
 - Upgrade-driven progression
@@ -87,18 +165,21 @@ DiveScene
 HaulSummary  
 
 Autoloads:
+
 GameManager  
 Inventory  
-AudioManager (wired — awaiting audio assets)
+AudioManager (wired — awaiting audio assets)  
 SceneTransition  
 ControlsOverlay  
 
 Static Systems:
+
 FishDatabase  
 EconomySystem  
 UpgradeSystem  
 
 Vehicle Modes:
+
 Surface (complete)  
 Submerged (complete)  
 Air (stub)
@@ -160,6 +241,7 @@ AMARIS STANDARD — 85 Checkpoints
 Source: achievements.json
 
 IDs:
+
 first_catch  
 catch_10  
 catch_50  
@@ -192,7 +274,7 @@ sonar_pulse
 - [x] 44. first_transform hook
 - [x] 45. sonar_pulse hook
 
-Toast queue required.
+Toast queue required.  
 Never reset unlocked flags.
 
 ---
@@ -283,6 +365,7 @@ After major updates:
    - testStatus
 
 2. Run headless boot:
+
 Z:/godot/godot.exe --path . --headless --quit-after 1
 
 3. Run test suite (when implemented).
@@ -295,9 +378,9 @@ Launcher depends on this.
 
 # Current Focus
 
-Current Goal: Phase 6 — Audio & Atmosphere
-Current Task: Wire AudioManager SFX calls into gameplay scenes
-Work Mode: Feature Development
+Current Goal: Phase 6 — Audio & Atmosphere  
+Current Task: Wire AudioManager SFX calls into gameplay scenes  
+Work Mode: Feature Development  
 Next Milestone: Phase 6 complete
 
 ---

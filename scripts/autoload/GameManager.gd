@@ -1,9 +1,15 @@
 extends Node
 
+const VERSION := "0.4.0"
+
 enum GameState { MAIN_MENU, HUB_TOWN, OCEAN_SURFACE, DIVING, HAUL_SUMMARY, RESTAURANT, DINNER_SERVICE }
 
 var current_state: GameState = GameState.MAIN_MENU
 var is_transitioning: bool = false
+
+# Vehicle mode unlock flags
+var submerge_unlocked: bool = true
+var air_mode_unlocked: bool = true
 
 # Upgrade levels (0 = base, max 3)
 var boat_speed_level: int = 0

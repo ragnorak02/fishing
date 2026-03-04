@@ -7,47 +7,45 @@
 script = ExtResource("1")
 
 [node name="Background" type="Node2D" parent="."]
+z_index = -10
 
 [node name="Floor" type="ColorRect" parent="Background"]
-offset_left = -640.0
-offset_top = 100.0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_left = -600.0
+offset_top = 80.0
+offset_right = 600.0
+offset_bottom = 340.0
 color = Color(0.22, 0.16, 0.12, 1)
 
 [node name="Wall" type="ColorRect" parent="Background"]
-offset_left = -640.0
+offset_left = -600.0
 offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 100.0
+offset_right = 600.0
+offset_bottom = 80.0
 color = Color(0.35, 0.28, 0.22, 1)
 
 [node name="Counter" type="ColorRect" parent="Background"]
-offset_left = -640.0
-offset_top = 60.0
-offset_right = 640.0
-offset_bottom = 110.0
+offset_left = -430.0
+offset_top = 50.0
+offset_right = 430.0
+offset_bottom = 90.0
 color = Color(0.45, 0.35, 0.25, 1)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 0)
+
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(0, 200)
+position = Vector2(-400, 230)
 collision_layer = 2
 collision_mask = 1
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(4.5, 4.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-limit_top = -360
-limit_bottom = 360
-limit_left = -640
-limit_right = 640
-
 [node name="StoragePC" type="Area2D" parent="."]
-position = Vector2(-400, 200)
+position = Vector2(-450, 230)
 collision_layer = 16
 collision_mask = 2
 
@@ -56,15 +54,15 @@ collision_mask = 2
 [node name="Sprite2D" type="Sprite2D" parent="StoragePC"]
 
 [node name="Label" type="Label" parent="StoragePC"]
-offset_left = -40.0
-offset_top = -45.0
-offset_right = 40.0
-offset_bottom = -25.0
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -65.0
 text = "Storage"
 horizontal_alignment = 1
 
 [node name="MenuBoard" type="Area2D" parent="."]
-position = Vector2(-200, 200)
+position = Vector2(-260, 230)
 collision_layer = 16
 collision_mask = 2
 
@@ -73,15 +71,32 @@ collision_mask = 2
 [node name="Sprite2D" type="Sprite2D" parent="MenuBoard"]
 
 [node name="Label" type="Label" parent="MenuBoard"]
-offset_left = -40.0
-offset_top = -45.0
-offset_right = 40.0
-offset_bottom = -25.0
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -65.0
 text = "Menu"
 horizontal_alignment = 1
 
+[node name="StaffBoard" type="Area2D" parent="."]
+position = Vector2(-70, 230)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaffBoard"]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaffBoard"]
+
+[node name="Label" type="Label" parent="StaffBoard"]
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -65.0
+text = "Staff"
+horizontal_alignment = 1
+
 [node name="UpgradeStation" type="Area2D" parent="."]
-position = Vector2(0, 200)
+position = Vector2(130, 230)
 collision_layer = 16
 collision_mask = 2
 
@@ -90,15 +105,15 @@ collision_mask = 2
 [node name="Sprite2D" type="Sprite2D" parent="UpgradeStation"]
 
 [node name="Label" type="Label" parent="UpgradeStation"]
-offset_left = -40.0
-offset_top = -45.0
-offset_right = 40.0
-offset_bottom = -25.0
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -65.0
 text = "Upgrades"
 horizontal_alignment = 1
 
 [node name="DoorExit" type="Area2D" parent="."]
-position = Vector2(500, 200)
+position = Vector2(530, 230)
 collision_layer = 16
 collision_mask = 2
 
@@ -107,15 +122,15 @@ collision_mask = 2
 [node name="Sprite2D" type="Sprite2D" parent="DoorExit"]
 
 [node name="Label" type="Label" parent="DoorExit"]
-offset_left = -40.0
-offset_top = -45.0
-offset_right = 40.0
-offset_bottom = -25.0
+offset_left = -50.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -65.0
 text = "Exit"
 horizontal_alignment = 1
 
 [node name="DinnerPrompt" type="Area2D" parent="."]
-position = Vector2(200, 200)
+position = Vector2(430, 230)
 visible = false
 collision_layer = 16
 collision_mask = 2
@@ -124,14 +139,14 @@ collision_mask = 2
 
 [node name="Label" type="Label" parent="DinnerPrompt"]
 offset_left = -50.0
-offset_top = -45.0
+offset_top = -90.0
 offset_right = 50.0
-offset_bottom = -25.0
+offset_bottom = -65.0
 text = "Dinner"
 horizontal_alignment = 1
 
 [node name="EncyclopediaBoard" type="Area2D" parent="."]
-position = Vector2(350, 200)
+position = Vector2(310, 230)
 collision_layer = 16
 collision_mask = 2
 
@@ -141,9 +156,9 @@ collision_mask = 2
 
 [node name="Label" type="Label" parent="EncyclopediaBoard"]
 offset_left = -50.0
-offset_top = -45.0
+offset_top = -90.0
 offset_right = 50.0
-offset_bottom = -25.0
+offset_bottom = -65.0
 text = "Encyclopedia"
 horizontal_alignment = 1
 
@@ -181,13 +196,13 @@ horizontal_alignment = 1
 collision_layer = 1
 
 [node name="LeftWall" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(-550, 200)
+position = Vector2(-570, 220)
 
 [node name="RightWall" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(550, 200)
+position = Vector2(570, 220)
 
 [node name="TopWall" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(0, 130)
+position = Vector2(0, 150)
 
 [node name="BottomWall" type="CollisionShape2D" parent="Boundaries"]
-position = Vector2(0, 280)
+position = Vector2(0, 290)

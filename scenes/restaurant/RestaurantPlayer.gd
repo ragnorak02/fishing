@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
-const SPEED := 150.0
+const SPEED := 250.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
+	sprite.scale = Vector2(4.5, 4.5)
 	var col: CollisionShape2D = $CollisionShape2D
 	if col.shape == null:
 		var capsule := CapsuleShape2D.new()
-		capsule.radius = 6.0
-		capsule.height = 14.0
+		capsule.radius = 22.0
+		capsule.height = 44.0
 		col.shape = capsule
 	sprite.texture = preload("res://assets/sprites/npc/player_topdown.svg")
 

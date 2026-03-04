@@ -1953,7 +1953,67 @@
       "status": "pass"
     },
     {
-      "name": "transform_vehicle input action exists",
+      "name": "mode_down input action exists",
+      "status": "pass"
+    },
+    {
+      "name": "mode_up input action exists",
+      "status": "pass"
+    },
+    {
+      "name": "mode_down action exists",
+      "status": "pass"
+    },
+    {
+      "name": "mode_down has Q key (keycode 81)",
+      "status": "pass"
+    },
+    {
+      "name": "mode_down has LT (axis 4, value 1.0)",
+      "status": "pass"
+    },
+    {
+      "name": "mode_up action exists",
+      "status": "pass"
+    },
+    {
+      "name": "mode_up has E key (keycode 69)",
+      "status": "pass"
+    },
+    {
+      "name": "mode_up has RT (axis 5, value 1.0)",
+      "status": "pass"
+    },
+    {
+      "name": "interact has E key and A button",
+      "status": "pass"
+    },
+    {
+      "name": "sonar_pulse has Space and LB button",
+      "status": "pass"
+    },
+    {
+      "name": "GameManager.submerge_unlocked default is true",
+      "status": "pass"
+    },
+    {
+      "name": "GameManager.air_mode_unlocked default is true",
+      "status": "pass"
+    },
+    {
+      "name": "VehicleStateMachine.Mode enum order SURFACE<SUBMERGED<AIR",
+      "status": "pass"
+    },
+    {
+      "name": "OceanSurface.gd references mode_down",
+      "status": "pass"
+    },
+    {
+      "name": "OceanSurface.gd references mode_up",
+      "status": "pass"
+    },
+    {
+      "name": "No stale transform_vehicle/transform_air in OceanSurface.gd",
       "status": "pass"
     },
     {
@@ -2277,10 +2337,10 @@
       "status": "pass"
     }
   ],
-  "durationMs": 264,
+  "durationMs": 970,
   "status": "pass",
   "testsFailed": 0,
-  "testsPassed": 457,
-  "testsTotal": 457,
-  "timestamp": "2026-03-02T00:08:59Z"
+  "testsPassed": 472,
+  "testsTotal": 472,
+  "timestamp": "2026-03-04T20:55:03Z"
 }

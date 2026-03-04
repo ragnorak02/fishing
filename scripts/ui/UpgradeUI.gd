@@ -2,10 +2,16 @@ extends Control
 
 signal closed()
 
+var _close_btn: Button
+
 func _ready() -> void:
 	_build_ui()
 
 func _build_ui() -> void:
+	anchors_preset = Control.PRESET_FULL_RECT
+	anchor_right = 1.0
+	anchor_bottom = 1.0
+
 	# Full-screen dimmer
 	var dimmer := ColorRect.new()
 	dimmer.anchors_preset = Control.PRESET_FULL_RECT
@@ -75,12 +81,13 @@ func _create_upgrade_panel() -> PanelContainer:
 		vbox.add_child(row)
 
 	# Close button
-	var close_btn := Button.new()
-	close_btn.text = "Close"
-	close_btn.custom_minimum_size = Vector2(100, 35)
-	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	close_btn.pressed.connect(_close)
-	vbox.add_child(close_btn)
+	_close_btn = Button.new()
+	_close_btn.text = "Close"
+	_close_btn.custom_minimum_size = Vector2(100, 35)
+	_close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_close_btn.pressed.connect(_close)
+	vbox.add_child(_close_btn)
+	_close_btn.call_deferred("grab_focus")
 
 	return panel
 
@@ -139,6 +146,6 @@ func _close() -> void:
 	get_parent().queue_free()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
 		_close()
 		get_viewport().set_input_as_handled()

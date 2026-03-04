@@ -4,6 +4,8 @@ signal closed()
 
 var fish_list: VBoxContainer
 var gold_label: Label
+var _scroll_ref: ScrollContainer
+var _close_btn: Button
 
 func _ready() -> void:
 	_build_ui()
@@ -11,6 +13,10 @@ func _ready() -> void:
 	Inventory.gold_changed.connect(func(_g): _update_gold())
 
 func _build_ui() -> void:
+	anchors_preset = Control.PRESET_FULL_RECT
+	anchor_right = 1.0
+	anchor_bottom = 1.0
+
 	# Full-screen dimmer
 	var dimmer := ColorRect.new()
 	dimmer.anchors_preset = Control.PRESET_FULL_RECT
@@ -64,6 +70,8 @@ func _build_ui() -> void:
 	# Scroll area
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.follow_focus = true
+	_scroll_ref = scroll
 	vbox.add_child(scroll)
 
 	fish_list = VBoxContainer.new()
@@ -74,12 +82,13 @@ func _build_ui() -> void:
 	_populate_list()
 
 	# Close button
-	var close_btn := Button.new()
-	close_btn.text = "Close"
-	close_btn.custom_minimum_size = Vector2(100, 35)
-	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	close_btn.pressed.connect(_close)
-	vbox.add_child(close_btn)
+	_close_btn = Button.new()
+	_close_btn.text = "Close"
+	_close_btn.custom_minimum_size = Vector2(100, 35)
+	_close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_close_btn.pressed.connect(_close)
+	vbox.add_child(_close_btn)
+	_close_btn.call_deferred("grab_focus")
 
 func _populate_list() -> void:
 	for child in fish_list.get_children():
@@ -165,8 +174,16 @@ func _sell_species(species_id: String) -> void:
 		Inventory.storage_changed.emit()
 		Inventory.fish_sold.emit(total)
 
+func _process(delta: float) -> void:
+	if _scroll_ref:
+		var v := Input.get_axis("move_up", "move_down")
+		if v != 0.0:
+			_scroll_ref.scroll_vertical += int(v * 300.0 * delta)
+
 func _refresh_list() -> void:
 	_populate_list()
+	if _close_btn:
+		_close_btn.call_deferred("grab_focus")
 
 func _update_gold() -> void:
 	if gold_label:
@@ -177,6 +194,6 @@ func _close() -> void:
 	get_parent().queue_free()  # Remove CanvasLayer
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
 		_close()
 		get_viewport().set_input_as_handled()

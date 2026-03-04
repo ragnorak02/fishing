@@ -1,7 +1,7 @@
 extends Node
 
 const SAVE_PATH := "user://save_data.json"
-const CURRENT_SAVE_VERSION := 2
+const CURRENT_SAVE_VERSION := 4
 
 signal species_discovered(species_id: String)
 
@@ -23,8 +23,7 @@ func save_game() -> void:
 	if file:
 		file.store_string(json_string)
 		file.close()
-		if DebugFlags.DEBUG_ACHIEVEMENTS:
-			print("[SaveManager] Game saved")
+		GameLog.achievements("Game saved")
 
 func load_game() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
@@ -42,12 +41,12 @@ func load_game() -> void:
 	var json := JSON.new()
 	var err := json.parse(text)
 	if err != OK:
-		push_warning("[SaveManager] Corrupt save file — starting fresh")
+		GameLog.warn("SaveManager", "Corrupt save file — starting fresh")
 		_apply_defaults()
 		return
 	var data = json.data
 	if not _validate_schema(data):
-		push_warning("[SaveManager] Invalid save schema — starting fresh")
+		GameLog.warn("SaveManager", "Invalid save schema — starting fresh")
 		_apply_defaults()
 		return
 	# Migrate if needed
@@ -118,6 +117,8 @@ func _build_save_data() -> Dictionary:
 		"unlocked_recipes": Inventory.unlocked_recipes.duplicate(),
 		"current_day": tm.current_day if tm else 1,
 		"current_time": tm.current_time if tm else 0,
+		"submerge_unlocked": GameManager.submerge_unlocked,
+		"air_mode_unlocked": GameManager.air_mode_unlocked,
 	}
 
 func _apply_save_data(data: Dictionary) -> void:
@@ -156,6 +157,9 @@ func _apply_save_data(data: Dictionary) -> void:
 		tm.current_day = data.get("current_day", 1)
 		tm.current_time = data.get("current_time", 0) as TimeManager.TimeOfDay
 
+	GameManager.submerge_unlocked = data.get("submerge_unlocked", true)
+	GameManager.air_mode_unlocked = data.get("air_mode_unlocked", true)
+
 func _apply_defaults() -> void:
 	total_catches = 0
 	total_gold_earned = 0
@@ -189,4 +193,16 @@ func _migrate(data: Dictionary, from_version: int) -> Dictionary:
 		if not data.has("current_time"):
 			data["current_time"] = 0
 		data["save_version"] = 2
+	if from_version < 3:
+		# v2 -> v3: add vehicle mode unlock flags
+		if not data.has("submerge_unlocked"):
+			data["submerge_unlocked"] = true
+		if not data.has("air_mode_unlocked"):
+			data["air_mode_unlocked"] = true
+		data["save_version"] = 3
+	if from_version < 4:
+		# v3 -> v4: fix saves migrated to v3 with modes locked
+		data["submerge_unlocked"] = true
+		data["air_mode_unlocked"] = true
+		data["save_version"] = 4
 	return data

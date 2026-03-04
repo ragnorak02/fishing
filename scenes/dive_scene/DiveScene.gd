@@ -62,7 +62,7 @@ func _ready() -> void:
 	# Ambient underwater bubbles
 	_create_ambient_bubbles()
 
-	print("[DiveScene] Ready — diver at ", diver.global_position, " | fish_spawner biome: ", fish_spawner.biome)
+	GameLog.fish("DiveScene ready — diver at %s | biome: %s" % [diver.global_position, fish_spawner.biome])
 
 func _create_boundaries() -> void:
 	var bounds := $Boundaries as StaticBody2D
@@ -223,6 +223,9 @@ func _on_harpoon_hit(fish: Node2D) -> void:
 			# New species discovery label
 			if is_new:
 				_spawn_discovery_label(fish.global_position)
+
+	# Catch SFX
+	AudioManager.play_sfx("catch")
 
 	fish.queue_free()
 

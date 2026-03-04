@@ -11,7 +11,6 @@ var depth_bar: ProgressBar
 var battery_container: HBoxContainer
 var depth_container: HBoxContainer
 var interact_prompt: Label
-var button_prompts: Label
 
 var current_mode: int = 0  # VehicleStateMachine.Mode.SURFACE
 
@@ -174,24 +173,7 @@ func _build_ui() -> void:
 	depth_bar = d_bar
 	depth_container = depth_hbox
 
-	# --- Button Prompts (bottom center) ---
-	var bp_label := Label.new()
-	bp_label.name = "ButtonPrompts"
-	bp_label.anchor_left = 0.5
-	bp_label.anchor_right = 0.5
-	bp_label.anchor_top = 1.0
-	bp_label.anchor_bottom = 1.0
-	bp_label.offset_left = -250.0
-	bp_label.offset_right = 250.0
-	bp_label.offset_top = -55.0
-	bp_label.offset_bottom = -35.0
-	bp_label.add_theme_font_size_override("font_size", 13)
-	bp_label.add_theme_color_override("font_color", Color(1, 1, 1, 0.6))
-	bp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	add_child(bp_label)
-	button_prompts = bp_label
-
-	# --- Interact Prompt (above button prompts) ---
+	# --- Interact Prompt (bottom center) ---
 	var ip_label := Label.new()
 	ip_label.name = "InteractPrompt"
 	ip_label.visible = false
@@ -222,13 +204,16 @@ func set_mode(mode: int) -> void:
 			mode_label.add_theme_color_override("font_color", Color(0.3, 0.9, 1.0))
 			battery_container.visible = false
 			depth_container.visible = false
-			button_prompts.text = "[W/S] Throttle  [A/D] Steer  [R] Submerge  [E] Interact"
 		VehicleStateMachine.Mode.SUBMERGED:
 			mode_label.text = "-- SUBMERGED --"
 			mode_label.add_theme_color_override("font_color", Color(0.2, 0.6, 1.0))
 			battery_container.visible = true
 			depth_container.visible = true
-			button_prompts.text = "[W/S] Throttle  [A/D] Steer  [Q/E] Depth  [LMB] Harpoon  [Space] Sonar  [R] Surface"
+		VehicleStateMachine.Mode.AIR:
+			mode_label.text = "-- AIR --"
+			mode_label.add_theme_color_override("font_color", Color(0.9, 0.85, 0.5))
+			battery_container.visible = false
+			depth_container.visible = false
 		_:
 			mode_label.text = "-- ??? --"
 

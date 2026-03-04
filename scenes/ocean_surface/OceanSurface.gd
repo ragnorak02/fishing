@@ -1,5 +1,7 @@
 extends Node2D
 
+const FishingMinigameScene = preload("res://scripts/ui/FishingMinigame.gd")
+
 @onready var vehicle: CharacterBody2D = $Vehicle
 @onready var hud = $VehicleHUD
 
@@ -10,6 +12,13 @@ const MAP_BOUNDS := Rect2(-1500, -1500, 3000, 3000)
 
 # Sonar ring visual
 var sonar_ring: Node2D = null
+
+# Fish spot markers (sonar-detected)
+var fish_markers: Dictionary = {}  # Area2D -> Node2D (marker)
+
+# Surface fishing state
+var is_fishing: bool = false
+var active_minigame: Control = null
 
 func _ready() -> void:
 	AudioManager.play_music("ocean_surface")
@@ -122,58 +131,80 @@ func _process(_delta: float) -> void:
 
 	var is_surface = vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE
 
-	# Interaction — only in surface mode
-	if Input.is_action_just_pressed("interact"):
-		GameLog.vehicle("E pressed | mode=%d is_surface=%s near_dive=%s near_hub=%s" % [
+	# Track whether interact consumed this frame (prevents mode_up double-firing on E)
+	var interaction_handled: bool = false
+
+	# Interaction — dive spot / hub return (E / A)
+	if Input.is_action_just_pressed("interact") and not is_fishing:
+		GameLog.vehicle("interact pressed | mode=%d is_surface=%s near_dive=%s near_hub=%s" % [
 			vehicle.get_current_mode(), is_surface, near_dive_spot != null, near_hub_return])
 		if is_surface:
-			if near_dive_spot:
+			if near_dive_spot and _spot_has_marker(near_dive_spot):
+				_start_fishing_minigame(near_dive_spot)
+				interaction_handled = true
+			elif near_dive_spot:
 				_start_dive(near_dive_spot)
+				interaction_handled = true
 			elif near_hub_return:
 				GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
+				interaction_handled = true
 
-	# Submerge (R / RB) — requires unlock
-	if Input.is_action_just_pressed("transform_vehicle") and not vehicle.is_transforming():
-		if not GameManager.submerge_unlocked:
-			hud.interact_prompt.visible = true
-			hud.interact_prompt.text = "Submerge not unlocked yet!"
-			get_tree().create_timer(1.5).timeout.connect(func():
-				if not near_dive_spot and not near_hub_return:
-					hud.interact_prompt.visible = false
-			)
-		else:
-			var current_mode = vehicle.get_current_mode()
-			if current_mode == VehicleStateMachine.Mode.SURFACE:
+	# Cast line (F/X) — always dives at any dive spot
+	if Input.is_action_just_pressed("cast_line") and not is_fishing:
+		if is_surface and near_dive_spot:
+			_start_dive(near_dive_spot)
+
+	# Mode Down (Q / LT) — go down one level: AIR→SURFACE, SURFACE→SUBMERGED
+	# Illegal: SUBMERGED→ (already at lowest — silently ignored)
+	if Input.is_action_just_pressed("mode_down"):
+		print("[OCEAN_CTRL] mode_down detected | is_transforming=%s | mode=%d | submerge_unlocked=%s" % [
+			vehicle.is_transforming(), vehicle.get_current_mode(), GameManager.submerge_unlocked])
+	if Input.is_action_just_pressed("mode_down") and not vehicle.is_transforming():
+		var current_mode = vehicle.get_current_mode()
+		if current_mode == VehicleStateMachine.Mode.AIR:
+			vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
+		elif current_mode == VehicleStateMachine.Mode.SURFACE:
+			if not GameManager.submerge_unlocked:
+				hud.interact_prompt.visible = true
+				hud.interact_prompt.text = "Submerge not unlocked yet!"
+				get_tree().create_timer(1.5).timeout.connect(func():
+					if not near_dive_spot and not near_hub_return:
+						hud.interact_prompt.visible = false
+				)
+			else:
 				vehicle.request_transform(VehicleStateMachine.Mode.SUBMERGED)
-			elif current_mode == VehicleStateMachine.Mode.SUBMERGED:
-				var depth_sys: DepthSystem = vehicle.get_node_or_null("DepthSystem")
-				if depth_sys and not depth_sys.is_at_surface():
-					hud.interact_prompt.visible = true
-					hud.interact_prompt.text = "Ascend to surface first!"
-					get_tree().create_timer(1.5).timeout.connect(func():
-						if not near_dive_spot and not near_hub_return:
-							hud.interact_prompt.visible = false
-					)
-				else:
-					vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
-			elif current_mode == VehicleStateMachine.Mode.AIR:
-				vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
+		# SUBMERGED + mode_down = already at lowest level — blocked
 
-	# Fly (T / RT) — requires unlock
-	if Input.is_action_just_pressed("transform_air") and not vehicle.is_transforming():
-		if not GameManager.air_mode_unlocked:
-			hud.interact_prompt.visible = true
-			hud.interact_prompt.text = "Air mode not unlocked yet!"
-			get_tree().create_timer(1.5).timeout.connect(func():
-				if not near_dive_spot and not near_hub_return:
-					hud.interact_prompt.visible = false
-			)
-		else:
-			var current_mode = vehicle.get_current_mode()
-			if current_mode == VehicleStateMachine.Mode.SURFACE:
-				vehicle.request_transform(VehicleStateMachine.Mode.AIR)
-			elif current_mode == VehicleStateMachine.Mode.AIR:
+	# Mode Up (E / RT) — go up one level: SUBMERGED→SURFACE, SURFACE→AIR
+	# Illegal: AIR→ (already at highest — silently ignored)
+	# Guarded by interaction_handled so E doesn't rise while also diving
+	if Input.is_action_just_pressed("mode_up"):
+		print("[OCEAN_CTRL] mode_up detected | is_transforming=%s | mode=%d | air_unlocked=%s | interaction_handled=%s" % [
+			vehicle.is_transforming(), vehicle.get_current_mode(), GameManager.air_mode_unlocked, interaction_handled])
+	if Input.is_action_just_pressed("mode_up") and not vehicle.is_transforming() and not interaction_handled:
+		var current_mode = vehicle.get_current_mode()
+		if current_mode == VehicleStateMachine.Mode.SUBMERGED:
+			var depth_sys: DepthSystem = vehicle.get_node_or_null("DepthSystem")
+			if depth_sys and not depth_sys.is_at_surface():
+				hud.interact_prompt.visible = true
+				hud.interact_prompt.text = "Ascend to surface first!"
+				get_tree().create_timer(1.5).timeout.connect(func():
+					if not near_dive_spot and not near_hub_return:
+						hud.interact_prompt.visible = false
+				)
+			else:
 				vehicle.request_transform(VehicleStateMachine.Mode.SURFACE)
+		elif current_mode == VehicleStateMachine.Mode.SURFACE:
+			if not GameManager.air_mode_unlocked:
+				hud.interact_prompt.visible = true
+				hud.interact_prompt.text = "Air mode not unlocked yet!"
+				get_tree().create_timer(1.5).timeout.connect(func():
+					if not near_dive_spot and not near_hub_return:
+						hud.interact_prompt.visible = false
+				)
+			else:
+				vehicle.request_transform(VehicleStateMachine.Mode.AIR)
+		# AIR + mode_up = already at highest level — blocked
 
 	# Boundary enforcement
 	if not MAP_BOUNDS.has_point(vehicle.global_position):
@@ -231,8 +262,8 @@ func _on_depth_changed(depth: float, max_depth: float) -> void:
 	hud.update_depth(depth, max_depth)
 
 func _on_sonar_pulsed(origin: Vector2, pulse_range: float) -> void:
-	AudioManager.play_sfx("sonar_pulse")
 	_spawn_sonar_ring(origin, pulse_range)
+	_detect_fish_spots(origin, pulse_range)
 
 func _on_harpoon_hit(fish: Node2D) -> void:
 	# Catch the fish — same as dive scene pattern
@@ -285,6 +316,124 @@ func _create_ring_visual() -> Node2D:
 
 	return ring
 
+# --- Fish spot detection & markers ---
+
+func _detect_fish_spots(origin: Vector2, pulse_range: float) -> void:
+	for child in get_children():
+		if child is Area2D and child.is_in_group("dive_spots"):
+			if origin.distance_to(child.global_position) <= pulse_range:
+				_spawn_fish_marker(child)
+
+func _spawn_fish_marker(spot: Area2D) -> void:
+	# Free existing marker for this spot
+	if fish_markers.has(spot) and is_instance_valid(fish_markers[spot]):
+		fish_markers[spot].queue_free()
+
+	var marker := Node2D.new()
+	marker.global_position = spot.global_position
+	add_child(marker)
+	fish_markers[spot] = marker
+
+	# Gold diamond shape
+	var diamond := Polygon2D.new()
+	diamond.polygon = PackedVector2Array([
+		Vector2(0, -12), Vector2(10, 0), Vector2(0, 12), Vector2(-10, 0)
+	])
+	diamond.color = Color(1.0, 0.85, 0.2, 0.9)
+	marker.add_child(diamond)
+
+	# Pulsing scale tween on diamond
+	var pulse_tween := create_tween().set_loops(10)
+	pulse_tween.tween_property(diamond, "scale", Vector2(1.3, 1.3), 0.6)
+	pulse_tween.tween_property(diamond, "scale", Vector2.ONE, 0.6)
+
+	# Gold ring outline
+	var ring := Line2D.new()
+	ring.width = 2.0
+	ring.default_color = Color(1.0, 0.85, 0.2, 0.5)
+	ring.closed = true
+	var points: PackedVector2Array = []
+	for i in 25:
+		var angle := (float(i) / 24.0) * TAU
+		points.append(Vector2(cos(angle), sin(angle)) * 25.0)
+	ring.points = points
+	marker.add_child(ring)
+
+	# "FISH" label
+	var label := Label.new()
+	label.text = "FISH"
+	label.add_theme_font_size_override("font_size", 11)
+	label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.position = Vector2(-16, -28)
+	marker.add_child(label)
+
+	# Hold 8s, then fade 2s, then free
+	get_tree().create_timer(8.0).timeout.connect(func():
+		if is_instance_valid(marker):
+			var fade := create_tween()
+			fade.tween_property(marker, "modulate:a", 0.0, 2.0)
+			fade.tween_callback(func():
+				if is_instance_valid(marker):
+					marker.queue_free()
+				fish_markers.erase(spot)
+			)
+	)
+
+	# Update prompt if player is near this spot
+	if near_dive_spot == spot and vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE:
+		_update_dive_spot_prompt(spot)
+
+func _spot_has_marker(spot: Area2D) -> bool:
+	return fish_markers.has(spot) and is_instance_valid(fish_markers[spot])
+
+func _update_dive_spot_prompt(spot: Area2D) -> void:
+	var biome_name: String = spot.get_meta("biome", "shallow").capitalize()
+	if _spot_has_marker(spot):
+		hud.interact_prompt.text = "[E] Fish Here  |  [F] Dive (%s)" % biome_name
+	else:
+		hud.interact_prompt.text = "[E] Dive Here (%s)" % biome_name
+
+# --- Surface fishing minigame ---
+
+func _start_fishing_minigame(spot: Area2D) -> void:
+	is_fishing = true
+	vehicle.movement_locked = true
+	var biome_str: String = spot.get_meta("biome", "shallow")
+	active_minigame = FishingMinigameScene.new(biome_str)
+	hud.add_child(active_minigame)
+	active_minigame.fishing_completed.connect(_on_fishing_completed)
+	active_minigame.fishing_failed.connect(_on_fishing_ended)
+
+func _on_fishing_completed(species_id: String, weight: float) -> void:
+	# Build fish entry directly into storage (not haul)
+	var species = FishDatabase.get_species(species_id)
+	if species:
+		var value := int(species.base_value * (weight / species.weight_range.y))
+		value = maxi(value, 1)
+		Inventory.fish_storage.append({
+			"species_id": species_id,
+			"name": species.display_name,
+			"weight": weight,
+			"value": value,
+			"rarity": species.rarity,
+			"sushi_grade": species.sushi_grade,
+		})
+		Inventory.storage_changed.emit()
+
+		# Track species discovery + catch stats
+		SaveManager.record_catch(species_id)
+
+		# Play catch SFX
+		AudioManager.play_sfx("catch")
+
+	_on_fishing_ended()
+
+func _on_fishing_ended() -> void:
+	is_fishing = false
+	vehicle.movement_locked = false
+	active_minigame = null
+
 # --- Dive/Hub interaction signals ---
 
 func _on_dive_spot_entered(body: Node2D, spot: Area2D) -> void:
@@ -293,8 +442,7 @@ func _on_dive_spot_entered(body: Node2D, spot: Area2D) -> void:
 		near_dive_spot = spot
 		if vehicle.get_current_mode() == VehicleStateMachine.Mode.SURFACE:
 			hud.interact_prompt.visible = true
-			var biome_name: String = spot.get_meta("biome", "shallow")
-			hud.interact_prompt.text = "[E] Dive Here (%s)" % biome_name.capitalize()
+			_update_dive_spot_prompt(spot)
 
 func _on_dive_spot_exited(body: Node2D, spot: Area2D) -> void:
 	if body == vehicle and near_dive_spot == spot:

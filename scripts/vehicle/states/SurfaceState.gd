@@ -30,10 +30,19 @@ func enter() -> void:
 	# Apply surface placeholder visuals
 	vehicle.apply_surface_visuals()
 
+	# Activate sonar in surface mode (no battery cost)
+	var sonar: SonarSystem = vehicle.get_node_or_null("SonarSystem")
+	if sonar:
+		sonar.activate_surface()
+
 func exit() -> void:
 	var wake: GPUParticles2D = vehicle.get_node_or_null("WakeParticles")
 	if wake:
 		wake.emitting = false
+
+	var sonar: SonarSystem = vehicle.get_node_or_null("SonarSystem")
+	if sonar:
+		sonar.deactivate()
 
 func physics_process(delta: float) -> void:
 	var speed_mult: float = GameManager.get_boat_speed_multiplier()

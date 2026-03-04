@@ -6,6 +6,7 @@ func _ready() -> void:
 	$VBox/StartButton.pressed.connect(_on_start_pressed)
 	$VBox/QuitButton.pressed.connect(_on_quit_pressed)
 	$VBox/StartButton.grab_focus()
+	$Version.text = "v%s" % GameManager.VERSION
 
 	# Animate wave overlay
 	_start_wave_animation()
@@ -16,7 +17,7 @@ func _start_wave_animation() -> void:
 	tween.tween_property(wave_overlay, "color:a", 0.35, 2.0).set_trans(Tween.TRANS_SINE)
 
 func _on_start_pressed() -> void:
-	GameManager.transition_to("res://scenes/restaurant/Restaurant.tscn")
+	GameManager.transition_to("res://scenes/ocean_surface/OceanSurface.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

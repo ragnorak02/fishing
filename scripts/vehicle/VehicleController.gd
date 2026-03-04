@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 @onready var state_machine: VehicleStateMachine = $VehicleStateMachine
 
+var movement_locked: bool = false
+
 signal mode_changed(mode: int)
 signal throttle_changed(throttle: float)
 
@@ -12,7 +14,7 @@ func _ready() -> void:
 	if $Sprite2D.texture == null:
 		$Sprite2D.texture = preload("res://assets/sprites/boat/boat.svg")
 	if $Sprite2D.texture == null:
-		push_warning("VehicleController: boat texture failed to load — creating placeholder")
+		GameLog.warn("Vehicle", "Boat texture failed to load — creating placeholder")
 		_create_placeholder_visual()
 
 	# Set up collision shape (surface default — sized to match 2.5x sprite scale)
@@ -86,6 +88,9 @@ func _on_mode_changed(mode: VehicleStateMachine.Mode) -> void:
 	GameManager.set_vehicle_mode(mode)
 
 func _physics_process(delta: float) -> void:
+	if movement_locked:
+		velocity = Vector2.ZERO
+		return
 	if state_machine and not state_machine.is_transforming and state_machine.current_state:
 		state_machine.current_state.physics_process(delta)
 
@@ -109,6 +114,9 @@ func apply_surface_visuals() -> void:
 
 func apply_submerged_visuals() -> void:
 	$Sprite2D.modulate = Color(0.5, 0.6, 0.8)
+
+func apply_air_visuals() -> void:
+	$Sprite2D.modulate = Color(1.0, 1.0, 1.2)
 
 # --- Fallback placeholder (if SVG fails to load) ---
 

@@ -9,7 +9,7 @@ static func _ensure_loaded() -> void:
 		return
 	var dir := DirAccess.open("res://scripts/data/recipes/")
 	if dir == null:
-		push_error("RecipeDatabase: Cannot open recipes directory")
+		push_error("[RecipeDatabase] Cannot open recipes directory")
 		return
 	dir.list_dir_begin()
 	var file_name := dir.get_next()

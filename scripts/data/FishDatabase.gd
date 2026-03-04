@@ -16,7 +16,7 @@ static func _ensure_loaded() -> void:
 		return
 	var dir := DirAccess.open("res://scripts/data/fish/")
 	if dir == null:
-		push_error("FishDatabase: Cannot open fish data directory")
+		push_error("[FishDatabase] Cannot open fish data directory")
 		return
 	dir.list_dir_begin()
 	var file_name := dir.get_next()

@@ -11,8 +11,10 @@ var context: String = "hub"  # "hub", "ocean_surface", "ocean_submerged", "dive"
 
 func _ready() -> void:
 	layer = 90
-	GameManager.state_changed.connect(_on_state_changed)
-	GameManager.vehicle_mode_changed.connect(_on_vehicle_mode_changed)
+	if GameManager.has_signal("state_changed"):
+		GameManager.state_changed.connect(_on_state_changed)
+	if GameManager.has_signal("vehicle_mode_changed"):
+		GameManager.vehicle_mode_changed.connect(_on_vehicle_mode_changed)
 	_build_ui()
 
 func _on_state_changed(new_state) -> void:
@@ -22,11 +24,7 @@ func _on_state_changed(new_state) -> void:
 		GameManager.GameState.HUB_TOWN:
 			context = "hub"
 		GameManager.GameState.OCEAN_SURFACE:
-			# Use vehicle mode to determine surface vs submerged
-			if GameManager.vehicle_mode == 1:
-				context = "ocean_submerged"
-			else:
-				context = "ocean_surface"
+			context = _ocean_context_for_mode(GameManager.vehicle_mode)
 		GameManager.GameState.DIVING:
 			context = "dive"
 		GameManager.GameState.HAUL_SUMMARY:
@@ -39,11 +37,17 @@ func _on_state_changed(new_state) -> void:
 
 func _on_vehicle_mode_changed(mode: int) -> void:
 	if GameManager.current_state == GameManager.GameState.OCEAN_SURFACE:
-		if mode == 1:  # SUBMERGED
-			context = "ocean_submerged"
-		else:
-			context = "ocean_surface"
+		context = _ocean_context_for_mode(mode)
 		_rebuild_controls()
+
+func _ocean_context_for_mode(mode: int) -> String:
+	match mode:
+		1:  # SUBMERGED
+			return "ocean_submerged"
+		2:  # AIR
+			return "ocean_air"
+		_:  # SURFACE
+			return "ocean_surface"
 
 func _build_ui() -> void:
 	# Container in bottom-left
@@ -123,17 +127,25 @@ func _get_controls_for_context() -> Array:
 			return [
 				["move_up", "W/S", "LS", "Throttle"],
 				["move_left", "A/D", "LS", "Steer"],
-				["transform_vehicle", "R", "Y", "Submerge"],
-				["interact", "E", "A", "Dive / Dock"],
+				["mode_down", "Q", "LT", "Submerge"],
+				["mode_up", "E", "RT", "Rise"],
+				["sonar_pulse", "Space", "LB", "Sonar"],
+				["interact", "E", "A", "Interact"],
 			]
 		"ocean_submerged":
 			return [
 				["move_up", "W/S", "LS", "Throttle"],
 				["move_left", "A/D", "LS", "Steer"],
-				["descend", "Q/E", "RS", "Depth"],
+				["mode_up", "E", "RT", "Surface"],
+				["descend", "Q", "RS↓", "Depth↓"],
 				["fire_harpoon", "LMB", "RT", "Harpoon"],
 				["sonar_pulse", "Space", "LB", "Sonar"],
-				["transform_vehicle", "R", "Y", "Surface"],
+			]
+		"ocean_air":
+			return [
+				["move_up", "W/S", "LS", "Throttle"],
+				["move_left", "A/D", "LS", "Steer"],
+				["mode_down", "Q", "LT", "Land"],
 			]
 		"dive":
 			return [
@@ -149,6 +161,7 @@ func _get_controls_for_context() -> Array:
 			return [
 				["move_left", "A/D", "LS", "Walk"],
 				["interact", "E", "A", "Interact"],
+				["ui_cancel", "ESC", "B", "Back"],
 			]
 		"dinner_service":
 			return [

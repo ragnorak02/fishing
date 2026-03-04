@@ -45,7 +45,7 @@ func notify_sonar_pulse() -> void:
 
 func _load_manifest() -> void:
 	if not FileAccess.file_exists(ACHIEVEMENTS_PATH):
-		push_warning("[AchievementManager] achievements.json not found")
+		GameLog.warn("AchievementManager", "achievements.json not found")
 		return
 	var file := FileAccess.open(ACHIEVEMENTS_PATH, FileAccess.READ)
 	if file == null:
@@ -142,8 +142,7 @@ func _unlock(id: String) -> void:
 		return
 	achievements[id].unlocked = true
 	achievement_unlocked.emit(id)
-	if DebugFlags.DEBUG_ACHIEVEMENTS:
-		print("[Achievement] Unlocked: %s" % id)
+	GameLog.achievements("Unlocked: %s" % id)
 	_queue_toast(achievements[id].name, achievements[id].description)
 
 # --- Toast UI ---

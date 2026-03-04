@@ -32,7 +32,7 @@ func request_transform(target_mode: Mode) -> void:
 	if target_mode == current_mode:
 		return
 	if not states.has(target_mode):
-		push_warning("VehicleStateMachine: No state registered for mode %d" % target_mode)
+		GameLog.warn("Vehicle", "No state registered for mode %d" % target_mode)
 		return
 
 	_run_transform(target_mode)
@@ -75,6 +75,8 @@ func _play_transform_animation(target_mode: Mode) -> void:
 				target_zoom = Vector2(1.0, 1.0)
 			Mode.SUBMERGED:
 				target_zoom = Vector2(1.3, 1.3)
+			Mode.AIR:
+				target_zoom = Vector2(0.85, 0.85)
 			_:
 				target_zoom = Vector2(1.0, 1.0)
 		tween.tween_property(camera, "zoom", target_zoom, 0.5)

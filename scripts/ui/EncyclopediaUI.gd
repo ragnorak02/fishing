@@ -3,11 +3,16 @@ extends Control
 signal closed()
 
 var fish_list: VBoxContainer
+var _scroll_ref: ScrollContainer
 
 func _ready() -> void:
 	_build_ui()
 
 func _build_ui() -> void:
+	anchors_preset = Control.PRESET_FULL_RECT
+	anchor_right = 1.0
+	anchor_bottom = 1.0
+
 	# Full-screen dimmer
 	var dimmer := ColorRect.new()
 	dimmer.anchors_preset = Control.PRESET_FULL_RECT
@@ -59,6 +64,8 @@ func _build_ui() -> void:
 	# Scroll area
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.follow_focus = true
+	_scroll_ref = scroll
 	vbox.add_child(scroll)
 
 	fish_list = VBoxContainer.new()
@@ -75,6 +82,7 @@ func _build_ui() -> void:
 	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	close_btn.pressed.connect(_close)
 	vbox.add_child(close_btn)
+	close_btn.call_deferred("grab_focus")
 
 func _populate_list(all_species: Array) -> void:
 	# Sort by rarity then name for consistent order
@@ -153,11 +161,17 @@ func _create_species_card(species: FishSpecies, discovered: bool) -> PanelContai
 	hbox.add_child(info)
 	return card
 
+func _process(delta: float) -> void:
+	if _scroll_ref:
+		var v := Input.get_axis("move_up", "move_down")
+		if v != 0.0:
+			_scroll_ref.scroll_vertical += int(v * 300.0 * delta)
+
 func _close() -> void:
 	closed.emit()
 	get_parent().queue_free()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
 		_close()
 		get_viewport().set_input_as_handled()

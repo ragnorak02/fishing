@@ -109,13 +109,20 @@ func run_tests() -> Dictionary:
 		details.append({"name": "interact input action exists", "status": "fail",
 			"message": "InputMap missing 'interact' action"})
 
-	# --- Test 9: transform_vehicle input action exists ---
-	if InputMap.has_action("transform_vehicle"):
+	# --- Test 9: mode_down and mode_up input actions exist ---
+	if InputMap.has_action("mode_down"):
 		passed += 1
-		details.append({"name": "transform_vehicle input action exists", "status": "pass"})
+		details.append({"name": "mode_down input action exists", "status": "pass"})
 	else:
 		failed += 1
-		details.append({"name": "transform_vehicle input action exists", "status": "fail",
-			"message": "InputMap missing 'transform_vehicle' action"})
+		details.append({"name": "mode_down input action exists", "status": "fail",
+			"message": "InputMap missing 'mode_down' action"})
+	if InputMap.has_action("mode_up"):
+		passed += 1
+		details.append({"name": "mode_up input action exists", "status": "pass"})
+	else:
+		failed += 1
+		details.append({"name": "mode_up input action exists", "status": "fail",
+			"message": "InputMap missing 'mode_up' action"})
 
 	return {"passed": passed, "failed": failed, "details": details}

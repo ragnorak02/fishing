@@ -10,12 +10,21 @@ var sonar_range: float = BASE_RANGE
 var cooldown_timer: float = 0.0
 var pulse_timer: float = 0.0
 var is_active: bool = false
+var surface_mode: bool = false
 
 signal sonar_pulsed(origin: Vector2, pulse_range: float)
 signal sonar_ended
 
 func activate() -> void:
 	is_active = true
+	surface_mode = false
+	cooldown_timer = 0.0
+	pulse_timer = 0.0
+	sonar_range = BASE_RANGE * GameManager.get_sonar_multiplier()
+
+func activate_surface() -> void:
+	is_active = true
+	surface_mode = true
 	cooldown_timer = 0.0
 	pulse_timer = 0.0
 	sonar_range = BASE_RANGE * GameManager.get_sonar_multiplier()
@@ -37,19 +46,23 @@ func _process(delta: float) -> void:
 		if pulse_timer <= 0:
 			sonar_ended.emit()
 
+	if Input.is_action_just_pressed("sonar_pulse"):
+		print("[SONAR] sonar_pulse detected | is_active=%s | cooldown=%.2f" % [is_active, cooldown_timer])
 	if Input.is_action_just_pressed("sonar_pulse") and cooldown_timer <= 0:
 		_fire_pulse()
 
 func _fire_pulse() -> void:
-	# Consume battery
-	var battery: BatterySystem = get_parent().get_node_or_null("BatterySystem")
-	if battery and not battery.consume(BatterySystem.SONAR_COST):
-		return  # Not enough battery
+	# Consume battery (skip on surface — battery is a submerged-only system)
+	if not surface_mode:
+		var battery: BatterySystem = get_parent().get_node_or_null("BatterySystem")
+		if battery and not battery.consume(BatterySystem.SONAR_COST):
+			return  # Not enough battery
 
 	cooldown_timer = COOLDOWN
 	pulse_timer = PULSE_DURATION
 	sonar_range = BASE_RANGE * GameManager.get_sonar_multiplier()
 	sonar_pulsed.emit(get_parent().global_position, sonar_range)
+	AudioManager.play_sfx("sonar_pulse")
 	var am = get_node_or_null("/root/AchievementManager")
 	if am:
 		am.notify_sonar_pulse()
