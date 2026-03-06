@@ -1,19 +1,24 @@
 extends Node
 
 const MUSIC_TRACKS := {
-	"ocean_surface": "res://assets/audio/music/ocean_surface.ogg",
-	"hub_town": "res://assets/audio/music/hub_town.ogg",
-	"dive": "res://assets/audio/music/dive.ogg",
-	"main_menu": "res://assets/audio/music/main_menu.ogg",
+	"ocean_surface": "res://assets/audio/music/ocean_surface.wav",
+	"hub_town": "res://assets/audio/music/hub_town.wav",
+	"dive": "res://assets/audio/music/dive.wav",
+	"main_menu": "res://assets/audio/music/main_menu.wav",
+	"weather_ambience": "res://assets/audio/music/weather_ambience.wav",
 }
 
 const SFX_SOUNDS := {
-	"harpoon_miss": "res://assets/audio/sfx/harpoon_miss.ogg",
-	"catch": "res://assets/audio/sfx/catch.ogg",
-	"upgrade": "res://assets/audio/sfx/upgrade.ogg",
-	"sonar_pulse": "res://assets/audio/sfx/sonar_pulse.ogg",
-	"sell": "res://assets/audio/sfx/sell.ogg",
-	"achievement": "res://assets/audio/sfx/achievement.ogg",
+	"harpoon_miss": "res://assets/audio/sfx/harpoon_miss.wav",
+	"catch": "res://assets/audio/sfx/catch.wav",
+	"upgrade": "res://assets/audio/sfx/upgrade.wav",
+	"sonar_pulse": "res://assets/audio/sfx/sonar_pulse.wav",
+	"sell": "res://assets/audio/sfx/sell.wav",
+	"achievement": "res://assets/audio/sfx/achievement.wav",
+	"melee": "res://assets/audio/sfx/melee.wav",
+	"ui_click": "res://assets/audio/sfx/ui_click.wav",
+	"ui_confirm": "res://assets/audio/sfx/ui_confirm.wav",
+	"ui_cancel": "res://assets/audio/sfx/ui_cancel.wav",
 }
 
 const SFX_POOL_SIZE := 8
@@ -29,12 +34,12 @@ var _current_music_track: String = ""
 
 func _ready() -> void:
 	_music_player = AudioStreamPlayer.new()
-	_music_player.bus = "Master"
+	_music_player.bus = "Music"
 	add_child(_music_player)
 
 	for i in SFX_POOL_SIZE:
 		var player := AudioStreamPlayer.new()
-		player.bus = "Master"
+		player.bus = "SFX"
 		add_child(player)
 		_sfx_pool.append(player)
 

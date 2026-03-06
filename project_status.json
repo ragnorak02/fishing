@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "gameId": "fishing",
   "title": "Isles of the Blue Current",
-  "lastUpdated": "2026-03-05T12:00Z",
+  "lastUpdated": "2026-03-06T12:00Z",
   "health": {
     "progressPercent": 85,
     "buildVersion": "0.5.0",
@@ -20,7 +20,8 @@
     "testScripts": "implemented",
     "saveSystem": "implemented",
     "settingsMenu": "missing",
-    "audio": "partial",
+    "audioPlaceholders": true,
+    "audio": "placeholder-complete",
     "vfx": "partial",
     "weatherSystem": "implemented",
     "questSystem": "implemented",
