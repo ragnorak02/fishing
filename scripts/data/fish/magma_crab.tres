@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "magma_crab"
+display_name = "Magma Crab"
+rarity = 1
+base_value = 45
+sushi_grade = false
+weight_range = Vector2(1.0, 4.0)
+swim_speed = 30.0
+awareness_radius = 50.0
+flee_speed = 55.0
+description = "An armored crab with a shell that glows from volcanic heat."
+biomes = PackedStringArray("volcanic")

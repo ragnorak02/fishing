@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "lanternfish"
+display_name = "Lanternfish"
+rarity = 0
+base_value = 12
+sushi_grade = false
+weight_range = Vector2(0.1, 0.5)
+swim_speed = 50.0
+awareness_radius = 70.0
+flee_speed = 100.0
+description = "A tiny bioluminescent fish that fills the abyss in shimmering schools."
+biomes = PackedStringArray("abyss")

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "leviathan_king"
+display_name = "Leviathan King"
+rarity = 3
+base_value = 500
+sushi_grade = true
+weight_range = Vector2(50.0, 150.0)
+swim_speed = 120.0
+awareness_radius = 250.0
+flee_speed = 90.0
+description = "The legendary ruler of the deep. A massive predator that charges at threats rather than fleeing."
+biomes = PackedStringArray("abyss")
+is_event_fish = true
+event_min_day = 5
+event_biome = "abyss"
+event_times = PackedInt32Array()
+event_day_divisor = 3

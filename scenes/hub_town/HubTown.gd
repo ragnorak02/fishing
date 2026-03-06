@@ -10,8 +10,20 @@ var nearby_exit: bool = false
 
 func _ready() -> void:
 	AudioManager.play_music("hub_town")
-	hud.set_location("Umi-no-Machi Harbor")
+
+	# Time/weather display
+	var time_str := TimeManager.get_time_name()
+	var day_str := "Day %d" % TimeManager.current_day
+	hud.set_location("Umi-no-Machi Harbor — %s | %s" % [day_str, time_str])
 	interact_prompt.visible = false
+
+	# Time-of-day tinting
+	var canvas_mod := CanvasModulate.new()
+	canvas_mod.color = TimeManager.get_ambient_color()
+	add_child(canvas_mod)
+
+	# Quest completion toast
+	QuestSystem.quest_completed.connect(_on_quest_completed)
 
 	# Set up dock exit area
 	var dock_exit: Area2D = $DockExit
@@ -86,3 +98,21 @@ func _on_dock_exit_exited(body: Node2D) -> void:
 		nearby_exit = false
 		if nearby_npc == null:
 			interact_prompt.visible = false
+
+func _on_quest_completed(quest_id: String) -> void:
+	var info := QuestSystem.get_quest_info(quest_id)
+	var toast := Label.new()
+	toast.text = "QUEST COMPLETE: %s (+%dg)" % [info.get("title", quest_id), info.get("reward_gold", 0)]
+	toast.add_theme_color_override("font_color", Color(1.0, 0.85, 0.0))
+	toast.add_theme_font_size_override("font_size", 20)
+	toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	toast.anchors_preset = Control.PRESET_CENTER_TOP
+	toast.anchor_left = 0.5
+	toast.anchor_right = 0.5
+	toast.offset_left = -200
+	toast.offset_right = 200
+	toast.offset_top = 60
+	hud.add_child(toast)
+	var tw := create_tween()
+	tw.tween_property(toast, "modulate:a", 0.0, 3.0).set_delay(2.0)
+	tw.tween_callback(toast.queue_free)

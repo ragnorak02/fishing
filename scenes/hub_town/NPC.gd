@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var npc_name: String = "NPC"
-@export var npc_type: String = "generic"  # "fishmonger", "upgrade", "generic"
+@export var npc_type: String = "generic"  # "fishmonger", "upgrade", "generic", "quest_giver"
 @export var dialogue_lines: Array[String] = ["Hello there!"]
 
 var upgrade_panel: Control = null
@@ -28,6 +28,12 @@ func _load_npc_sprite() -> void:
 			$Sprite2D.texture = load("res://assets/sprites/npc/fishmonger.svg")
 		"upgrade":
 			$Sprite2D.texture = load("res://assets/sprites/npc/upgrade_npc.svg")
+		"quest_giver":
+			var tex = load("res://assets/sprites/npc/harbor_master.svg")
+			if tex:
+				$Sprite2D.texture = tex
+			else:
+				$Sprite2D.texture = load("res://assets/sprites/npc/fishmonger.svg")
 		_:
 			$Sprite2D.texture = load("res://assets/sprites/npc/fishmonger.svg")
 
@@ -70,10 +76,55 @@ func get_dialogue() -> Array[String]:
 				"Ahoy! I can upgrade your gear.",
 				"Take a look at what I've got!"
 			]
+		"quest_giver":
+			return _get_quest_dialogue()
 		_:
 			return dialogue_lines
 
+func _get_quest_dialogue() -> Array[String]:
+	var qs = Engine.get_main_loop().root.get_node_or_null("/root/QuestSystem")
+	if qs == null:
+		return ["The harbor is quiet today."]
+
+	# Check for completed quests to turn in
+	var active: Array = qs.get_active_quests_for(npc_name)
+	for quest_id in active:
+		var info: Dictionary = qs.get_quest_info(quest_id)
+		if info.get("progress", 0) >= info.get("target_count", 1):
+			return [
+				"You did it!",
+				"'%s' — complete!" % info["title"],
+				"Here's your reward: %dg!" % info["reward_gold"],
+			]
+
+	# Show active quest progress
+	if not active.is_empty():
+		var quest_id: String = active[0]
+		var info: Dictionary = qs.get_quest_info(quest_id)
+		return [
+			"How's the quest going?",
+			"'%s' — %d/%d" % [info["title"], info.get("progress", 0), info["target_count"]],
+			info["description"],
+		]
+
+	# Offer new quests
+	var available: Array = qs.get_available_quests(npc_name)
+	if available.is_empty():
+		return ["No new tasks right now.", "The seas are calm, enjoy the day!"]
+
+	var quest_id: String = available[0]
+	var info: Dictionary = qs.get_quest_info(quest_id)
+	return [
+		"I have a task for you!",
+		"'%s'" % info["title"],
+		info["description"],
+		"Reward: %dg. Will you accept?" % info["reward_gold"],
+	]
+
 func on_interact() -> void:
+	# All NPCs can give quests
+	_handle_quest_interact()
+
 	match npc_type:
 		"fishmonger":
 			if not Inventory.fish_storage.is_empty():
@@ -210,3 +261,13 @@ func _create_upgrade_row(type: UpgradeSystem.UpgradeType, gold_label: Label) -> 
 	row.add_child(btn)
 
 	return row
+
+func _handle_quest_interact() -> void:
+	var qs = Engine.get_main_loop().root.get_node_or_null("/root/QuestSystem")
+	if qs == null:
+		return
+
+	# Accept available quest
+	var available := qs.get_available_quests(npc_name)
+	if not available.is_empty():
+		qs.accept_quest(available[0])

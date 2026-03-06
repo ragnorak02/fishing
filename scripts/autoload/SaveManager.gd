@@ -1,7 +1,7 @@
 extends Node
 
 const SAVE_PATH := "user://save_data.json"
-const CURRENT_SAVE_VERSION := 4
+const CURRENT_SAVE_VERSION := 5
 
 signal species_discovered(species_id: String)
 
@@ -119,6 +119,7 @@ func _build_save_data() -> Dictionary:
 		"current_time": tm.current_time if tm else 0,
 		"submerge_unlocked": GameManager.submerge_unlocked,
 		"air_mode_unlocked": GameManager.air_mode_unlocked,
+		"quests": _get_quest_state(),
 	}
 
 func _apply_save_data(data: Dictionary) -> void:
@@ -130,12 +131,12 @@ func _apply_save_data(data: Dictionary) -> void:
 	Inventory.fish_storage = data.get("fish_storage", [])
 
 	var upgrades: Dictionary = data.get("upgrade_levels", {})
-	GameManager.boat_speed_level = upgrades.get("boat_speed", 0)
-	GameManager.oxygen_tank_level = upgrades.get("oxygen_tank", 0)
-	GameManager.harpoon_range_level = upgrades.get("harpoon_range", 0)
-	GameManager.hull_durability_level = upgrades.get("hull_durability", 0)
-	GameManager.battery_capacity_level = upgrades.get("battery_capacity", 0)
-	GameManager.sonar_range_level = upgrades.get("sonar_range", 0)
+	GameManager.boat_speed_level = int(upgrades.get("boat_speed", 0))
+	GameManager.oxygen_tank_level = int(upgrades.get("oxygen_tank", 0))
+	GameManager.harpoon_range_level = int(upgrades.get("harpoon_range", 0))
+	GameManager.hull_durability_level = int(upgrades.get("hull_durability", 0))
+	GameManager.battery_capacity_level = int(upgrades.get("battery_capacity", 0))
+	GameManager.sonar_range_level = int(upgrades.get("sonar_range", 0))
 
 	species_caught = data.get("species_caught", [])
 	var stats: Dictionary = data.get("stats", {})
@@ -159,6 +160,18 @@ func _apply_save_data(data: Dictionary) -> void:
 
 	GameManager.submerge_unlocked = data.get("submerge_unlocked", true)
 	GameManager.air_mode_unlocked = data.get("air_mode_unlocked", true)
+
+	# Quest state
+	var quest_data = data.get("quests", {})
+	var qs = get_node_or_null("/root/QuestSystem")
+	if qs and not quest_data.is_empty():
+		qs.load_save_state(quest_data)
+
+func _get_quest_state() -> Dictionary:
+	var qs = get_node_or_null("/root/QuestSystem")
+	if qs and qs.has_method("get_save_state"):
+		return qs.get_save_state()
+	return {}
 
 func _apply_defaults() -> void:
 	total_catches = 0
@@ -205,4 +218,9 @@ func _migrate(data: Dictionary, from_version: int) -> Dictionary:
 		data["submerge_unlocked"] = true
 		data["air_mode_unlocked"] = true
 		data["save_version"] = 4
+	if from_version < 5:
+		# v4 -> v5: add quest state
+		if not data.has("quests"):
+			data["quests"] = {}
+		data["save_version"] = 5
 	return data

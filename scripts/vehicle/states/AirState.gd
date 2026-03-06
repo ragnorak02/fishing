@@ -12,6 +12,8 @@ const DRIFT_DAMP := 0.95
 const ROTATION_SPEED := 1.8
 const BOUNCE_FACTOR := 0.2
 
+var shadow: Sprite2D = null
+
 func enter() -> void:
 	# Disable wake particles (flying above water)
 	var wake: GPUParticles2D = vehicle.get_node_or_null("WakeParticles")
@@ -29,6 +31,9 @@ func enter() -> void:
 	# Apply air visuals
 	vehicle.apply_air_visuals()
 
+	# Create shadow below vehicle to show altitude
+	_create_shadow()
+
 	# Deactivate all sub-systems (not available in air)
 	var battery: BatterySystem = vehicle.get_node_or_null("BatterySystem")
 	if battery:
@@ -44,7 +49,9 @@ func enter() -> void:
 		harpoon.deactivate()
 
 func exit() -> void:
-	pass
+	if shadow and is_instance_valid(shadow):
+		shadow.queue_free()
+		shadow = null
 
 func physics_process(delta: float) -> void:
 	var speed_mult: float = GameManager.get_boat_speed_multiplier()
@@ -75,10 +82,19 @@ func physics_process(delta: float) -> void:
 	# Drag (very light — maintains speed)
 	vehicle.velocity *= DRAG
 
+	# Weather wind drift
+	var ws = Engine.get_main_loop().root.get_node_or_null("/root/WeatherSystem")
+	var drift_mult := 1.0
+	if ws:
+		drift_mult = ws.get_vehicle_drift_multiplier()
+		# Storm adds random wind gusts in air
+		if ws.current_weather == ws.Weather.STORM:
+			vehicle.velocity += Vector2(randf_range(-15, 15), randf_range(-10, 10)) * delta
+
 	# Drift dampening (high value = lots of drift)
 	var forward_component := forward * vehicle.velocity.dot(forward)
 	var side_component := vehicle.velocity - forward_component
-	vehicle.velocity = forward_component + side_component * DRIFT_DAMP
+	vehicle.velocity = forward_component + side_component * (DRIFT_DAMP * drift_mult)
 
 	# Clamp speed
 	var current_max := max_fwd if vehicle.velocity.dot(forward) >= 0 else max_rev
@@ -107,3 +123,18 @@ func _apply_bounce(pre_velocity: Vector2) -> void:
 			if durability:
 				durability.take_damage(damage)
 		break
+
+func _create_shadow() -> void:
+	if shadow and is_instance_valid(shadow):
+		shadow.queue_free()
+	# Elliptical shadow below the vehicle
+	shadow = Sprite2D.new()
+	shadow.z_index = -5
+	shadow.modulate = Color(0, 0, 0, 0.2)
+	shadow.position = Vector2(0, 50)
+	shadow.scale = Vector2(2.0, 0.8)
+	# Use the boat texture as shadow base
+	var boat_sprite: Sprite2D = vehicle.get_node_or_null("Sprite2D")
+	if boat_sprite and boat_sprite.texture:
+		shadow.texture = boat_sprite.texture
+	vehicle.add_child(shadow)

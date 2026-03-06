@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scenes/ocean_surface/OceanSurface.gd" id="1_ocean"]
 [ext_resource type="Script" path="res://scripts/vehicle/VehicleController.gd" id="2_vehicle"]
@@ -41,6 +41,24 @@ size = Vector2(90, 70)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_island3"]
 size = Vector2(80, 60)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive4"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive5"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dive6"]
+radius = 80.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island4"]
+size = Vector2(100, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island5"]
+size = Vector2(70, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_island6"]
+size = Vector2(95, 65)
 
 [node name="OceanSurface" type="Node2D"]
 script = ExtResource("1_ocean")
@@ -171,6 +189,93 @@ spot_name = "The Abyss"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot3"]
 shape = SubResource("CircleShape2D_dive3")
+
+[node name="Island4" type="StaticBody2D" parent="."]
+position = Vector2(800, -500)
+collision_layer = 1
+
+[node name="Sand" type="Polygon2D" parent="Island4"]
+z_index = -1
+color = Color(0.85, 0.78, 0.5, 1)
+polygon = PackedVector2Array(-50, -35, 50, -35, 50, 35, -50, 35)
+
+[node name="Sprite" type="Polygon2D" parent="Island4"]
+color = Color(0.25, 0.5, 0.2, 1)
+polygon = PackedVector2Array(-45, -30, 45, -30, 45, 30, -45, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Island4"]
+shape = SubResource("RectangleShape2D_island4")
+
+[node name="Island5" type="StaticBody2D" parent="."]
+position = Vector2(-700, -600)
+collision_layer = 1
+
+[node name="Sand" type="Polygon2D" parent="Island5"]
+z_index = -1
+color = Color(0.4, 0.35, 0.3, 1)
+polygon = PackedVector2Array(-35, -28, 35, -28, 35, 28, -35, 28)
+
+[node name="Sprite" type="Polygon2D" parent="Island5"]
+color = Color(0.6, 0.3, 0.2, 1)
+polygon = PackedVector2Array(-30, -23, 30, -23, 30, 23, -30, 23)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Island5"]
+shape = SubResource("RectangleShape2D_island5")
+
+[node name="Island6" type="StaticBody2D" parent="."]
+position = Vector2(900, 800)
+collision_layer = 1
+
+[node name="Sand" type="Polygon2D" parent="Island6"]
+z_index = -1
+color = Color(0.82, 0.75, 0.5, 1)
+polygon = PackedVector2Array(-48, -33, 48, -33, 48, 33, -48, 33)
+
+[node name="Sprite" type="Polygon2D" parent="Island6"]
+color = Color(0.3, 0.6, 0.3, 1)
+polygon = PackedVector2Array(-42, -27, 42, -27, 42, 27, -42, 27)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Island6"]
+shape = SubResource("RectangleShape2D_island6")
+
+[node name="DiveSpot4" type="Area2D" parent="."]
+position = Vector2(-800, -400)
+collision_layer = 16
+collision_mask = 2
+monitoring = true
+monitorable = true
+script = ExtResource("3_dive")
+biome = "kelp_forest"
+spot_name = "Kelp Forest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot4"]
+shape = SubResource("CircleShape2D_dive4")
+
+[node name="DiveSpot5" type="Area2D" parent="."]
+position = Vector2(1000, -200)
+collision_layer = 16
+collision_mask = 2
+monitoring = true
+monitorable = true
+script = ExtResource("3_dive")
+biome = "volcanic"
+spot_name = "Volcanic Vent"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot5"]
+shape = SubResource("CircleShape2D_dive5")
+
+[node name="DiveSpot6" type="Area2D" parent="."]
+position = Vector2(-300, 900)
+collision_layer = 16
+collision_mask = 2
+monitoring = true
+monitorable = true
+script = ExtResource("3_dive")
+biome = "abyss"
+spot_name = "Abyssal Trench"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiveSpot6"]
+shape = SubResource("CircleShape2D_dive6")
 
 [node name="HubReturnZone" type="Area2D" parent="."]
 position = Vector2(0, 300)

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "sea_dragon"
+display_name = "Leafy Sea Dragon"
+rarity = 2
+base_value = 95
+sushi_grade = false
+weight_range = Vector2(0.3, 1.0)
+swim_speed = 25.0
+awareness_radius = 40.0
+flee_speed = 60.0
+description = "A graceful creature perfectly camouflaged among the kelp fronds."
+biomes = PackedStringArray("kelp_forest")

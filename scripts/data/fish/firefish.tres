@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "firefish"
+display_name = "Volcanic Firefish"
+rarity = 2
+base_value = 110
+sushi_grade = false
+weight_range = Vector2(1.0, 5.0)
+swim_speed = 80.0
+awareness_radius = 130.0
+flee_speed = 160.0
+description = "A vibrant crimson fish that thrives near volcanic vents."
+biomes = PackedStringArray("volcanic")

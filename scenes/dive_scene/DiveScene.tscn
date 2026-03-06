@@ -193,6 +193,16 @@ theme_override_colors/font_color = Color(0.7, 0.85, 1, 0.8)
 text = "Depth: 0.0m"
 horizontal_alignment = 2
 
+[node name="BoostLabel" type="Label" parent="DiveHUD"]
+offset_left = 1080.0
+offset_top = 72.0
+offset_right = 1260.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 0.8)
+text = ""
+horizontal_alignment = 2
+
 [node name="HarpoonHint" type="Label" parent="DiveHUD"]
 offset_left = 490.0
 offset_top = 690.0
@@ -200,7 +210,7 @@ offset_right = 790.0
 offset_bottom = 710.0
 theme_override_font_sizes/font_size = 12
 theme_override_colors/font_color = Color(1, 1, 1, 0.5)
-text = "Hold LMB/RT: Aim | Release: Fire | E: Surface"
+text = "Hold X: Aim+Fire | RB: Melee | B: Boost | A: Surface"
 horizontal_alignment = 1
 
 [node name="SurfacePrompt" type="Label" parent="DiveHUD"]

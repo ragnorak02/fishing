@@ -20,20 +20,42 @@ var fish_markers: Dictionary = {}  # Area2D -> Node2D (marker)
 var is_fishing: bool = false
 var active_minigame: Control = null
 
+# Weather & time visuals
+var weather_overlay: ColorRect = null
+var canvas_mod: CanvasModulate = null
+var rain_particles: CPUParticles2D = null
+
+# Air mode scouting
+var air_scout_markers: Array[Node2D] = []
+
 func _ready() -> void:
 	AudioManager.play_music("ocean_surface")
 	hud.set_location("Open Sea")
 	hud.interact_prompt.visible = false
 
 	# Time-of-day tinting
-	var canvas_mod := CanvasModulate.new()
+	canvas_mod = CanvasModulate.new()
 	canvas_mod.color = TimeManager.get_ambient_color()
 	add_child(canvas_mod)
+
+	# Weather overlay (CanvasLayer so it covers everything)
+	_setup_weather_overlay()
+	WeatherSystem.weather_changed.connect(_on_weather_changed)
+	_apply_weather_visuals()
+
+	# Time/weather HUD
+	_update_time_weather_hud()
 
 	# Fallback: set up island collision shapes if not baked in .tscn
 	_setup_island($Island1, Vector2(55, 40))
 	_setup_island($Island2, Vector2(45, 35))
 	_setup_island($Island3, Vector2(40, 30))
+	if has_node("Island4"):
+		_setup_island($Island4, Vector2(50, 35))
+	if has_node("Island5"):
+		_setup_island($Island5, Vector2(35, 28))
+	if has_node("Island6"):
+		_setup_island($Island6, Vector2(48, 33))
 
 	# Fallback: set up hub return zone if not baked in .tscn
 	var hub_col: CollisionShape2D = $HubReturnZone/CollisionShape2D
@@ -223,13 +245,6 @@ func _start_dive(spot: Area2D) -> void:
 	GameManager.transition_to("res://scenes/dive_scene/DiveScene.tscn")
 
 # --- Vehicle signal handlers ---
-
-func _on_vehicle_mode_changed(mode: int) -> void:
-	hud.set_mode(mode)
-	# Hide/show interaction prompts based on mode
-	var is_surface := (mode == VehicleStateMachine.Mode.SURFACE)
-	if not is_surface:
-		hud.interact_prompt.visible = false
 
 func _on_vehicle_throttle_changed(throttle: float) -> void:
 	hud.update_throttle(throttle)
@@ -463,3 +478,134 @@ func _on_hub_return_exited(body: Node2D) -> void:
 		near_hub_return = false
 		if near_dive_spot == null:
 			hud.interact_prompt.visible = false
+
+# --- Weather & Time visuals ---
+
+func _setup_weather_overlay() -> void:
+	var canvas_layer := CanvasLayer.new()
+	canvas_layer.layer = 5
+	canvas_layer.name = "WeatherLayer"
+	add_child(canvas_layer)
+
+	weather_overlay = ColorRect.new()
+	weather_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	weather_overlay.anchors_preset = Control.PRESET_FULL_RECT
+	weather_overlay.anchor_right = 1.0
+	weather_overlay.anchor_bottom = 1.0
+	weather_overlay.color = Color(1, 1, 1, 0)
+	canvas_layer.add_child(weather_overlay)
+
+func _on_weather_changed(_new_weather) -> void:
+	_apply_weather_visuals()
+	_update_time_weather_hud()
+
+func _apply_weather_visuals() -> void:
+	if weather_overlay:
+		weather_overlay.color = WeatherSystem.get_overlay_color()
+
+	# Rain/storm particles
+	if rain_particles and is_instance_valid(rain_particles):
+		rain_particles.queue_free()
+		rain_particles = null
+
+	if WeatherSystem.current_weather == WeatherSystem.Weather.RAIN or WeatherSystem.current_weather == WeatherSystem.Weather.STORM:
+		rain_particles = CPUParticles2D.new()
+		rain_particles.amount = 60 if WeatherSystem.current_weather == WeatherSystem.Weather.STORM else 30
+		rain_particles.lifetime = 1.0
+		rain_particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+		rain_particles.emission_rect_extents = Vector2(800, 10)
+		rain_particles.direction = Vector2(0.2, 1)
+		rain_particles.gravity = Vector2(0, 400)
+		rain_particles.initial_velocity_min = 200.0
+		rain_particles.initial_velocity_max = 350.0
+		rain_particles.scale_amount_min = 0.3
+		rain_particles.scale_amount_max = 0.6
+		rain_particles.color = Color(0.6, 0.7, 0.9, 0.3)
+		rain_particles.z_index = 50
+		vehicle.add_child(rain_particles)
+		rain_particles.position = Vector2(0, -400)
+
+func _update_time_weather_hud() -> void:
+	var time_str := TimeManager.get_time_name()
+	var weather_str := WeatherSystem.get_weather_name()
+	var day_str := "Day %d" % TimeManager.current_day
+	hud.set_location("Open Sea — %s | %s | %s" % [day_str, time_str, weather_str])
+
+# --- Air mode scouting ---
+
+func _on_vehicle_mode_changed(mode: int) -> void:
+	hud.set_mode(mode)
+	var is_surface := (mode == VehicleStateMachine.Mode.SURFACE)
+	if not is_surface:
+		hud.interact_prompt.visible = false
+
+	# Air mode: reveal all dive spots with scout markers
+	if mode == VehicleStateMachine.Mode.AIR:
+		_show_air_scout_markers()
+	else:
+		_hide_air_scout_markers()
+
+func _show_air_scout_markers() -> void:
+	_hide_air_scout_markers()
+	for child in get_children():
+		if child is Area2D and child.is_in_group("dive_spots"):
+			var marker := Node2D.new()
+			marker.global_position = child.global_position
+
+			# Large circle indicating the dive spot area
+			var ring := Line2D.new()
+			ring.width = 3.0
+			ring.default_color = Color(0.2, 0.9, 1.0, 0.6)
+			ring.closed = true
+			var points: PackedVector2Array = []
+			for i in 33:
+				var angle := (float(i) / 32.0) * TAU
+				points.append(Vector2(cos(angle), sin(angle)) * 100.0)
+			ring.points = points
+			marker.add_child(ring)
+
+			# Biome label
+			var biome_str: String = child.get_meta("biome", "shallow")
+			var label := Label.new()
+			label.text = biome_str.capitalize()
+			label.add_theme_font_size_override("font_size", 14)
+			label.add_theme_color_override("font_color", Color(0.2, 0.9, 1.0))
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			label.position = Vector2(-40, -120)
+			marker.add_child(label)
+
+			# Fish activity indicator
+			var activity := Label.new()
+			var fish_count := _estimate_fish_at_spot(child)
+			activity.text = "Fish: %s" % _fish_activity_label(fish_count)
+			activity.add_theme_font_size_override("font_size", 11)
+			activity.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
+			activity.position = Vector2(-35, -105)
+			marker.add_child(activity)
+
+			add_child(marker)
+			air_scout_markers.append(marker)
+
+func _hide_air_scout_markers() -> void:
+	for marker in air_scout_markers:
+		if is_instance_valid(marker):
+			marker.queue_free()
+	air_scout_markers.clear()
+
+func _estimate_fish_at_spot(_spot: Area2D) -> int:
+	# Simulate fish density based on biome, weather, and time
+	var base := randi_range(5, 15)
+	if WeatherSystem.current_weather == WeatherSystem.Weather.STORM:
+		base += 3
+	if TimeManager.current_time == TimeManager.TimeOfDay.EVENING:
+		base += 2
+	return base
+
+func _fish_activity_label(count: int) -> String:
+	if count >= 12:
+		return "Abundant"
+	elif count >= 8:
+		return "Active"
+	elif count >= 5:
+		return "Moderate"
+	return "Scarce"

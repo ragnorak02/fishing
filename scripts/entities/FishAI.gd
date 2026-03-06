@@ -108,6 +108,9 @@ func _process_idle(_delta: float) -> void:
 
 func _process_swimming(delta: float) -> void:
 	var speed := FishScaling.get_scaled_swim_speed(species) if species else 60.0
+	var ws = Engine.get_main_loop().root.get_node_or_null("/root/WeatherSystem")
+	if ws:
+		speed *= ws.get_fish_speed_multiplier()
 	velocity = swim_direction * speed
 
 	# Slight random wobble

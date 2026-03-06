@@ -1,6 +1,6 @@
-# GLOBAL RULES (AMATRIS)
+# GLOBAL RULES (LUMINA)
 
-This project inherits the AMATRIS studio rules.
+This project inherits the LUMINA studio rules.
 
 Non-negotiable:
 - Claude must run the implementation-verification skill before declaring completion.
@@ -59,18 +59,18 @@ Claude must **not silently modify large systems without explanation**.
 ---
 
 # ISLES OF THE BLUE CURRENT
-AMARIS Development Specification
+LUMINA Development Specification
 
 Engine: Godot 4.6  
 Platform: PC  
 Renderer: 2D (GL Compatibility)  
 Genre: Fishing Adventure  
-Studio: AMARIS  
+Studio: LUMINA  
 Controller Required: Yes (Xbox + Keyboard)
 
 ---
 
-# AMARIS Studio Rules (Non-Negotiable)
+# LUMINA Studio Rules (Non-Negotiable)
 
 - `project_status.json` is the **single source of truth**
 - `CLAUDE.md` defines **structure and checkpoints only**
@@ -187,7 +187,7 @@ Air (stub)
 ---
 
 # Structured Development Checklist
-AMARIS STANDARD — 85 Checkpoints
+LUMINA STANDARD — 85 Checkpoints
 
 ---
 
@@ -311,16 +311,16 @@ Never reset unlocked flags.
 
 ## Macro Phase 7 — Expansion Systems (66–75)
 
-- [ ] 66. Air vehicle mode
-- [ ] 67. New islands
-- [ ] 68. Weather system
-- [ ] 69. Quest system
-- [ ] 70. Story NPCs
-- [ ] 71. Multiplayer architecture draft
-- [ ] 72. Deep-sea biome
-- [ ] 73. Rare event system
-- [ ] 74. Time-of-day cycle
-- [ ] 75. Boss fish encounter
+- [x] 66. Air vehicle mode
+- [x] 67. New islands
+- [x] 68. Weather system
+- [x] 69. Quest system
+- [x] 70. Story NPCs
+- N/A 71. Multiplayer architecture draft
+- [x] 72. Deep-sea biome
+- [x] 73. Rare event system
+- [x] 74. Time-of-day cycle
+- [x] 75. Boss fish encounter
 
 ---
 
@@ -331,11 +331,11 @@ Never reset unlocked flags.
 - [x] 78. Catch logic regression tests
 - [x] 79. Economy regression tests
 - [x] 80. Upgrade regression tests
-- [ ] 81. Achievement regression tests
-- [ ] 82. Save/load regression tests
-- [ ] 83. Performance baseline
-- [ ] 84. Launcher compliance verified
-- [ ] 85. Release candidate checklist
+- [x] 81. Achievement regression tests
+- [x] 82. Save/load regression tests
+- [x] 83. Performance baseline
+- [x] 84. Launcher compliance verified
+- [x] 85. Release candidate checklist
 
 ---
 
@@ -378,10 +378,10 @@ Launcher depends on this.
 
 # Current Focus
 
-Current Goal: Phase 6 — Audio & Atmosphere  
-Current Task: Wire AudioManager SFX calls into gameplay scenes  
-Work Mode: Feature Development  
-Next Milestone: Phase 6 complete
+Current Goal: Phase 8 — Testing & Automation
+Current Task: Remaining regression tests and compliance
+Work Mode: Feature Development
+Next Milestone: Phase 8 complete
 
 ---
 

@@ -79,7 +79,7 @@ func _test_rarity_distribution() -> void:
 
 func _test_database_api() -> void:
 	var all_species: Array = FishDatabase.get_all_species()
-	_assert_eq("FishDatabase.all_count", all_species.size(), 13)
+	_assert_eq("FishDatabase.all_count", all_species.size(), 25)
 
 	var sardine: FishSpecies = FishDatabase.get_species("sardine")
 	_assert_true("FishDatabase.get_sardine", sardine != null, "get_species('sardine') returned null")

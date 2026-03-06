@@ -2335,12 +2335,1142 @@
       "message": "",
       "name": "EventFish.none_eligible_day1",
       "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.file_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.parse_ok",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.total_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_first_catch",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_catch_10",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_catch_50",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_sushi_grade",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_catch_legendary",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_all_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_first_sale",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_earn_500_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_earn_2000_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_first_upgrade",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_max_upgrade_track",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_all_upgrades_max",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_first_dive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_first_transform",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.has_sonar_pulse",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.unlock_once.first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.unlock_once.second",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.unlock_once.other",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.signal.fires_on_first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.signal.no_fire_on_repeat",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.roundtrip.a",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.roundtrip.b",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.roundtrip.c",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.catch.first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.catch.not_10_yet",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.catch.at_10",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.catch.at_50",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.gold.first_sale",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.gold.not_500_yet",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.gold.at_500",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.gold.at_2000",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.sushi.normal_no_unlock",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.sushi.sushi_unlocks",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.legendary.common_no",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.legendary.rare_no",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.legendary.legendary_yes",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.all_species.not_yet",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.all_species.at_10",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.queue_size",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.remaining",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.second",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.third",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.toast.empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.upgrade.first",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.upgrade.max_track",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.upgrade.not_all_max",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.upgrade.all_max",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.state.first_dive",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.state.first_transform",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "ach_reg.state.sonar_pulse",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_stats",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_menu",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_recipes",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_time",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_submerge",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_air",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.has_quests",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v0_to_v5.gold_preserved",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v3_to_v5.version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v3_to_v5.submerge",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v3_to_v5.air",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v3_to_v5.quests",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v4_to_v5.version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v4_to_v5.quests_added",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v4_to_v5.quests_empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v4_to_v5.gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v4_to_v5.day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_save_version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_upgrade_levels",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_fish_storage",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_species_caught",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_stats",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_active_menu",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_unlocked_recipes",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_current_day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_current_time",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_submerge_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_air_mode_unlocked",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.has_quests",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.upgrade_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.stats_catches",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.v5_schema.stats_gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.corrupt.parse_fails",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.corrupt.empty_fails",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.missing.gold_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.missing.upgrade_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.missing.species_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.missing.day_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.missing.quests_default",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.quest_rt.active_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.quest_rt.sardine_progress",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.quest_rt.gold_progress",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.quest_rt.completed_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.quest_rt.completed_has",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.time.day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.time.time",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.unlock.submerge",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.unlock.air",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.recipe.menu_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.recipe.recipe_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.defaults.gold",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.defaults.catches",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.defaults.day",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.dedup.no_duplicate",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.dedup.after_reload",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "save_reg.dedup.new_after_reload",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.db_load.under_100ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.db_load.has_species",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.lookup.3k_under_50ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.500_under_100ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.shallow_has_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.deep_has_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.abyss_has_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.kelp_forest_has_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.biome_query.volcanic_has_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.rarity_weights.1k_under_20ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.market.3k_under_50ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.event_fish.1500_under_100ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.save_serial.100_roundtrips_under_200ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.ach_parse.100_under_100ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.scene.MainMenu_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.scene.HubTown_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.scene.OceanSurface_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.scene.DiveScene_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.scene.HaulSummary_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.total_count",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_anglerfish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_bluefin_tuna",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_deep_sea_eel",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_firefish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_ghost_jellyfish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_giant_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_golden_koi",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_grouper",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_kelp_bass",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_lanternfish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_leviathan_king",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_mackerel",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_magma_crab",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_manta_ray",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_octopus",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_sardine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_sea_bream",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_sea_dragon",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_sea_urchin",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_storm_marlin",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_sunrise_coral_fish",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_thermal_shrimp",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_vampire_squid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.species.no_dup_yellowtail",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.quests.6k_lookups_under_20ms",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.script_loads",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.visibility_0_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.visibility_1_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.visibility_2_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.visibility_3_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "perf.weather.visibility_4_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.is_dict",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_title",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_engine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_engineVersion",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_entryPoint",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_testCommand",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.id",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.engine",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.has_metadata",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.meta.has_version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.game_config.meta.has_progress",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.is_dict",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_schemaVersion",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_gameId",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_title",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_lastUpdated",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_health",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_tech",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_features",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_milestones",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_testing",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.has_links",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.gameId",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.health.has_percent",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.health.has_version",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.health.percent_range",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.testing.has_command",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.testing.has_status",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_status.testing.has_lastRun",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.achievements.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.achievements.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.achievements.has_gameId",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.achievements.has_achievements",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.achievements.has_meta",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.valid_json",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.is_dict",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.has_status",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.has_testsTotal",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.has_testsPassed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.has_testsFailed",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.has_timestamp",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_results.status_valid",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_godot.exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_godot.has_main_scene",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.project_godot.has_autoloads",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_cmd.bat_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.test_cmd.script_exists",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.iso8601.not_empty",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.iso8601.has_T",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.iso8601.has_Z",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.iso8601.min_length",
+      "status": "pass"
+    },
+    {
+      "message": "",
+      "name": "launcher.cross_ref.id_match",
+      "status": "pass"
     }
   ],
-  "durationMs": 970,
+  "durationMs": 1337,
   "status": "pass",
   "testsFailed": 0,
-  "testsPassed": 472,
-  "testsTotal": 472,
-  "timestamp": "2026-03-04T20:55:03Z"
+  "testsPassed": 698,
+  "testsTotal": 698,
+  "timestamp": "2026-03-06T04:03:06Z"
 }

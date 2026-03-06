@@ -25,7 +25,30 @@ var aim_indicator: Line2D = null
 var active_harpoon: Area2D = null
 var harpoon_rope: Line2D = null
 
+# Melee attack state
+var melee_cooldown: float = 0.0
+const MELEE_COOLDOWN_TIME := 0.5
+const MELEE_RANGE := 50.0
+
+# Swim boost state
+var boost_charges: int = 0
+var boost_active: bool = false
+var boost_timer: float = 0.0
+const BOOST_DURATION := 4.0
+const BOOST_MULTIPLIER := 1.8
+const MAX_BOOST_CHARGES := 3
+
 func _ready() -> void:
+	# Ensure melee_attack action exists (new action — may not be loaded from project.godot yet)
+	if not InputMap.has_action("melee_attack"):
+		InputMap.add_action("melee_attack")
+		var btn := InputEventJoypadButton.new()
+		btn.button_index = JOY_BUTTON_RIGHT_SHOULDER
+		InputMap.action_add_event("melee_attack", btn)
+		var key := InputEventKey.new()
+		key.physical_keycode = KEY_F
+		InputMap.action_add_event("melee_attack", key)
+
 	AudioManager.play_music("dive")
 	dive_start_time = Time.get_ticks_msec() / 1000.0
 	surface_prompt.visible = false
@@ -61,6 +84,24 @@ func _ready() -> void:
 
 	# Ambient underwater bubbles
 	_create_ambient_bubbles()
+
+	# Time-of-day underwater tinting
+	var canvas_mod := CanvasModulate.new()
+	canvas_mod.color = TimeManager.get_underwater_tint()
+	add_child(canvas_mod)
+
+	# Weather affects underwater visibility
+	_apply_underwater_weather()
+
+	# Try spawning a boss fish in abyss biome
+	_try_spawn_boss()
+
+	# Start with 1 boost charge + spawn more as pickups
+	boost_charges = 1
+	_spawn_boost_items()
+
+	# Initialize boost HUD
+	_update_boost_label()
 
 	GameLog.fish("DiveScene ready — diver at %s | biome: %s" % [diver.global_position, fish_spawner.biome])
 
@@ -105,6 +146,17 @@ func _create_terrain_colliders() -> void:
 		rect_node.add_child(body)
 
 func _process(delta: float) -> void:
+	# --- Melee cooldown ---
+	if melee_cooldown > 0.0:
+		melee_cooldown -= delta
+
+	# --- Boost timer ---
+	if boost_active:
+		boost_timer -= delta
+		_update_boost_label()
+		if boost_timer <= 0.0:
+			_end_boost()
+
 	# --- Aim / Fire flow ---
 	if Input.is_action_just_pressed("fire_harpoon") and not is_aiming and active_harpoon == null:
 		_begin_aim()
@@ -112,6 +164,14 @@ func _process(delta: float) -> void:
 		_update_aim()
 		if Input.is_action_just_released("fire_harpoon"):
 			_release_fire()
+
+	# --- Melee attack ---
+	if Input.is_action_just_pressed("melee_attack") and not is_aiming and melee_cooldown <= 0.0:
+		_perform_melee()
+
+	# --- Swim boost activation ---
+	if Input.is_action_just_pressed("boost") and boost_charges > 0 and not boost_active:
+		_activate_boost()
 
 	# Update rope while harpoon is in flight
 	if active_harpoon and is_instance_valid(active_harpoon) and harpoon_rope:
@@ -150,10 +210,10 @@ func _begin_aim() -> void:
 	Input.start_joy_vibration(0, 0.15, 0.0, 0.1)
 
 func _update_aim() -> void:
-	# Right stick input
+	# Left stick input (stationary aim — diver stops moving while aiming)
 	var stick := Vector2(
-		Input.get_joy_axis(0, JOY_AXIS_RIGHT_X),
-		Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y)
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_X),
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)
 	)
 	if stick.length() > AIM_DEADZONE:
 		aim_direction = stick.normalized()
@@ -208,6 +268,26 @@ func _fire_harpoon() -> void:
 	add_child(harpoon_rope)
 
 func _on_harpoon_hit(fish: Node2D) -> void:
+	# Boss fish requires multiple hits
+	if fish.is_in_group("boss_fish") and fish.has_method("take_hit"):
+		fish.take_hit()
+		AudioManager.play_sfx("catch")
+		# Boss not dead yet — don't free
+		if fish.health > 0:
+			_spawn_catch_effect(fish.global_position)
+			var hit_label := Label.new()
+			hit_label.text = "HIT! %d left" % fish.health
+			hit_label.add_theme_color_override("font_color", Color(1, 0.3, 0.1))
+			hit_label.add_theme_font_size_override("font_size", 16)
+			add_child(hit_label)
+			hit_label.global_position = fish.global_position + Vector2(-30, -50)
+			var tw := create_tween()
+			tw.tween_property(hit_label, "global_position:y", fish.global_position.y - 80, 0.8)
+			tw.parallel().tween_property(hit_label, "modulate:a", 0.0, 0.8)
+			tw.tween_callback(hit_label.queue_free)
+			return
+		# Boss defeated on this hit — fall through to catch logic
+
 	if fish.has_meta("species_id"):
 		var species_id: String = fish.get_meta("species_id")
 		var species := FishDatabase.get_species(species_id)
@@ -223,6 +303,9 @@ func _on_harpoon_hit(fish: Node2D) -> void:
 			# New species discovery label
 			if is_new:
 				_spawn_discovery_label(fish.global_position)
+
+			# Quest notification
+			QuestSystem.notify_catch(species_id, weight)
 
 	# Catch SFX
 	AudioManager.play_sfx("catch")
@@ -372,6 +455,10 @@ func _end_dive() -> void:
 			aim_indicator.queue_free()
 			aim_indicator = null
 
+	# Cancel boost if active
+	if boost_active:
+		_end_boost()
+
 	# Free active harpoon and rope if in flight
 	if active_harpoon and is_instance_valid(active_harpoon):
 		active_harpoon.queue_free()
@@ -384,4 +471,255 @@ func _end_dive() -> void:
 	# Store dive stats for haul summary
 	GameManager.set_meta("last_dive_time", dive_time)
 	GameManager.set_meta("last_dive_count", Inventory.current_haul.size())
+
+	# Advance time after each dive
+	TimeManager.advance_time()
+
 	GameManager.transition_to("res://scenes/haul_summary/HaulSummary.tscn")
+
+# --- Melee attack ---
+
+func _perform_melee() -> void:
+	melee_cooldown = MELEE_COOLDOWN_TIME
+
+	# Slash visual — quick arc around diver
+	var slash := Line2D.new()
+	slash.width = 3.0
+	slash.z_index = 15
+	slash.default_color = Color(0.9, 0.95, 1.0, 0.9)
+	var arc_points := 8
+	var arc_angle := PI * 0.8
+	var facing := -1.0 if diver.get_node("Sprite2D").flip_h else 1.0
+	var start_angle := -arc_angle / 2.0
+	for i in range(arc_points + 1):
+		var angle := start_angle + (arc_angle * i / arc_points)
+		var point := Vector2(cos(angle) * MELEE_RANGE * facing, sin(angle) * MELEE_RANGE)
+		slash.add_point(diver.global_position + point)
+	add_child(slash)
+
+	# Fade out and free
+	var tween := create_tween()
+	tween.tween_property(slash, "modulate:a", 0.0, 0.25)
+	tween.tween_callback(slash.queue_free)
+
+	# Haptic feedback
+	Input.start_joy_vibration(0, 0.25, 0.1, 0.12)
+
+	# SFX
+	AudioManager.play_sfx("melee")
+
+	# Detect fish in melee range
+	var fish_nodes := get_tree().get_nodes_in_group("fish")
+	for fish in fish_nodes:
+		if not is_instance_valid(fish):
+			continue
+		var dist := diver.global_position.distance_to(fish.global_position)
+		if dist <= MELEE_RANGE:
+			_on_harpoon_hit(fish)
+			break  # One target per swing
+
+# --- Swim boost ---
+
+func _activate_boost() -> void:
+	boost_charges -= 1
+	boost_active = true
+	boost_timer = BOOST_DURATION
+	diver.boost_multiplier = BOOST_MULTIPLIER
+	_update_boost_label()
+
+	# Visual feedback — brief tint
+	var tween := create_tween()
+	tween.tween_property(diver, "modulate", Color(0.5, 0.9, 1.0), 0.15)
+	tween.tween_property(diver, "modulate", Color(1, 1, 1), 0.3)
+
+	# Haptic
+	Input.start_joy_vibration(0, 0.1, 0.2, 0.2)
+
+	# Speed trail particles
+	var trail := CPUParticles2D.new()
+	trail.name = "BoostTrail"
+	trail.amount = 10
+	trail.lifetime = 0.4
+	trail.explosiveness = 0.0
+	trail.direction = Vector2(-1, 0)
+	trail.spread = 30.0
+	trail.gravity = Vector2.ZERO
+	trail.initial_velocity_min = 20.0
+	trail.initial_velocity_max = 50.0
+	trail.scale_amount_min = 0.5
+	trail.scale_amount_max = 1.5
+	trail.color = Color(0.4, 0.8, 1.0, 0.5)
+	diver.add_child(trail)
+
+	# Auto-cleanup trail after boost ends
+	get_tree().create_timer(BOOST_DURATION).timeout.connect(func():
+		if is_instance_valid(trail):
+			trail.queue_free()
+	)
+
+func _end_boost() -> void:
+	boost_active = false
+	boost_timer = 0.0
+	diver.boost_multiplier = 1.0
+	_update_boost_label()
+
+func _update_boost_label() -> void:
+	var label := $DiveHUD.get_node_or_null("BoostLabel") as Label
+	if label == null:
+		return
+	if boost_active:
+		label.text = "BOOST [%.1fs] x%d" % [boost_timer, boost_charges]
+		label.add_theme_color_override("font_color", Color(0.4, 0.9, 1.0))
+	elif boost_charges > 0:
+		label.text = "Boost: %d [B]" % boost_charges
+		label.add_theme_color_override("font_color", Color(0.7, 0.85, 1.0, 0.8))
+	else:
+		label.text = ""
+
+# --- Boost item spawning ---
+
+func _spawn_boost_items() -> void:
+	var count := randi_range(2, 4)
+	for i in range(count):
+		var item := Area2D.new()
+		item.name = "BoostItem_%d" % i
+		item.collision_layer = 0
+		item.collision_mask = 2  # Detect diver (player layer)
+
+		# Position randomly within dive bounds
+		item.position = Vector2(
+			randf_range(DIVE_BOUNDS.position.x + 100, DIVE_BOUNDS.position.x + DIVE_BOUNDS.size.x - 100),
+			randf_range(DIVE_BOUNDS.position.y + 100, DIVE_BOUNDS.position.y + DIVE_BOUNDS.size.y - 100)
+		)
+
+		# Collision shape
+		var col := CollisionShape2D.new()
+		var circle := CircleShape2D.new()
+		circle.radius = 18.0
+		col.shape = circle
+		item.add_child(col)
+
+		# Visual — glowing orb
+		var visual := ColorRect.new()
+		visual.size = Vector2(14, 14)
+		visual.position = Vector2(-7, -7)
+		visual.color = Color(0.3, 0.7, 1.0, 0.8)
+		item.add_child(visual)
+
+		# Glow pulse animation
+		var glow_tween := create_tween().set_loops()
+		glow_tween.tween_property(visual, "modulate:a", 0.4, 1.0)
+		glow_tween.tween_property(visual, "modulate:a", 1.0, 1.0)
+
+		item.body_entered.connect(_on_boost_item_collected.bind(item))
+		add_child(item)
+
+func _on_boost_item_collected(body: Node2D, item: Area2D) -> void:
+	if body != diver:
+		return
+	if boost_charges >= MAX_BOOST_CHARGES:
+		return
+	boost_charges += 1
+	_update_boost_label()
+
+	# Collection effect
+	var effect := Label.new()
+	effect.text = "+Boost"
+	effect.add_theme_color_override("font_color", Color(0.4, 0.9, 1.0))
+	effect.add_theme_font_size_override("font_size", 14)
+	add_child(effect)
+	effect.global_position = item.global_position + Vector2(-20, -20)
+
+	var tween := create_tween()
+	tween.tween_property(effect, "global_position:y", item.global_position.y - 40, 0.6)
+	tween.parallel().tween_property(effect, "modulate:a", 0.0, 0.6)
+	tween.tween_callback(effect.queue_free)
+
+	item.queue_free()
+
+# --- Weather effects underwater ---
+
+func _apply_underwater_weather() -> void:
+	if WeatherSystem.current_weather == WeatherSystem.Weather.STORM:
+		# Stronger current particles during storm
+		var current_fx := CPUParticles2D.new()
+		current_fx.amount = 15
+		current_fx.lifetime = 2.0
+		current_fx.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+		current_fx.emission_rect_extents = Vector2(50, 500)
+		current_fx.position = Vector2(-800, 300)
+		current_fx.direction = Vector2(1, 0.2)
+		current_fx.gravity = Vector2.ZERO
+		current_fx.initial_velocity_min = 80.0
+		current_fx.initial_velocity_max = 150.0
+		current_fx.scale_amount_min = 0.5
+		current_fx.scale_amount_max = 1.5
+		current_fx.color = Color(0.5, 0.6, 0.8, 0.15)
+		add_child(current_fx)
+
+# --- Boss fish spawning ---
+
+func _try_spawn_boss() -> void:
+	if GameManager.current_dive_biome != "abyss":
+		return
+	# Boss spawns in abyss every 3rd day, after day 5
+	if TimeManager.current_day < 5:
+		return
+	if TimeManager.current_day % 3 != 0:
+		return
+
+	var boss_species := FishDatabase.get_species("leviathan_king")
+	if boss_species == null:
+		return
+
+	var boss := _create_boss_node(boss_species)
+	boss.global_position = Vector2(
+		randf_range(fish_spawner.spawn_bounds.position.x + 200, fish_spawner.spawn_bounds.position.x + fish_spawner.spawn_bounds.size.x - 200),
+		randf_range(fish_spawner.spawn_bounds.position.y + 200, fish_spawner.spawn_bounds.position.y + fish_spawner.spawn_bounds.size.y - 200)
+	)
+	add_child(boss)
+
+	# Boss arrival announcement
+	var announce := Label.new()
+	announce.text = "THE LEVIATHAN KING APPEARS!"
+	announce.add_theme_color_override("font_color", Color(1.0, 0.2, 0.1))
+	announce.add_theme_font_size_override("font_size", 24)
+	announce.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	announce.anchors_preset = Control.PRESET_CENTER_TOP
+	announce.anchor_left = 0.5
+	announce.anchor_right = 0.5
+	announce.offset_left = -200
+	announce.offset_right = 200
+	announce.offset_top = 80
+	$DiveHUD.add_child(announce)
+	var tw := create_tween()
+	tw.tween_property(announce, "modulate:a", 0.0, 3.0).set_delay(2.0)
+	tw.tween_callback(announce.queue_free)
+
+func _create_boss_node(species: FishSpecies) -> CharacterBody2D:
+	var boss := CharacterBody2D.new()
+	boss.name = "Boss_" + species.id
+
+	var script = load("res://scripts/entities/BossFishAI.gd")
+	boss.set_script(script)
+
+	boss.set_meta("species_id", species.id)
+	boss.set_meta("species", species)
+	boss.set_meta("spawn_bounds", fish_spawner.spawn_bounds)
+
+	var bsprite := Sprite2D.new()
+	bsprite.name = "Sprite2D"
+	boss.add_child(bsprite)
+
+	var col := CollisionShape2D.new()
+	col.name = "CollisionShape2D"
+	boss.add_child(col)
+
+	var hitbox := Area2D.new()
+	hitbox.name = "Hitbox"
+	var hitbox_col := CollisionShape2D.new()
+	hitbox_col.name = "CollisionShape2D"
+	hitbox.add_child(hitbox_col)
+	boss.add_child(hitbox)
+
+	return boss

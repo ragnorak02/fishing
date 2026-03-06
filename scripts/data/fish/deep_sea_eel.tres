@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FishSpecies" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/FishSpecies.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "deep_sea_eel"
+display_name = "Abyssal Eel"
+rarity = 1
+base_value = 40
+sushi_grade = true
+weight_range = Vector2(2.0, 8.0)
+swim_speed = 70.0
+awareness_radius = 90.0
+flee_speed = 130.0
+description = "A slithering eel that navigates the pitch-black abyss with ease."
+biomes = PackedStringArray("abyss", "deep")

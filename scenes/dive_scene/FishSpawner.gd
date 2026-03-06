@@ -13,6 +13,16 @@ var initial_spawn_count: int = 8
 func _ready() -> void:
 	tree_exiting.connect(_cleanup)
 
+	# Apply world event modifiers
+	var event := EventFishSystem.get_active_world_event()
+	if event != EventFishSystem.WorldEvent.NONE:
+		var mods := EventFishSystem.get_event_spawn_modifier(event)
+		if mods.has("max_fish_bonus"):
+			max_fish += mods["max_fish_bonus"]
+		if mods.has("spawn_interval_mult"):
+			spawn_interval *= mods["spawn_interval_mult"]
+		initial_spawn_count = mini(initial_spawn_count + 2, max_fish)
+
 	# Spawn initial fish
 	for i in initial_spawn_count:
 		_spawn_fish()
@@ -31,7 +41,7 @@ func _spawn_fish() -> void:
 	# Try event fish first
 	var species := EventFishSystem.try_spawn_event_fish(biome)
 	if species == null:
-		species = FishDatabase.get_random_species_for_biome(biome)
+		species = _get_weather_adjusted_species()
 	if species == null:
 		return
 
@@ -78,6 +88,43 @@ func _create_fish_node(species: FishSpecies) -> CharacterBody2D:
 	fish.add_child(hitbox)
 
 	return fish
+
+func _get_weather_adjusted_species() -> FishSpecies:
+	# Apply weather rarity bonuses to normal spawning
+	var ws = Engine.get_main_loop().root.get_node_or_null("/root/WeatherSystem")
+	if ws == null:
+		return FishDatabase.get_random_species_for_biome(biome)
+
+	var bonus: Dictionary = ws.get_rarity_bonus()
+	if bonus.is_empty():
+		return FishDatabase.get_random_species_for_biome(biome)
+
+	# Get candidates for this biome
+	FishDatabase._ensure_loaded()
+	var adjusted_weights := FishScaling.get_adjusted_rarity_weights()
+	var candidates: Array[FishSpecies] = []
+	var weights: Array[float] = []
+	for species: FishSpecies in FishDatabase.get_all_species():
+		if biome in species.biomes and not species.is_event_fish:
+			candidates.append(species)
+			var w: float = adjusted_weights[species.rarity]
+			if bonus.has(species.rarity):
+				w += bonus[species.rarity]
+			weights.append(w)
+
+	if candidates.is_empty():
+		return FishDatabase.get_random_species_for_biome(biome)
+
+	var total_weight := 0.0
+	for w in weights:
+		total_weight += w
+	var roll := randf() * total_weight
+	var cumulative := 0.0
+	for i in candidates.size():
+		cumulative += weights[i]
+		if roll <= cumulative:
+			return candidates[i]
+	return candidates[-1]
 
 func _cleanup() -> void:
 	for fish in active_fish:

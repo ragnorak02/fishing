@@ -102,6 +102,20 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlavorNPC/InteractArea"]
 
+[node name="HarborMaster" type="Node2D" parent="."]
+position = Vector2(300, -50)
+script = ExtResource("3_npc")
+npc_name = "Harbor Master Kenji"
+npc_type = "quest_giver"
+
+[node name="Sprite2D" type="Sprite2D" parent="HarborMaster"]
+
+[node name="InteractArea" type="Area2D" parent="HarborMaster"]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HarborMaster/InteractArea"]
+
 [node name="DockExit" type="Area2D" parent="."]
 position = Vector2(350, 300)
 collision_layer = 0

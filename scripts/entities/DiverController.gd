@@ -5,6 +5,7 @@ const WATER_DRAG := 0.92
 const GRAVITY_DRIFT := 15.0  # Slight downward pull
 
 var speed_boost: float = 0.0  # From upgrades
+var boost_multiplier: float = 1.0  # Temporary swim boost item
 var movement_locked: bool = false
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -36,8 +37,8 @@ func _physics_process(delta: float) -> void:
 			if input_dir.x != 0:
 				sprite.flip_h = input_dir.x < 0
 
-		# Apply movement
-		velocity += input_dir * SWIM_SPEED * delta * 10.0
+		# Apply movement with boost multiplier
+		velocity += input_dir * SWIM_SPEED * boost_multiplier * delta * 10.0
 
 		# Aim harpoon toward mouse
 		if harpoon_pivot:
